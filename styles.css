@@ -19,6 +19,67 @@ header {
     align-items: center;
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.version {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+#history-btn {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#history-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#history-list {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-game {
+    font-weight: bold;
+    color: #2196F3;
+}
+
+.history-date {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.history-players {
+    font-size: 0.9rem;
+    color: #333;
+}
+
 .screen {
     display: none;
     padding: 2rem;
@@ -41,6 +102,7 @@ header {
     padding: 2rem;
     font-size: 1.2rem;
     background: white;
+    color: #333;
     border: 2px solid #ddd;
     border-radius: 8px;
     cursor: pointer;
@@ -167,6 +229,127 @@ button:hover {
 #dice-result {
     margin-left: 1rem;
     font-size: 1.5rem;
+}
+
+/* Styles Tavli (Backgammon) */
+.backgammon-board {
+    display: flex;
+    flex-direction: column;
+    background: #8B4513;
+    border: 4px solid #654321;
+    border-radius: 8px;
+    padding: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.top-points, .bottom-points {
+    display: flex;
+    justify-content: space-between;
+    height: 200px;
+}
+
+.point {
+    width: 40px;
+    background: #DEB887;
+    border: 1px solid #8B4513;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.point:nth-child(odd) {
+    background: #CD853F;
+}
+
+.point.selected {
+    background: #FFD700;
+}
+
+.checker {
+    width: 30px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid #000;
+    margin: 1px 0;
+}
+
+.counter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 1px solid #000;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.middle-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    background: #654321;
+    margin: 5px 0;
+}
+
+.bar {
+    width: 60px;
+    height: 100px;
+    background: #8B4513;
+    border: 2px solid #654321;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.bar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dice-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.dice {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: 2px solid #000;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.roll-dice-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.off-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+    color: white;
 }
 
 @media (max-width: 768px) {
