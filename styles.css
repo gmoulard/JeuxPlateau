@@ -834,57 +834,60 @@ button:hover {
 }
 
 .abalone-board {
-    background: #8B7355;
-    border: 4px solid #654321;
-    border-radius: 8px;
-    padding: 2rem;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    border: 6px solid #1a252f;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 2px 10px rgba(255,255,255,0.1);
 }
 
 .hex-row {
     display: flex;
     justify-content: center;
-    gap: 4px;
-    margin: 2px 0;
+    gap: 6px;
+    margin: 3px 0;
 }
 
 .hex-cell {
-    width: 45px;
-    height: 45px;
-    background: #DEB887;
-    border: 2px solid #654321;
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle at 30% 30%, #e8d5c4, #c9b8a8);
+    border: 3px solid #8b7355;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .hex-cell:hover {
-    background: #F4E4C4;
-    transform: scale(1.05);
+    background: radial-gradient(circle at 30% 30%, #f5e8d8, #d9c8b8);
+    transform: scale(1.08);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 4px 8px rgba(0,0,0,0.4);
 }
 
 .hex-cell.selected {
-    background: #FFD700;
-    border-color: #FFA500;
-    box-shadow: 0 0 10px #FFD700;
+    background: radial-gradient(circle at 30% 30%, #ffe680, #ffd700);
+    border-color: #ff8c00;
+    box-shadow: 0 0 15px #ffd700, inset 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .abalone-piece {
-    width: 35px;
-    height: 35px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    border: 3px solid #333;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    border: 2px solid #222;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 -2px 4px rgba(0,0,0,0.3);
 }
 
 .abalone-piece.black {
-    background: #000;
+    background: radial-gradient(circle at 35% 35%, #444, #000);
 }
 
 .abalone-piece.white {
-    background: #fff;
+    background: radial-gradient(circle at 35% 35%, #fff, #e0e0e0);
 }
 
 .abalone-controls {

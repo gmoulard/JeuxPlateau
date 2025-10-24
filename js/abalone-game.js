@@ -22,18 +22,18 @@ class AbaloneGame extends BaseGame {
     }
 
     createHexBoard() {
-        // Plateau hexagonal 9x9 avec configuration standard
+        // Plateau hexagonal standard Abalone (61 cases)
         const board = {};
         const rows = [
-            { start: 'I', cells: ['I5', 'I6', 'I7', 'I8', 'I9'] },
-            { start: 'H', cells: ['H4', 'H5', 'H6', 'H7', 'H8', 'H9'] },
-            { start: 'G', cells: ['G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9'] },
-            { start: 'F', cells: ['F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9'] },
-            { start: 'E', cells: ['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 'E9'] },
-            { start: 'D', cells: ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8'] },
-            { start: 'C', cells: ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7'] },
-            { start: 'B', cells: ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'] },
-            { start: 'A', cells: ['A1', 'A2', 'A3', 'A4', 'A5'] }
+            { label: 'I', cells: ['I1', 'I2', 'I3', 'I4', 'I5'] },
+            { label: 'H', cells: ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'] },
+            { label: 'G', cells: ['G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7'] },
+            { label: 'F', cells: ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8'] },
+            { label: 'E', cells: ['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 'E9'] },
+            { label: 'D', cells: ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8'] },
+            { label: 'C', cells: ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7'] },
+            { label: 'B', cells: ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'] },
+            { label: 'A', cells: ['A1', 'A2', 'A3', 'A4', 'A5'] }
         ];
 
         rows.forEach(row => {
@@ -52,7 +52,7 @@ class AbaloneGame extends BaseGame {
 
     setupInitialPosition() {
         // Position standard: Joueur 0 (noir) en haut, Joueur 1 (blanc) en bas
-        const player0 = ['I5', 'I6', 'I7', 'I8', 'I9', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'G5', 'G6', 'G7'];
+        const player0 = ['I1', 'I2', 'I3', 'I4', 'I5', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'G3', 'G4', 'G5'];
         const player1 = ['A1', 'A2', 'A3', 'A4', 'A5', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'C3', 'C4', 'C5'];
 
         player0.forEach(cell => this.board[cell] = 0);
@@ -83,10 +83,10 @@ class AbaloneGame extends BaseGame {
 
     renderHexBoard() {
         const rows = [
-            { label: 'I', cells: ['I5', 'I6', 'I7', 'I8', 'I9'], offset: 4 },
-            { label: 'H', cells: ['H4', 'H5', 'H6', 'H7', 'H8', 'H9'], offset: 3 },
-            { label: 'G', cells: ['G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9'], offset: 2 },
-            { label: 'F', cells: ['F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9'], offset: 1 },
+            { label: 'I', cells: ['I1', 'I2', 'I3', 'I4', 'I5'], offset: 4 },
+            { label: 'H', cells: ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'], offset: 3 },
+            { label: 'G', cells: ['G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7'], offset: 2 },
+            { label: 'F', cells: ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8'], offset: 1 },
             { label: 'E', cells: ['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 'E9'], offset: 0 },
             { label: 'D', cells: ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8'], offset: 1 },
             { label: 'C', cells: ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7'], offset: 2 },

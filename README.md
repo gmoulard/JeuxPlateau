@@ -178,12 +178,12 @@ Chaque modification suit ce processus automatisé :
 7. Push de master
 
 ### Statistiques du projet
-- **Version actuelle** : 1.4.1
+- **Version actuelle** : 1.4.2
 - **Lignes de code** : 2 894 lignes
 - **Nombre de jeux** : 6 jeux complets
 - **Fichiers JavaScript** : 11 fichiers (tous < 300 lignes)
 - **Tests** : 2 suites de tests
-- **Versions publiées** : 21 versions (1.0.0 à 1.4.1)
+- **Versions publiées** : 22 versions (1.0.0 à 1.4.2)
 
 
 

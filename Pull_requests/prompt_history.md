@@ -121,3 +121,8 @@ Ajoute un nouveau jeux l'abalone, tu trouvera les regles ici: https://www.letemp
 le tavli ne tiens pas dans le page l'espace créer est trop gros. 
 Mainteint toutjours a jours le README et prompt_history
 ```
+
+#### v1.4.2 - Icônes des jeux
+```
+Dans la page de liste des jeux ajoute un petit logo devant chaque jeux
+```
