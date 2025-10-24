@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeux de Plateau</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="theme-color" content="#2196F3">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Jeux de Plateau</h1>
+            <button id="settings-btn">⚙️</button>
+        </header>
+        
+        <div id="game-selection" class="screen active">
+            <h2>Choisir un jeu</h2>
+            <div class="game-grid">
+                <button class="game-btn" data-game="checkers">Dames</button>
+                <button class="game-btn" data-game="chess">Échecs</button>
+                <button class="game-btn" data-game="backgammon">Backgammon</button>
+                <button class="game-btn" data-game="ludo">Petits Chevaux</button>
+            </div>
+        </div>
+
+        <div id="game-setup" class="screen">
+            <h2 id="game-title"></h2>
+            <div class="setup-options">
+                <label>Nombre de joueurs:
+                    <select id="player-count">
+                        <option value="2">2 joueurs</option>
+                        <option value="3">3 joueurs</option>
+                        <option value="4">4 joueurs</option>
+                    </select>
+                </label>
+                <div id="player-names"></div>
+                <button id="start-game">Commencer</button>
+            </div>
+        </div>
+
+        <div id="game-board" class="screen">
+            <div class="game-info">
+                <div id="current-player">Tour de: <span></span></div>
+                <div id="dice-container">
+                    <button id="roll-dice">🎲 Lancer les dés</button>
+                    <div id="dice-result"></div>
+                </div>
+            </div>
+            <div id="board-container"></div>
+            <button id="back-to-menu">Retour au menu</button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/games.js"></script>
+</body>
+</html>
