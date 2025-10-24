@@ -63,9 +63,10 @@ class CheckersGame extends BaseGame {
         const piece = this.pieces[key];
         if (!piece) return;
         
-        const color = piece.player === 0 ? '#ff4444' : '#333';
+        const color = piece.player === 0 ? 'white' : 'black';
+        const borderColor = piece.player === 0 ? '#333' : '#fff';
         const symbol = piece.king ? '♛' : '●';
-        this.addPiece(row, col, `<div class="piece" style="background: ${color};">${symbol}</div>`);
+        this.addPiece(row, col, `<div class="checker-piece" style="background: ${color}; border: 3px solid ${borderColor};">${symbol}</div>`);
     }
 
     handleCellClick(row, col) {

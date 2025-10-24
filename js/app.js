@@ -102,6 +102,13 @@ class GameApp {
     }
 
     setupPWA() {
+        // Enregistrer le Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(() => console.log('Service Worker enregistré'))
+                .catch(err => console.log('Erreur SW:', err));
+        }
+
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             this.deferredPrompt = e;
@@ -285,11 +292,25 @@ class GameApp {
     rollDice() {
         if (this.currentGame === 'backgammon' && window.currentGame) {
             window.currentGame.rollDice();
+        } else if (this.currentGame === 'ludo' && window.currentGame) {
+            window.currentGame.rollDice();
         } else {
-            const result = Math.floor(Math.random() * 6) + 1;
-            document.getElementById('dice-result').textContent = result;
-            return result;
+            this.animateDice();
         }
+    }
+
+    animateDice() {
+        const diceEl = document.getElementById('dice-result');
+        let count = 0;
+        const interval = setInterval(() => {
+            diceEl.textContent = Math.floor(Math.random() * 6) + 1;
+            count++;
+            if (count >= 10) {
+                clearInterval(interval);
+                const result = Math.floor(Math.random() * 6) + 1;
+                diceEl.textContent = result;
+            }
+        }, 100);
     }
 
     showScreen(screenId) {
