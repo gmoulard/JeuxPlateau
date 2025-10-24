@@ -183,7 +183,7 @@ class GameApp {
         container.innerHTML = '';
         
         const diceContainer = document.getElementById('dice-container');
-        if (this.currentGame === 'checkers' || this.currentGame === 'chess') {
+        if (this.currentGame === 'checkers' || this.currentGame === 'chess' || this.currentGame === 'backgammon') {
             diceContainer.style.display = 'none';
         } else {
             diceContainer.style.display = 'flex';
@@ -266,7 +266,10 @@ class GameApp {
     }
 
     updateCurrentPlayer() {
-        document.querySelector('#current-player span').textContent = this.players[this.currentPlayerIndex];
+        const playerName = this.players[this.currentPlayerIndex];
+        const playerColor = this.currentGame === 'backgammon' ? 
+            (this.currentPlayerIndex === 0 ? ' 🔴' : ' ⚫') : '';
+        document.querySelector('#current-player span').textContent = playerName + playerColor;
     }
 
     nextPlayer() {
