@@ -12,7 +12,10 @@
     <div id="app">
         <header>
             <h1>Jeux de Plateau</h1>
-            <button id="settings-btn">⚙️</button>
+            <div class="header-actions">
+                <span id="app-version" class="version"></span>
+                <button id="history-btn" title="Historique">📊</button>
+            </div>
         </header>
         
         <div id="game-selection" class="screen active">
@@ -23,6 +26,12 @@
                 <button class="game-btn" data-game="backgammon">Tavli</button>
                 <button class="game-btn" data-game="ludo">Petits Chevaux</button>
             </div>
+        </div>
+
+        <div id="history-screen" class="screen">
+            <h2>Historique des parties</h2>
+            <div id="history-list"></div>
+            <button id="back-from-history">Retour</button>
         </div>
 
         <div id="game-setup" class="screen">
