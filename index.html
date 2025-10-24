@@ -39,6 +39,7 @@
         <div id="game-selection" class="screen active">
             <h2>Choisir un jeu</h2>
             <div class="game-grid">
+                <button class="game-btn" data-game="tictactoe">Morpion</button>
                 <button class="game-btn" data-game="checkers">Dames</button>
                 <button class="game-btn" data-game="chess">Échecs</button>
                 <button class="game-btn" data-game="backgammon">Tavli</button>
@@ -114,6 +115,18 @@
         <div id="versions-screen" class="screen">
             <h2>Versions</h2>
             <div id="versions-list">
+                <div class="version-item">
+                    <h3>Version 1.2.0</h3>
+                    <p class="version-date">15 janvier 2024</p>
+                    <ul>
+                        <li>Ajout jeu de Morpion (Tic-Tac-Toe)</li>
+                        <li>Jeu pour 2 joueurs avec X et O</li>
+                        <li>Détection victoire et match nul</li>
+                        <li>Bouton nouvelle partie</li>
+                    </ul>
+                    <a href="https://github.com/gmoulard/JeuxPlateau/pull/new/feature/tictactoe-v1.2.0" target="_blank" class="pr-link">Voir la PR →</a>
+                </div>
+                
                 <div class="version-item">
                     <h3>Version 1.1.1</h3>
                     <p class="version-date">15 janvier 2024</p>
@@ -272,6 +285,7 @@
     </footer>
 
     <script src="js/base-game.js"></script>
+    <script src="js/tictactoe-game.js"></script>
     <script src="js/checkers-game.js"></script>
     <script src="js/chess-game.js"></script>
     <script src="js/backgammon-game.js"></script>

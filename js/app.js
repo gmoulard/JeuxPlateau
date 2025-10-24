@@ -145,6 +145,7 @@ class GameApp {
 
     getGameTitle(gameType) {
         const titles = {
+            tictactoe: 'Morpion',
             checkers: 'Dames',
             chess: 'Échecs',
             backgammon: 'Tavli',
@@ -184,7 +185,7 @@ class GameApp {
         container.innerHTML = '';
         
         const diceContainer = document.getElementById('dice-container');
-        if (this.currentGame === 'checkers' || this.currentGame === 'chess') {
+        if (this.currentGame === 'checkers' || this.currentGame === 'chess' || this.currentGame === 'tictactoe') {
             diceContainer.style.display = 'none';
         } else {
             diceContainer.style.display = 'flex';
@@ -193,6 +194,9 @@ class GameApp {
         this.loadGameHelp();
         
         switch(this.currentGame) {
+            case 'tictactoe':
+                window.currentGame = new TicTacToeGame(container, this.players);
+                break;
             case 'checkers':
                 window.currentGame = new CheckersGame(container, this.players);
                 break;
