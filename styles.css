@@ -24,24 +24,46 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f5f5f5;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
     color: #333;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+#camera-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
 }
 
 #app {
     flex: 1;
+    position: relative;
+    z-index: 1;
 }
 
 header {
-    background: #2196F3;
+    background: rgba(33, 150, 243, 0.95);
+    backdrop-filter: blur(10px);
     color: white;
     padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.app-logo {
+    height: 50px;
+    width: 50px;
+    margin-right: 1rem;
 }
 
 .header-actions {
@@ -57,7 +79,8 @@ header {
 
 #help-btn,
 #history-btn,
-#install-btn {
+#install-btn,
+#camera-btn {
     background: transparent;
     border: 1px solid white;
     color: white;
@@ -69,8 +92,13 @@ header {
 
 #help-btn:hover,
 #history-btn:hover,
-#install-btn:hover {
+#install-btn:hover,
+#camera-btn:hover {
     background: rgba(255, 255, 255, 0.1);
+}
+
+#camera-btn.active {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 #help-content {
@@ -206,6 +234,10 @@ header {
     padding: 2rem;
     max-width: 800px;
     margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
 }
 
 .screen.active {

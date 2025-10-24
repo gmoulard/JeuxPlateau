@@ -25,6 +25,8 @@ class GameApp {
         this.currentPlayerIndex = 0;
         this.version = '';
         this.deferredPrompt = null;
+        this.cameraStream = null;
+        this.cameraActive = false;
         this.init();
     }
 
@@ -95,6 +97,7 @@ class GameApp {
         document.getElementById('close-game-help').addEventListener('click', () => this.hideGameHelp());
         document.getElementById('back-from-versions').addEventListener('click', () => this.showScreen('game-selection'));
         document.getElementById('install-btn').addEventListener('click', () => this.installPWA());
+        document.getElementById('camera-btn').addEventListener('click', () => this.toggleCamera());
         document.getElementById('footer-version-link').addEventListener('click', (e) => {
             e.preventDefault();
             this.showScreen('versions-screen');
@@ -347,6 +350,33 @@ class GameApp {
         this.showScreen('game-selection');
         this.currentGame = null;
         this.players = [];
+    }
+
+    async toggleCamera() {
+        const video = document.getElementById('camera-bg');
+        const btn = document.getElementById('camera-btn');
+        
+        if (this.cameraActive) {
+            if (this.cameraStream) {
+                this.cameraStream.getTracks().forEach(track => track.stop());
+                this.cameraStream = null;
+            }
+            video.style.display = 'none';
+            btn.classList.remove('active');
+            this.cameraActive = false;
+        } else {
+            try {
+                this.cameraStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment' } 
+                });
+                video.srcObject = this.cameraStream;
+                video.style.display = 'block';
+                btn.classList.add('active');
+                this.cameraActive = true;
+            } catch (err) {
+                alert('Impossible d\'activer la caméra: ' + err.message);
+            }
+        }
     }
 }
 
