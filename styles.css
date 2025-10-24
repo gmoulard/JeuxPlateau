@@ -1,21 +1,11 @@
 /**
  * Fichier: styles.css
  * Auteur: Guillaume Moulard
- * Rôle: Feuille de styles principale
- * 
- * Description:
- * Définit tous les styles CSS de l'application incluant le layout général,
- * les styles des jeux (Dames, Échecs, Tavli, Petits Chevaux), les écrans
- * d'aide, d'historique et de versions, ainsi que le responsive design.
- * 
- * Historique des versions:
- * - 1.0.0 (2024-01-15): Création avec styles de base
- * - 1.0.1 (2024-01-15): Ajout styles plateaux carrés Dames/Échecs
- * - 1.0.2 (2024-01-15): Ajout styles Tavli avec pions ronds
- * - 1.0.3 (2024-01-15): Ajout styles Petits Chevaux
- * - 1.0.4 (2024-01-15): Ajout en-têtes de documentation
+ * Rôle: Feuille de styles principale optimisée
+ * Version: 1.4.5
  */
 
+/* Reset & Base */
 * {
     margin: 0;
     padding: 0;
@@ -24,19 +14,16 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    background-attachment: fixed;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) fixed;
     color: #333;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    position: relative;
 }
 
 #camera-bg {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -49,6 +36,7 @@ body {
     z-index: 1;
 }
 
+/* Header */
 header {
     background: rgba(33, 150, 243, 0.95);
     backdrop-filter: blur(10px);
@@ -77,10 +65,27 @@ header {
     opacity: 0.9;
 }
 
-#help-btn,
-#history-btn,
-#install-btn,
-#camera-btn {
+/* Boutons communs */
+.btn-icon {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.btn-icon:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-icon.active {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+#help-btn, #history-btn, #install-btn, #camera-btn {
     background: transparent;
     border: 1px solid white;
     color: white;
@@ -90,10 +95,7 @@ header {
     border-radius: 4px;
 }
 
-#help-btn:hover,
-#history-btn:hover,
-#install-btn:hover,
-#camera-btn:hover {
+#help-btn:hover, #history-btn:hover, #install-btn:hover, #camera-btn:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -101,15 +103,42 @@ header {
     background: rgba(255, 255, 255, 0.3);
 }
 
-#help-content {
+button {
+    background: #2196F3;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #1976D2;
+}
+
+/* Conteneurs blancs communs */
+.white-panel {
     background: white;
     padding: 2rem;
     border-radius: 8px;
     margin: 1rem 0;
+}
+
+#help-content, #history-list, #versions-list {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+#help-content, #history-list {
     max-height: 70vh;
     overflow-y: auto;
 }
 
+/* Sections d'aide */
 .help-section {
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
@@ -139,15 +168,7 @@ header {
     line-height: 1.5;
 }
 
-#history-list {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    margin: 1rem 0;
-    max-height: 500px;
-    overflow-y: auto;
-}
-
+/* Historique */
 .history-item {
     padding: 1rem;
     border-bottom: 1px solid #ddd;
@@ -165,23 +186,16 @@ header {
     color: #2196F3;
 }
 
-.history-date {
+.history-date, .history-players {
     font-size: 0.9rem;
     color: #666;
 }
 
 .history-players {
-    font-size: 0.9rem;
     color: #333;
 }
 
-#versions-list {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    margin: 1rem 0;
-}
-
+/* Versions */
 .version-item {
     margin-bottom: 2rem;
     padding-bottom: 2rem;
@@ -229,6 +243,7 @@ header {
     color: white;
 }
 
+/* Écrans */
 .screen {
     display: none;
     padding: 2rem;
@@ -244,6 +259,7 @@ header {
     display: block;
 }
 
+/* Grille de jeux */
 .game-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -268,6 +284,7 @@ header {
     border-color: #2196F3;
 }
 
+/* Configuration */
 .setup-options {
     background: white;
     padding: 2rem;
@@ -295,20 +312,7 @@ header {
     margin: 0.5rem 0;
 }
 
-button {
-    background: #2196F3;
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-button:hover {
-    background: #1976D2;
-}
-
+/* Info de jeu */
 .game-info {
     display: flex;
     justify-content: space-between;
@@ -336,6 +340,7 @@ button:hover {
     color: white;
 }
 
+/* Panneau d'aide contextuel */
 .help-panel {
     display: none;
     position: absolute;
@@ -399,6 +404,7 @@ button:hover {
     background: transparent;
 }
 
+/* Plateau de jeu commun */
 #board-container {
     background: white;
     border-radius: 8px;
@@ -415,6 +421,7 @@ button:hover {
     margin: 0 auto;
 }
 
+/* Cellules communes */
 .cell {
     background: #f0d9b5;
     display: flex;
@@ -434,7 +441,8 @@ button:hover {
     background: #ffeb3b;
 }
 
-.piece {
+/* Pièces communes */
+.piece, .checker-piece {
     width: 80%;
     height: 80%;
     border-radius: 50%;
@@ -445,31 +453,24 @@ button:hover {
 }
 
 .checker-piece {
-    width: 80%;
-    height: 80%;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-.checkers-board,
-.chess-board {
+/* Plateaux carrés (Dames, Échecs) */
+.checkers-board, .chess-board {
     width: 480px;
     height: 480px;
     max-width: 90vmin;
     max-height: 90vmin;
 }
 
-.checkers-board .cell,
-.chess-board .cell {
+.checkers-board .cell, .chess-board .cell {
     width: auto;
     height: auto;
     aspect-ratio: 1;
 }
 
+/* Dés */
 #dice-result {
     margin-left: 1rem;
     font-size: 1.5rem;
@@ -482,7 +483,62 @@ button:hover {
     75% { transform: rotate(270deg); }
 }
 
-/* Styles Tavli (Backgammon) - Interface simplifiée */
+/* Affichage de dés commun */
+.dice-display {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: 3px solid #2196F3;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #2196F3;
+}
+
+/* Morpion */
+.tictactoe-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.tictactoe-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    background: #2196F3;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.tictactoe-cell {
+    aspect-ratio: 1;
+    background: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 3rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #2196F3;
+}
+
+.tictactoe-cell:hover {
+    background: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.tictactoe-info {
+    text-align: center;
+}
+
+/* Tavli */
 .tavli-container {
     max-width: 900px;
     margin: 0 auto;
@@ -497,11 +553,6 @@ button:hover {
     padding: 1rem;
     background: white;
     border-radius: 8px;
-}
-
-.tavli-btn {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
 }
 
 .tavli-dice-display {
@@ -584,8 +635,6 @@ button:hover {
     gap: 4px;
 }
 
-
-
 .tavli-spacer {
     width: 15px;
     background: #654321;
@@ -657,7 +706,7 @@ button:hover {
     font-weight: bold;
 }
 
-/* Styles Petits Chevaux */
+/* Petits Chevaux */
 .ludo-board {
     max-width: 600px;
     margin: 0 auto;
@@ -669,10 +718,6 @@ button:hover {
     align-items: center;
     gap: 1rem;
     margin-bottom: 1rem;
-}
-
-.ludo-roll-btn {
-    padding: 0.75rem 1.5rem;
 }
 
 .ludo-dice {
@@ -772,52 +817,7 @@ button:hover {
     margin: 1px;
 }
 
-/* Styles Morpion (Tic-Tac-Toe) */
-.tictactoe-container {
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-.tictactoe-board {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    background: #2196F3;
-    padding: 8px;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-}
-
-.tictactoe-cell {
-    aspect-ratio: 1;
-    background: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 3rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: #2196F3;
-}
-
-.tictactoe-cell:hover {
-    background: #f0f0f0;
-    transform: scale(1.05);
-}
-
-.tictactoe-info {
-    text-align: center;
-}
-
-.tictactoe-btn {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-}
-
-/* Styles Abalone */
+/* Abalone */
 .abalone-container {
     max-width: 700px;
     margin: 0 auto;
@@ -907,7 +907,7 @@ button:hover {
     margin-top: 1rem;
 }
 
-/* Styles Échecs - Sidebar */
+/* Échecs */
 .chess-container {
     display: flex;
     gap: 1rem;
@@ -922,16 +922,14 @@ button:hover {
     gap: 1rem;
 }
 
-.chess-captured,
-.chess-history {
+.chess-captured, .chess-history {
     background: white;
     border: 2px solid #ddd;
     border-radius: 8px;
     padding: 1rem;
 }
 
-.chess-captured h4,
-.chess-history h4 {
+.chess-captured h4, .chess-history h4 {
     margin: 0 0 0.5rem 0;
     color: #2196F3;
     font-size: 1rem;
@@ -966,6 +964,7 @@ button:hover {
     flex: 1;
 }
 
+/* Footer */
 footer {
     background: #2196F3;
     color: white;
@@ -993,6 +992,7 @@ footer a:hover {
     opacity: 0.9;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
     .screen {
         padding: 1rem;
@@ -1009,8 +1009,7 @@ footer a:hover {
         font-size: 1.5rem;
     }
     
-    .checkers-board,
-    .chess-board {
+    .checkers-board, .chess-board {
         width: 90vmin;
         height: 90vmin;
     }
@@ -1024,7 +1023,6 @@ footer a:hover {
         width: 100%;
     }
     
-    /* Fix Tavli mobile */
     .tavli-container {
         max-width: 100%;
     }

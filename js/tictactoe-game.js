@@ -19,6 +19,10 @@ class TicTacToeGame extends BaseGame {
         this.initGame();
     }
 
+    // ========================================
+    // INTERFACE (UI)
+    // ========================================
+
     initGame() {
         this.container.innerHTML = `
             <div class="tictactoe-container">
@@ -44,6 +48,10 @@ class TicTacToeGame extends BaseGame {
             boardEl.appendChild(cell);
         }
     }
+
+    // ========================================
+    // LOGIQUE DE JEU
+    // ========================================
 
     handleCellClick(index) {
         if (this.gameOver || this.board[index]) return;

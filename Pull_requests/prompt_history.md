@@ -136,3 +136,8 @@ Dans le jeux d'abalone les bille peuvent se deplacer dans tout les sense
 ```
 ne fait aucun control de deplacement sur les boule de l'abalonne
 ```
+
+#### v1.4.5 - Séparation UI/Logique
+```
+sur le fichier local fait une separation pour le code de chaque jeux entre le code necessaire a l'interface et le code necessaire a la logique de jeux
+```
