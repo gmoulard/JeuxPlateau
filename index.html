@@ -13,7 +13,7 @@
         <header>
             <h1>Jeux de Plateau</h1>
             <div class="header-actions">
-                <span id="app-version" class="version"></span>
+                <span id="app-version" class="version" style="cursor: pointer;" title="Voir les versions"></span>
                 <button id="help-btn" title="Aide">❓</button>
                 <button id="history-btn" title="Historique">📊</button>
             </div>
@@ -92,6 +92,48 @@
                 </div>
             </div>
             <button id="back-from-help">Retour</button>
+        </div>
+
+        <div id="versions-screen" class="screen">
+            <h2>Versions</h2>
+            <div id="versions-list">
+                <div class="version-item">
+                    <h3>Version 1.0.2</h3>
+                    <p class="version-date">15 janvier 2024</p>
+                    <ul>
+                        <li>Pions ronds dans le jeu de Tavli</li>
+                        <li>Page des versions avec liens vers les PR</li>
+                    </ul>
+                    <a href="https://github.com/gmoulard/JeuxPlateau/pull/new/feature/version-1.0.2" target="_blank" class="pr-link">Voir la PR →</a>
+                </div>
+                
+                <div class="version-item">
+                    <h3>Version 1.0.1</h3>
+                    <p class="version-date">15 janvier 2024</p>
+                    <ul>
+                        <li>Améliorations du jeu de Dames (prises obligatoires, Dame)</li>
+                        <li>Plateaux carrés pour Dames et Échecs</li>
+                        <li>Gestion du nombre de joueurs par jeu</li>
+                        <li>Suppression des dés pour Dames et Échecs</li>
+                    </ul>
+                    <a href="https://github.com/gmoulard/JeuxPlateau/pull/new/feature/improve-checkers-chess" target="_blank" class="pr-link">Voir la PR →</a>
+                </div>
+                
+                <div class="version-item">
+                    <h3>Version 1.0.0</h3>
+                    <p class="version-date">15 janvier 2024</p>
+                    <ul>
+                        <li>Logique complète du Tavli (Backgammon)</li>
+                        <li>Système de versioning</li>
+                        <li>Sauvegarde locale des paramètres</li>
+                        <li>Historique des parties</li>
+                        <li>Page d'aide complète</li>
+                        <li>Aide contextuelle dans chaque jeu</li>
+                    </ul>
+                    <a href="https://github.com/gmoulard/JeuxPlateau" target="_blank" class="pr-link">Voir le projet →</a>
+                </div>
+            </div>
+            <button id="back-from-versions">Retour</button>
         </div>
 
         <div id="history-screen" class="screen">

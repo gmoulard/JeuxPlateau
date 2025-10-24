@@ -71,6 +71,8 @@ class GameApp {
         document.getElementById('back-from-history').addEventListener('click', () => this.showScreen('game-selection'));
         document.getElementById('game-help-btn').addEventListener('click', () => this.showGameHelp());
         document.getElementById('close-game-help').addEventListener('click', () => this.hideGameHelp());
+        document.getElementById('app-version').addEventListener('click', () => this.showScreen('versions-screen'));
+        document.getElementById('back-from-versions').addEventListener('click', () => this.showScreen('game-selection'));
     }
 
     selectGame(gameType) {
