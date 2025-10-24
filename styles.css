@@ -49,7 +49,8 @@ header {
 }
 
 #help-btn,
-#history-btn {
+#history-btn,
+#install-btn {
     background: transparent;
     border: 1px solid white;
     color: white;
@@ -60,7 +61,8 @@ header {
 }
 
 #help-btn:hover,
-#history-btn:hover {
+#history-btn:hover,
+#install-btn:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -679,5 +681,28 @@ button:hover {
     .chess-board {
         width: 90vmin;
         height: 90vmin;
+    }
+    
+    /* Fix Tavli mobile */
+    .backgammon-board {
+        max-width: 95vw;
+        overflow-x: auto;
+    }
+    
+    .top-points, .bottom-points {
+        min-width: 500px;
+    }
+    
+    .point {
+        width: 35px;
+    }
+    
+    .checker {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .middle-section {
+        min-width: 500px;
     }
 }
