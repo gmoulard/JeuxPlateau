@@ -204,6 +204,86 @@ button:hover {
     padding: 1rem;
     border-radius: 8px;
     margin-bottom: 2rem;
+    position: relative;
+}
+
+.icon-btn {
+    background: transparent;
+    border: 1px solid #2196F3;
+    color: #2196F3;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 4px;
+    min-width: auto;
+}
+
+.icon-btn:hover {
+    background: #2196F3;
+    color: white;
+}
+
+.help-panel {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 2px solid #2196F3;
+    border-radius: 8px;
+    padding: 1.5rem;
+    max-width: 400px;
+    width: 90vw;
+    max-height: 60vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 1000;
+    margin-top: 0.5rem;
+}
+
+.help-panel.active {
+    display: block;
+}
+
+.help-panel-content h3 {
+    color: #2196F3;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.help-panel-content p {
+    margin: 0.5rem 0;
+}
+
+.help-panel-content ul {
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.help-panel-content li {
+    margin: 0.3rem 0;
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+.close-help {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: transparent;
+    border: none;
+    color: #666;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 1;
+}
+
+.close-help:hover {
+    color: #333;
+    background: transparent;
 }
 
 #board-container {

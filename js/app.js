@@ -69,6 +69,8 @@ class GameApp {
         document.getElementById('back-from-help').addEventListener('click', () => this.showScreen('game-selection'));
         document.getElementById('history-btn').addEventListener('click', () => this.showHistory());
         document.getElementById('back-from-history').addEventListener('click', () => this.showScreen('game-selection'));
+        document.getElementById('game-help-btn').addEventListener('click', () => this.showGameHelp());
+        document.getElementById('close-game-help').addEventListener('click', () => this.hideGameHelp());
     }
 
     selectGame(gameType) {
@@ -133,6 +135,8 @@ class GameApp {
             diceContainer.style.display = 'flex';
         }
         
+        this.loadGameHelp();
+        
         switch(this.currentGame) {
             case 'checkers':
                 window.currentGame = new CheckersGame(container, this.players);
@@ -147,6 +151,64 @@ class GameApp {
                 window.currentGame = new LudoGame(container, this.players);
                 break;
         }
+    }
+
+    loadGameHelp() {
+        const helps = {
+            checkers: `<h3>🎯 Dames</h3>
+                <p><strong>But :</strong> Capturer tous les pions adverses</p>
+                <ul>
+                    <li>Cliquez sur un pion pour le sélectionner</li>
+                    <li>Cliquez sur une case diagonale pour le déplacer</li>
+                    <li>Les pions rouges avancent vers le bas, les noirs vers le haut</li>
+                    <li>Sautez par-dessus un pion adverse pour le capturer</li>
+                    <li>Les prises sont obligatoires</li>
+                    <li>Vous pouvez enchaîner plusieurs prises</li>
+                    <li>Atteignez la dernière rangée pour devenir Dame (♛)</li>
+                    <li>Les Dames peuvent se déplacer en avant et en arrière</li>
+                </ul>`,
+            chess: `<h3>♟ Échecs</h3>
+                <p><strong>But :</strong> Mettre le roi adverse en échec et mat</p>
+                <ul>
+                    <li>Cliquez sur une pièce pour la sélectionner</li>
+                    <li>Cliquez sur une case pour la déplacer</li>
+                    <li>Les blancs jouent en bas, les noirs en haut</li>
+                    <li>Chaque pièce a ses propres règles de déplacement</li>
+                    <li>Capturez les pièces adverses en vous plaçant sur leur case</li>
+                </ul>`,
+            backgammon: `<h3>🎲 Tavli (Backgammon)</h3>
+                <p><strong>But :</strong> Sortir tous vos pions du plateau</p>
+                <ul>
+                    <li>Cliquez sur "🎲 Lancer" pour lancer les dés</li>
+                    <li>Cliquez sur un point avec vos pions pour le sélectionner</li>
+                    <li>Cliquez sur le point de destination</li>
+                    <li>Le joueur 1 (rouge) déplace dans le sens horaire</li>
+                    <li>Le joueur 2 (noir) déplace dans le sens anti-horaire</li>
+                    <li>Vous ne pouvez pas vous poser sur un point avec 2+ pions adverses</li>
+                    <li>Capturez un pion adverse seul en vous plaçant dessus</li>
+                    <li>Les pions capturés vont sur la barre et doivent rentrer</li>
+                    <li>Un double vous donne 4 mouvements au lieu de 2</li>
+                </ul>`,
+            ludo: `<h3>🎰 Petits Chevaux</h3>
+                <p><strong>But :</strong> Faire le tour du plateau et rentrer tous vos pions</p>
+                <ul>
+                    <li>Cliquez sur "🎲 Lancer les dés" pour jouer</li>
+                    <li>Déplacez vos pions selon le résultat du dé</li>
+                    <li>Faites 6 pour sortir un pion de votre base</li>
+                    <li>Capturez les pions adverses en tombant sur leur case</li>
+                    <li>Un 6 vous donne un tour supplémentaire</li>
+                </ul>`
+        };
+        
+        document.getElementById('game-help-content').innerHTML = helps[this.currentGame] || '';
+    }
+
+    showGameHelp() {
+        document.getElementById('game-help-panel').classList.add('active');
+    }
+
+    hideGameHelp() {
+        document.getElementById('game-help-panel').classList.remove('active');
     }
 
     updateCurrentPlayer() {
