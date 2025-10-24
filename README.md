@@ -4,23 +4,33 @@ Une application web progressive (PWA) pour jouer aux jeux de plateau classiques.
 
 ## 🎮 Jeux Disponibles
 
+- **Morpion** - Jeu de Tic-Tac-Toe (3x3)
 - **Dames** - Jeu de dames traditionnel
 - **Échecs** - Jeu d'échecs classique
-- **Backgammon** - Jeu de backgammon
+- **Tavli** - Jeu de backgammon
 - **Petits Chevaux** - Jeu des petits chevaux (Ludo)
 
 ## 🚀 Fonctionnalités
 
 - Interface responsive adaptée aux mobiles et tablettes
 - Support PWA (Progressive Web App) - installable sur mobile
+- Bouton d'installation PWA dans le header
+- Mode hors connexion via Service Worker
 - Multijoueur local (2-4 joueurs selon le jeu)
 - Interface en français
-- Design moderne et intuitif
+- Design moderne avec effets glassmorphism
+- Fond d'écran dégradé ou caméra (optionnel)
+- Logo SVG personnalisé
 - Numéro de version visible dans l'application
 - Sauvegarde automatique des paramètres (noms des joueurs)
 - Historique local des parties jouées
+- Page d'aide contextuelle par jeu
+- Historique des versions avec liens vers les PR
 
 ## 📱 Installation
+
+URL Git : https://github.com/gmoulard/JeuxPlateau
+URL Jeux : https://gmoulard.github.io/JeuxPlateau/
 
 ### Utilisation Web
 1. Ouvrez `index.html` dans votre navigateur
@@ -35,18 +45,34 @@ Une application web progressive (PWA) pour jouer aux jeux de plateau classiques.
 
 ```
 JeuxPlateau/
-├── index.html          # Page principale
-├── styles.css          # Styles CSS
-├── manifest.json       # Configuration PWA
-├── version.json        # Version de l'application
+├── index.html              # Page principale (359 lignes)
+├── styles.css              # Styles CSS (798 lignes)
+├── manifest.json           # Configuration PWA
+├── version.json            # Version de l'application
+├── sw.js                   # Service Worker (41 lignes)
+├── logo.svg                # Logo de l'application
+├── icon-192.png            # Icône PWA 192x192
+├── icon-512.png            # Icône PWA 512x512
+├── .gitlab-ci.yml          # Configuration GitLab CI
+├── .gitignore              # Fichiers ignorés par Git
+├── package.json            # Dépendances npm
+├── vitest.config.js        # Configuration Vitest
 ├── js/
-│   ├── app.js              # Logique principale
-│   ├── base-game.js        # Classe de base
-│   ├── checkers-game.js    # Jeu de Dames
-│   ├── chess-game.js       # Jeu d'Échecs
-│   ├── backgammon-game.js  # Jeu de Tavli
-│   └── ludo-game.js        # Petits Chevaux
-└── README.md          # Documentation
+│   ├── app.js              # Logique principale (355 lignes)
+│   ├── base-game.js        # Classe de base (48 lignes)
+│   ├── tictactoe-game.js   # Jeu de Morpion (86 lignes)
+│   ├── checkers-game.js    # Jeu de Dames (176 lignes)
+│   ├── chess-game.js       # Jeu d'Échecs (224 lignes)
+│   ├── backgammon-game.js  # Jeu de Tavli (219 lignes)
+│   └── ludo-game.js        # Petits Chevaux (197 lignes)
+├── tests/
+│   ├── tictactoe.test.js   # Tests Morpion
+│   └── checkers.test.js    # Tests Dames
+├── Pull_requests/          # Documentation des PR
+│   └── pr_v1.0.1.md à pr_v1.3.2.md
+└── README.md               # Documentation
+
+Total code source : 2 503 lignes
 ```
 
 ## 🎯 Utilisation
@@ -62,8 +88,9 @@ JeuxPlateau/
 - **CSS3** - Styles et responsive design
 - **JavaScript ES6+** - Logique de jeu
 - **PWA** - Fonctionnalités d'application progressive
-- **Vitest** - Tests unitaires
 - **Service Worker** - Mode hors connexion
+- **Vitest** - Tests unitaires
+- **GitLab CI** - Intégration continue
 
 ## 🧪 Tests
 
@@ -90,22 +117,31 @@ npm run test:run # Exécution unique
 ### ✅ Terminé
 - Interface utilisateur responsive
 - Structure HTML complète
-- Styles CSS complets
-- Configuration PWA
+- Styles CSS complets avec glassmorphism
+- Configuration PWA complète
+- Icônes PWA (192x192 et 512x512)
+- Logo SVG personnalisé
+- Bouton d'installation PWA
+- Service Worker pour mode hors connexion
+- Option fond caméra (désactivée par défaut)
 - Logique principale de l'application (app.js)
+- Jeu de Morpion complet (victoire, match nul)
 - Logique complète pour les Dames (prises obligatoires, dame)
-- Logique avancée pour les Échecs (mouvements par pièce)
-- Logique complète du Backgammon
+- Logique avancée pour les Échecs (mouvements par pièce, validation chemin)
+- Logique complète du Tavli/Backgammon
 - Logique complète des Petits Chevaux
 - Système de versioning
 - Sauvegarde locale des paramètres
 - Historique des parties
+- Page d'aide contextuelle
 - Refactoring: fichiers séparés par jeu (< 300 lignes)
-- Icônes PWA (192x192 et 512x512)
-- Tests unitaires avec Vitest
+- Tests unitaires avec Vitest (Morpion, Dames)
+- GitLab CI pour tests automatiques
+- Documentation complète des PR
 
 ### 🚧 À Développer
 - [ ] Règles complètes pour les Échecs (échec, mat, roque, en passant)
+- [ ] Tests unitaires pour tous les jeux
 - [ ] Lazy-loading des jeux (optimisation future)
 
 ## 🎨 Personnalisation
@@ -127,6 +163,24 @@ npm run test:run # Exécution unique
 - Documentation rédigée automatiquement
 
 Cette approche permet un développement rapide et cohérent, tout en maintenant la qualité du code.
+
+### Workflow de développement
+Chaque modification suit ce processus automatisé :
+1. Création d'une branche feature/fix
+2. Modifications du code
+3. Incrémentation de la version
+4. Création de la documentation PR
+5. Commit et push de la branche
+6. Merge dans master
+7. Push de master
+
+### Statistiques du projet
+- **Version actuelle** : 1.3.2
+- **Lignes de code** : 2 503 lignes
+- **Nombre de jeux** : 5 jeux complets
+- **Fichiers JavaScript** : 10 fichiers (tous < 300 lignes)
+- **Tests** : 2 suites de tests
+- **Versions publiées** : 18 versions (1.0.0 à 1.3.2)
 
 ## 📄 Licence
 
