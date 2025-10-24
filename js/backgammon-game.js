@@ -10,6 +10,7 @@
  * - 1.0.2 (2024-01-15): Logique complète avec pions ronds
  * - 1.0.6 (2024-01-15): Extraction dans fichier dédié
  * - 1.0.9 (2024-01-15): Refonte complète interface simplifiée
+ * - 1.1.0 (2024-01-15): Correction sens rotation + pions capturés
  */
 
 class BackgammonGame extends BaseGame {
@@ -19,6 +20,7 @@ class BackgammonGame extends BaseGame {
         this.dice = [0, 0];
         this.movesLeft = [];
         this.board = Array(24).fill(null).map(() => []);
+        this.captured = [0, 0]; // Pions capturés par joueur
         this.selectedPoint = null;
         this.initGame();
     }
@@ -30,26 +32,31 @@ class BackgammonGame extends BaseGame {
 
     setupInitialPosition() {
         // Position initiale standard du backgammon
-        this.board[0] = [1, 1];
-        this.board[5] = [0, 0, 0, 0, 0];
-        this.board[7] = [0, 0, 0];
-        this.board[11] = [1, 1, 1, 1, 1];
-        this.board[12] = [0, 0, 0, 0, 0];
-        this.board[16] = [1, 1, 1];
-        this.board[18] = [1, 1, 1, 1, 1];
-        this.board[23] = [0, 0];
+        // Joueur 0 (rouge) va de 0 vers 23
+        // Joueur 1 (noir) va de 23 vers 0
+        this.board[0] = [0, 0];
+        this.board[5] = [1, 1, 1, 1, 1];
+        this.board[7] = [1, 1, 1];
+        this.board[11] = [0, 0, 0, 0, 0];
+        this.board[12] = [1, 1, 1, 1, 1];
+        this.board[16] = [0, 0, 0];
+        this.board[18] = [0, 0, 0, 0, 0];
+        this.board[23] = [1, 1];
     }
 
     renderBoard() {
         this.container.innerHTML = `
             <div class="tavli-container">
                 <div class="tavli-info">
-                    <button onclick="window.currentGame.rollDice()" class="tavli-btn">🎲 Lancer les dés</button>
                     <div class="tavli-dice-display">
                         <span class="dice-value">${this.dice[0] || '-'}</span>
                         <span class="dice-value">${this.dice[1] || '-'}</span>
                     </div>
-                    <div class="tavli-moves">Coups restants: ${this.movesLeft.length}</div>
+                    <div class="tavli-moves">Coups: ${this.movesLeft.length}</div>
+                    <div class="tavli-captured">
+                        <div>🔴 Capturés: ${this.captured[0]}</div>
+                        <div>⚫ Capturés: ${this.captured[1]}</div>
+                    </div>
                 </div>
                 <div class="tavli-board">
                     ${this.renderPoints()}
@@ -117,25 +124,6 @@ class BackgammonGame extends BaseGame {
         });
     }
 
-    rollDice() {
-        if (this.movesLeft.length > 0) return;
-        
-        this.dice[0] = Math.floor(Math.random() * 6) + 1;
-        this.dice[1] = Math.floor(Math.random() * 6) + 1;
-        
-        if (this.dice[0] === this.dice[1]) {
-            this.movesLeft = [this.dice[0], this.dice[0], this.dice[0], this.dice[0]];
-        } else {
-            this.movesLeft = [this.dice[0], this.dice[1]];
-        }
-        
-        this.renderBoard();
-        
-        if (!this.hasValidMoves()) {
-            setTimeout(() => this.endTurn(), 1000);
-        }
-    }
-
     handlePointClick(pointIndex) {
         if (this.movesLeft.length === 0) return;
         
@@ -164,7 +152,7 @@ class BackgammonGame extends BaseGame {
         // Vérifier si le mouvement correspond à un dé
         if (!this.movesLeft.includes(distance)) return false;
         
-        // Vérifier la direction
+        // Vérifier la direction (corrigé)
         if (this.currentPlayer === 0 && to <= from) return false;
         if (this.currentPlayer === 1 && to >= from) return false;
         
@@ -182,6 +170,8 @@ class BackgammonGame extends BaseGame {
         
         // Capturer si nécessaire
         if (this.board[to].length === 1 && this.board[to][0] !== this.currentPlayer) {
+            const capturedPlayer = this.board[to][0];
+            this.captured[capturedPlayer]++;
             this.board[to] = [];
         }
         
