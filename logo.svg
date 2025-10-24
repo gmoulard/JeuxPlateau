@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Fond circulaire -->
+  <circle cx="100" cy="100" r="95" fill="#2196F3"/>
+  
+  <!-- Plateau de jeu stylisé -->
+  <rect x="50" y="50" width="100" height="100" fill="white" opacity="0.9" rx="5"/>
+  
+  <!-- Grille 3x3 -->
+  <line x1="50" y1="83" x2="150" y2="83" stroke="#2196F3" stroke-width="2"/>
+  <line x1="50" y1="117" x2="150" y2="117" stroke="#2196F3" stroke-width="2"/>
+  <line x1="83" y1="50" x2="83" y2="150" stroke="#2196F3" stroke-width="2"/>
+  <line x1="117" y1="50" x2="117" y2="150" stroke="#2196F3" stroke-width="2"/>
+  
+  <!-- Pions de jeu -->
+  <circle cx="67" cy="67" r="10" fill="#1976D2"/>
+  <circle cx="133" cy="67" r="10" fill="#FF4444"/>
+  <circle cx="100" cy="100" r="10" fill="#1976D2"/>
+  <circle cx="67" cy="133" r="10" fill="#FF4444"/>
+  <circle cx="133" cy="133" r="10" fill="#1976D2"/>
+  
+  <!-- Texte -->
+  <text x="100" y="185" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">Jeux Plateau</text>
+</svg>

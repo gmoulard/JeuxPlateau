@@ -27,9 +27,12 @@
 </head>
 <body>
     <div id="app">
+        <video id="camera-bg" autoplay playsinline muted style="display: none;"></video>
         <header>
+            <img src="logo.svg" alt="Logo" class="app-logo">
             <h1><a href="https://github.com/gmoulard/JeuxPlateau" target="_blank" style="color: white; text-decoration: none;">Jeux de Plateau</a></h1>
             <div class="header-actions">
+                <button id="camera-btn" title="Activer/Désactiver caméra">📷</button>
                 <button id="install-btn" title="Installer l'application" style="display: none;">📥</button>
                 <button id="help-btn" title="Aide">❓</button>
                 <button id="history-btn" title="Historique">📊</button>
@@ -115,6 +118,18 @@
         <div id="versions-screen" class="screen">
             <h2>Versions</h2>
             <div id="versions-list">
+                <div class="version-item">
+                    <h3>Version 1.2.2</h3>
+                    <p class="version-date">15 janvier 2024</p>
+                    <ul>
+                        <li>Ajout logo SVG de l'application</li>
+                        <li>Fond d'écran dégradé élégant</li>
+                        <li>Option caméra comme fond (bouton 📷)</li>
+                        <li>Effets de transparence et flou</li>
+                    </ul>
+                    <a href="https://github.com/gmoulard/JeuxPlateau/pull/new/feature/logo-background-v1.2.2" target="_blank" class="pr-link">Voir la PR →</a>
+                </div>
+                
                 <div class="version-item">
                     <h3>Version 1.2.1</h3>
                     <p class="version-date">15 janvier 2024</p>
