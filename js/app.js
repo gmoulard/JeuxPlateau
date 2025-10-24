@@ -35,7 +35,7 @@ class GameApp {
         const titles = {
             checkers: 'Dames',
             chess: 'Échecs',
-            backgammon: 'Backgammon',
+            backgammon: 'Tavli',
             ludo: 'Petits Chevaux'
         };
         return titles[gameType];
@@ -75,7 +75,7 @@ class GameApp {
                 new ChessGame(container, this.players);
                 break;
             case 'backgammon':
-                new BackgammonGame(container, this.players);
+                window.currentGame = new BackgammonGame(container, this.players);
                 break;
             case 'ludo':
                 new LudoGame(container, this.players);
