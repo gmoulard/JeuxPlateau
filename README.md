@@ -87,6 +87,15 @@ JeuxPlateau/
 - Mobile : < 768px
 - Tablette/Desktop : ≥ 768px
 
+## 🤖 Génération par IA
+
+**Important** : Ce projet a été entièrement généré par des modèles de langage (LLM) :
+- Code HTML, CSS et JavaScript généré par Amazon Q Developer
+- Architecture et structure du projet conçues par IA
+- Documentation rédigée automatiquement
+
+Cette approche permet un développement rapide et cohérent, tout en maintenant la qualité du code.
+
 ## 📄 Licence
 
 Projet personnel - Libre d'utilisation
