@@ -28,7 +28,7 @@
 <body>
     <div id="app">
         <header>
-            <h1>Jeux de Plateau</h1>
+            <h1><a href="https://github.com/gmoulard/JeuxPlateau" target="_blank" style="color: white; text-decoration: none;">Jeux de Plateau</a></h1>
             <div class="header-actions">
                 <span id="app-version" class="version" style="cursor: pointer;" title="Voir les versions"></span>
                 <button id="install-btn" title="Installer l'application" style="display: none;">📥</button>
@@ -115,6 +115,17 @@
         <div id="versions-screen" class="screen">
             <h2>Versions</h2>
             <div id="versions-list">
+                <div class="version-item">
+                    <h3>Version 1.0.8</h3>
+                    <p class="version-date">15 janvier 2024</p>
+                    <ul>
+                        <li>Ajout footer avec copyright gmoulard@gmail.com</li>
+                        <li>Ajout lien GitHub sur le titre</li>
+                        <li>Affichage version dans le footer</li>
+                    </ul>
+                    <a href="https://github.com/gmoulard/JeuxPlateau/pull/new/feature/footer-copyright-v1.0.8" target="_blank" class="pr-link">Voir la PR →</a>
+                </div>
+                
                 <div class="version-item">
                     <h3>Version 1.0.7</h3>
                     <p class="version-date">15 janvier 2024</p>
@@ -217,6 +228,11 @@
             <button id="back-to-menu">Retour au menu</button>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2024 <a href="mailto:gmoulard@gmail.com">gmoulard@gmail.com</a></p>
+        <p class="footer-version">Version <span id="footer-version"></span></p>
+    </footer>
 
     <script src="js/base-game.js"></script>
     <script src="js/checkers-game.js"></script>
