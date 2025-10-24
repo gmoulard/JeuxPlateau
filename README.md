@@ -60,8 +60,25 @@ JeuxPlateau/
 
 - **HTML5** - Structure de l'application
 - **CSS3** - Styles et responsive design
-- **JavaScript** - Logique de jeu (à implémenter)
+- **JavaScript ES6+** - Logique de jeu
 - **PWA** - Fonctionnalités d'application progressive
+- **Vitest** - Tests unitaires
+- **Service Worker** - Mode hors connexion
+
+## 🧪 Tests
+
+### Exécuter les tests
+```bash
+npm install
+npm test        # Mode watch
+npm run test:ui # Interface graphique
+npm run test:run # Exécution unique
+```
+
+### Tests disponibles
+- Tests Morpion (Tic-Tac-Toe)
+- Tests Dames (Checkers)
+- Plus de tests à venir
 
 ## 📋 État du Développement
 
@@ -72,19 +89,19 @@ JeuxPlateau/
 - Configuration PWA
 - Logique principale de l'application (app.js)
 - Logique complète pour les Dames (prises obligatoires, dame)
-- Logique de base pour les Échecs
+- Logique avancée pour les Échecs (mouvements par pièce)
 - Logique complète du Backgammon
 - Logique complète des Petits Chevaux
 - Système de versioning
 - Sauvegarde locale des paramètres
 - Historique des parties
 - Refactoring: fichiers séparés par jeu (< 300 lignes)
+- Icônes PWA (192x192 et 512x512)
+- Tests unitaires avec Vitest
 
 ### 🚧 À Développer
-- [ ] Règles complètes pour les Échecs (échec, mat, roque)
-- [ ] Icônes PWA (192x192 et 512x512)
-- [ ] Tests unitaires par jeu
-- [ ] Lazy-loading des jeux
+- [ ] Règles complètes pour les Échecs (échec, mat, roque, en passant)
+- [ ] Lazy-loading des jeux (optimisation future)
 
 ## 🎨 Personnalisation
 
