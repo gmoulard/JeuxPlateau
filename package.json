@@ -1,0 +1,16 @@
+{
+  "name": "jeux-plateau",
+  "version": "1.3.0",
+  "description": "Application PWA de jeux de plateau",
+  "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^1.0.0",
+    "@vitest/ui": "^1.0.0",
+    "jsdom": "^23.0.0"
+  }
+}

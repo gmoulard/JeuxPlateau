@@ -126,7 +126,58 @@ class ChessGame extends BaseGame {
 
     isValidMove(from, to) {
         const key = `${to.row}-${to.col}`;
-        return !this.pieces[key] || this.pieces[key].player !== this.currentPlayer;
+        const fromKey = `${from.row}-${from.col}`;
+        const piece = this.pieces[fromKey];
+        
+        if (!piece) return false;
+        if (this.pieces[key] && this.pieces[key].player === this.currentPlayer) return false;
+        
+        const dx = Math.abs(to.col - from.col);
+        const dy = Math.abs(to.row - from.row);
+        const type = piece.type;
+        
+        // Validation basique par type de pièce
+        if (type === '♟' || type === '♙') { // Pion
+            const direction = piece.player === 0 ? -1 : 1;
+            const startRow = piece.player === 0 ? 6 : 1;
+            
+            if (to.col === from.col && !this.pieces[key]) {
+                if (to.row === from.row + direction) return true;
+                if (from.row === startRow && to.row === from.row + 2 * direction) return true;
+            }
+            if (dx === 1 && to.row === from.row + direction && this.pieces[key]) return true;
+        }
+        if (type === '♜' || type === '♖') { // Tour
+            return (dx === 0 || dy === 0) && this.isPathClear(from, to);
+        }
+        if (type === '♞' || type === '♘') { // Cavalier
+            return (dx === 2 && dy === 1) || (dx === 1 && dy === 2);
+        }
+        if (type === '♝' || type === '♗') { // Fou
+            return dx === dy && this.isPathClear(from, to);
+        }
+        if (type === '♛' || type === '♕') { // Dame
+            return (dx === dy || dx === 0 || dy === 0) && this.isPathClear(from, to);
+        }
+        if (type === '♚' || type === '♔') { // Roi
+            return dx <= 1 && dy <= 1;
+        }
+        
+        return false;
+    }
+    
+    isPathClear(from, to) {
+        const dx = Math.sign(to.col - from.col);
+        const dy = Math.sign(to.row - from.row);
+        let x = from.col + dx;
+        let y = from.row + dy;
+        
+        while (x !== to.col || y !== to.row) {
+            if (this.pieces[`${y}-${x}`]) return false;
+            x += dx;
+            y += dy;
+        }
+        return true;
     }
 
     movePiece(from, to) {
