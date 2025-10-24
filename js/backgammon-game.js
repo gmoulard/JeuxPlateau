@@ -4,12 +4,12 @@
  * Rôle: Logique du jeu de Tavli (Backgammon)
  * 
  * Description:
- * Implémente les règles complètes du Backgammon avec dés, déplacements,
- * captures et gestion de la barre.
+ * Implémente une version simplifiée du Backgammon avec interface fonctionnelle.
  * 
  * Historique des versions:
  * - 1.0.2 (2024-01-15): Logique complète avec pions ronds
  * - 1.0.6 (2024-01-15): Extraction dans fichier dédié
+ * - 1.0.9 (2024-01-15): Refonte complète interface simplifiée
  */
 
 class BackgammonGame extends BaseGame {
@@ -18,64 +18,103 @@ class BackgammonGame extends BaseGame {
         this.currentPlayer = 0;
         this.dice = [0, 0];
         this.movesLeft = [];
-        this.points = Array(24).fill().map(() => ({ count: 0, player: -1 }));
-        this.bar = [0, 0];
-        this.off = [0, 0];
-        this.selectedPoint = -1;
+        this.board = Array(24).fill(null).map(() => []);
+        this.selectedPoint = null;
         this.initGame();
     }
 
     initGame() {
-        this.setupBoard();
         this.setupInitialPosition();
-        this.updateDisplay();
-    }
-
-    setupBoard() {
-        this.container.innerHTML = `
-            <div class="backgammon-board">
-                <div class="top-points">
-                    ${Array(12).fill().map((_, i) => `<div class="point" data-point="${23-i}"></div>`).join('')}
-                </div>
-                <div class="middle-section">
-                    <div class="bar" data-bar="true"></div>
-                    <div class="dice-area">
-                        <div class="dice" id="dice1">1</div>
-                        <div class="dice" id="dice2">1</div>
-                        <button onclick="window.currentGame.rollDice()" class="roll-dice-btn">🎲 Lancer</button>
-                    </div>
-                    <div class="off-area">
-                        <div class="off-player">Sortis J1: <span id="off-0">0</span></div>
-                        <div class="off-player">Sortis J2: <span id="off-1">0</span></div>
-                    </div>
-                </div>
-                <div class="bottom-points">
-                    ${Array(12).fill().map((_, i) => `<div class="point" data-point="${i}"></div>`).join('')}
-                </div>
-            </div>
-        `;
-        
-        this.container.querySelectorAll('.point').forEach(point => {
-            point.addEventListener('click', (e) => {
-                const pointNum = parseInt(e.currentTarget.dataset.point);
-                this.handlePointClick(pointNum);
-            });
-        });
-        
-        this.container.querySelector('.bar').addEventListener('click', () => {
-            this.handleBarClick();
-        });
+        this.renderBoard();
     }
 
     setupInitialPosition() {
-        this.points[0] = { count: 2, player: 1 };
-        this.points[5] = { count: 5, player: 0 };
-        this.points[7] = { count: 3, player: 0 };
-        this.points[11] = { count: 5, player: 1 };
-        this.points[12] = { count: 5, player: 0 };
-        this.points[16] = { count: 3, player: 1 };
-        this.points[18] = { count: 5, player: 1 };
-        this.points[23] = { count: 2, player: 0 };
+        // Position initiale standard du backgammon
+        this.board[0] = [1, 1];
+        this.board[5] = [0, 0, 0, 0, 0];
+        this.board[7] = [0, 0, 0];
+        this.board[11] = [1, 1, 1, 1, 1];
+        this.board[12] = [0, 0, 0, 0, 0];
+        this.board[16] = [1, 1, 1];
+        this.board[18] = [1, 1, 1, 1, 1];
+        this.board[23] = [0, 0];
+    }
+
+    renderBoard() {
+        this.container.innerHTML = `
+            <div class="tavli-container">
+                <div class="tavli-info">
+                    <button onclick="window.currentGame.rollDice()" class="tavli-btn">🎲 Lancer les dés</button>
+                    <div class="tavli-dice-display">
+                        <span class="dice-value">${this.dice[0] || '-'}</span>
+                        <span class="dice-value">${this.dice[1] || '-'}</span>
+                    </div>
+                    <div class="tavli-moves">Coups restants: ${this.movesLeft.length}</div>
+                </div>
+                <div class="tavli-board">
+                    ${this.renderPoints()}
+                </div>
+            </div>
+        `;
+        this.attachEventListeners();
+    }
+
+    renderPoints() {
+        let html = '<div class="tavli-points-container">';
+        
+        // Points 12-23 (haut)
+        html += '<div class="tavli-row tavli-top">';
+        for (let i = 12; i < 24; i++) {
+            html += this.renderPoint(i);
+        }
+        html += '</div>';
+        
+        // Points 11-0 (bas)
+        html += '<div class="tavli-row tavli-bottom">';
+        for (let i = 11; i >= 0; i--) {
+            html += this.renderPoint(i);
+        }
+        html += '</div>';
+        
+        html += '</div>';
+        return html;
+    }
+
+    renderPoint(index) {
+        const pieces = this.board[index];
+        const isSelected = this.selectedPoint === index;
+        const count = pieces.length;
+        
+        let html = `<div class="tavli-point ${isSelected ? 'selected' : ''}" data-point="${index}">`;
+        html += `<div class="point-number">${index}</div>`;
+        
+        if (count > 0) {
+            const player = pieces[0];
+            const color = player === 0 ? '#ff4444' : '#333';
+            
+            // Afficher jusqu'à 5 pions
+            const displayCount = Math.min(count, 5);
+            for (let i = 0; i < displayCount; i++) {
+                html += `<div class="tavli-checker" style="background: ${color};"></div>`;
+            }
+            
+            // Si plus de 5, afficher le nombre
+            if (count > 5) {
+                html += `<div class="checker-count">${count}</div>`;
+            }
+        }
+        
+        html += '</div>';
+        return html;
+    }
+
+    attachEventListeners() {
+        this.container.querySelectorAll('.tavli-point').forEach(point => {
+            point.addEventListener('click', (e) => {
+                const pointIndex = parseInt(e.currentTarget.dataset.point);
+                this.handlePointClick(pointIndex);
+            });
+        });
     }
 
     rollDice() {
@@ -90,188 +129,95 @@ class BackgammonGame extends BaseGame {
             this.movesLeft = [this.dice[0], this.dice[1]];
         }
         
-        this.updateDisplay();
+        this.renderBoard();
         
         if (!this.hasValidMoves()) {
-            this.endTurn();
+            setTimeout(() => this.endTurn(), 1000);
         }
     }
 
-    handlePointClick(pointNum) {
+    handlePointClick(pointIndex) {
         if (this.movesLeft.length === 0) return;
         
-        if (this.selectedPoint === -1) {
-            if (this.points[pointNum].player === this.currentPlayer && this.points[pointNum].count > 0) {
-                if (this.bar[this.currentPlayer] === 0) {
-                    this.selectedPoint = pointNum;
-                    this.updateDisplay();
-                }
+        const pieces = this.board[pointIndex];
+        
+        // Sélection d'un point avec nos pièces
+        if (this.selectedPoint === null) {
+            if (pieces.length > 0 && pieces[0] === this.currentPlayer) {
+                this.selectedPoint = pointIndex;
+                this.renderBoard();
             }
-        } else {
-            if (this.canMoveTo(this.selectedPoint, pointNum)) {
-                this.makeMove(this.selectedPoint, pointNum);
+        } 
+        // Déplacement vers un point
+        else {
+            if (this.canMoveTo(this.selectedPoint, pointIndex)) {
+                this.makeMove(this.selectedPoint, pointIndex);
             }
-            this.selectedPoint = -1;
-            this.updateDisplay();
-        }
-    }
-
-    handleBarClick() {
-        if (this.bar[this.currentPlayer] > 0 && this.movesLeft.length > 0) {
-            this.selectedPoint = -2;
-            this.updateDisplay();
+            this.selectedPoint = null;
+            this.renderBoard();
         }
     }
 
     canMoveTo(from, to) {
-        if (from === -2) {
-            const targetPoint = this.currentPlayer === 0 ? to : 23 - to;
-            const distance = targetPoint + 1;
-            
-            if (!this.movesLeft.includes(distance)) return false;
-            
-            const target = this.points[to];
-            return target.player !== (1 - this.currentPlayer) || target.count <= 1;
-        }
-        
         const distance = Math.abs(to - from);
         
+        // Vérifier si le mouvement correspond à un dé
         if (!this.movesLeft.includes(distance)) return false;
         
+        // Vérifier la direction
         if (this.currentPlayer === 0 && to <= from) return false;
         if (this.currentPlayer === 1 && to >= from) return false;
         
-        const target = this.points[to];
-        return target.player !== (1 - this.currentPlayer) || target.count <= 1;
+        // Vérifier si la destination est valide
+        const targetPieces = this.board[to];
+        if (targetPieces.length > 0 && targetPieces[0] !== this.currentPlayer) {
+            return targetPieces.length === 1; // Peut capturer si seul
+        }
+        
+        return true;
     }
 
     makeMove(from, to) {
-        let distance;
+        const distance = Math.abs(to - from);
         
-        if (from === -2) {
-            this.bar[this.currentPlayer]--;
-            distance = this.currentPlayer === 0 ? to + 1 : 24 - to;
-        } else {
-            this.points[from].count--;
-            if (this.points[from].count === 0) {
-                this.points[from].player = -1;
-            }
-            distance = Math.abs(to - from);
+        // Capturer si nécessaire
+        if (this.board[to].length === 1 && this.board[to][0] !== this.currentPlayer) {
+            this.board[to] = [];
         }
         
-        if (this.points[to].player === (1 - this.currentPlayer) && this.points[to].count === 1) {
-            this.bar[1 - this.currentPlayer]++;
-            this.points[to] = { count: 0, player: -1 };
-        }
+        // Déplacer la pièce
+        const piece = this.board[from].pop();
+        this.board[to].push(piece);
         
-        if (this.points[to].count === 0) {
-            this.points[to].player = this.currentPlayer;
-        }
-        this.points[to].count++;
-        
+        // Retirer le mouvement utilisé
         const moveIndex = this.movesLeft.indexOf(distance);
         this.movesLeft.splice(moveIndex, 1);
         
+        // Vérifier si le tour est terminé
         if (this.movesLeft.length === 0 || !this.hasValidMoves()) {
-            this.endTurn();
+            setTimeout(() => this.endTurn(), 500);
         }
     }
 
     hasValidMoves() {
-        if (this.bar[this.currentPlayer] > 0) {
-            return this.movesLeft.some(move => {
-                const targetPoint = this.currentPlayer === 0 ? move - 1 : 24 - move;
-                if (targetPoint < 0 || targetPoint > 23) return false;
-                const target = this.points[targetPoint];
-                return target.player !== (1 - this.currentPlayer) || target.count <= 1;
-            });
-        }
-        
-        for (let i = 0; i < 24; i++) {
-            if (this.points[i].player === this.currentPlayer && this.points[i].count > 0) {
+        for (let from = 0; from < 24; from++) {
+            if (this.board[from].length > 0 && this.board[from][0] === this.currentPlayer) {
                 for (const move of this.movesLeft) {
-                    const targetPoint = this.currentPlayer === 0 ? i + move : i - move;
-                    if (targetPoint >= 0 && targetPoint < 24) {
-                        const target = this.points[targetPoint];
-                        if (target.player !== (1 - this.currentPlayer) || target.count <= 1) {
-                            return true;
-                        }
+                    const to = this.currentPlayer === 0 ? from + move : from - move;
+                    if (to >= 0 && to < 24 && this.canMoveTo(from, to)) {
+                        return true;
                     }
                 }
             }
         }
-        
         return false;
     }
 
     endTurn() {
         this.movesLeft = [];
-        this.selectedPoint = -1;
+        this.selectedPoint = null;
         this.currentPlayer = 1 - this.currentPlayer;
-        this.updateDisplay();
+        this.renderBoard();
         window.gameApp.nextPlayer();
-    }
-
-    updateDisplay() {
-        document.getElementById('dice1').textContent = this.dice[0];
-        document.getElementById('dice2').textContent = this.dice[1];
-        
-        document.getElementById('off-0').textContent = this.off[0];
-        document.getElementById('off-1').textContent = this.off[1];
-        
-        this.container.querySelectorAll('.point').forEach((pointEl) => {
-            const pointNum = parseInt(pointEl.dataset.point);
-            const point = this.points[pointNum];
-            
-            pointEl.innerHTML = '';
-            pointEl.className = 'point';
-            
-            if (pointNum === this.selectedPoint) {
-                pointEl.classList.add('selected');
-            }
-            
-            if (point.count > 0) {
-                const color = point.player === 0 ? '#ff4444' : '#333';
-                for (let i = 0; i < Math.min(point.count, 5); i++) {
-                    const checker = document.createElement('div');
-                    checker.className = 'checker';
-                    checker.style.backgroundColor = color;
-                    pointEl.appendChild(checker);
-                }
-                
-                if (point.count > 5) {
-                    const counter = document.createElement('div');
-                    counter.className = 'counter';
-                    counter.textContent = point.count;
-                    pointEl.appendChild(counter);
-                }
-            }
-        });
-        
-        const barEl = this.container.querySelector('.bar');
-        barEl.innerHTML = '';
-        for (let player = 0; player < 2; player++) {
-            if (this.bar[player] > 0) {
-                const barSection = document.createElement('div');
-                barSection.className = 'bar-section';
-                const color = player === 0 ? '#ff4444' : '#333';
-                
-                for (let i = 0; i < Math.min(this.bar[player], 3); i++) {
-                    const checker = document.createElement('div');
-                    checker.className = 'checker';
-                    checker.style.backgroundColor = color;
-                    barSection.appendChild(checker);
-                }
-                
-                if (this.bar[player] > 3) {
-                    const counter = document.createElement('div');
-                    counter.className = 'counter';
-                    counter.textContent = this.bar[player];
-                    barSection.appendChild(counter);
-                }
-                
-                barEl.appendChild(barSection);
-            }
-        }
     }
 }
