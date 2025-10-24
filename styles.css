@@ -19,6 +19,67 @@ header {
     align-items: center;
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.version {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+#history-btn {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#history-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#history-list {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-game {
+    font-weight: bold;
+    color: #2196F3;
+}
+
+.history-date {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.history-players {
+    font-size: 0.9rem;
+    color: #333;
+}
+
 .screen {
     display: none;
     padding: 2rem;
@@ -286,18 +347,12 @@ button:hover {
         font-size: 1.5rem;
     }
     
-    .backgammon-board {
-        max-width: 100%;
-        padding: 5px;
+    .header-actions {
+        flex-direction: column;
+        gap: 0.5rem;
     }
     
-    .point {
-        width: 25px;
-        height: 150px;
-    }
-    
-    .checker {
-        width: 20px;
-        height: 10px;
+    .version {
+        font-size: 0.8rem;
     }
 }

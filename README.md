@@ -16,6 +16,9 @@ Une application web progressive (PWA) pour jouer aux jeux de plateau classiques.
 - Multijoueur local (2-4 joueurs selon le jeu)
 - Interface en français
 - Design moderne et intuitif
+- Numéro de version visible dans l'application
+- Sauvegarde automatique des paramètres (noms des joueurs)
+- Historique local des parties jouées
 
 ## 📱 Installation
 
@@ -67,12 +70,14 @@ JeuxPlateau/
 - Logique de base pour les Échecs
 - Logique complète du Backgammon
 - Structure pour les Petits Chevaux
+- Système de versioning
+- Sauvegarde locale des paramètres
+- Historique des parties
 
 ### 🚧 À Développer
 - [ ] Règles avancées pour les Dames (prise, dame)
 - [ ] Règles complètes pour les Échecs (échec, mat, roque)
 - [ ] Logique complète des Petits Chevaux
-- [ ] Système de sauvegarde des parties
 - [ ] Icônes PWA (192x192 et 512x512)
 
 ## 🎨 Personnalisation
