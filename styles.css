@@ -26,6 +26,13 @@ body {
     font-family: Arial, sans-serif;
     background: #f5f5f5;
     color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#app {
+    flex: 1;
 }
 
 header {
@@ -659,6 +666,33 @@ button:hover {
     border-radius: 50%;
     border: 1px solid #333;
     margin: 1px;
+}
+
+footer {
+    background: #2196F3;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+footer p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: white;
+    text-decoration: underline;
+}
+
+footer a:hover {
+    opacity: 0.8;
+}
+
+.footer-version {
+    font-size: 0.8rem;
+    opacity: 0.9;
 }
 
 @media (max-width: 768px) {

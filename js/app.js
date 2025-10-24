@@ -41,9 +41,11 @@ class GameApp {
             const data = await response.json();
             this.version = data.version;
             document.getElementById('app-version').textContent = `v${this.version}`;
+            document.getElementById('footer-version').textContent = this.version;
         } catch (e) {
             this.version = '1.0.0';
             document.getElementById('app-version').textContent = 'v1.0.0';
+            document.getElementById('footer-version').textContent = '1.0.0';
         }
     }
 
