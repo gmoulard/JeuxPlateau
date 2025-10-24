@@ -130,16 +130,16 @@ class GameApp {
         
         switch(this.currentGame) {
             case 'checkers':
-                new CheckersGame(container, this.players);
+                window.currentGame = new CheckersGame(container, this.players);
                 break;
             case 'chess':
-                new ChessGame(container, this.players);
+                window.currentGame = new ChessGame(container, this.players);
                 break;
             case 'backgammon':
-                new BackgammonGame(container, this.players);
+                window.currentGame = new BackgammonGame(container, this.players);
                 break;
             case 'ludo':
-                new LudoGame(container, this.players);
+                window.currentGame = new LudoGame(container, this.players);
                 break;
         }
     }
