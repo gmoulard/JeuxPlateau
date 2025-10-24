@@ -40,11 +40,9 @@ class GameApp {
             const response = await fetch('version.json');
             const data = await response.json();
             this.version = data.version;
-            document.getElementById('app-version').textContent = `v${this.version}`;
             document.getElementById('footer-version').textContent = this.version;
         } catch (e) {
             this.version = '1.0.0';
-            document.getElementById('app-version').textContent = 'v1.0.0';
             document.getElementById('footer-version').textContent = '1.0.0';
         }
     }
@@ -95,9 +93,12 @@ class GameApp {
         document.getElementById('back-from-history').addEventListener('click', () => this.showScreen('game-selection'));
         document.getElementById('game-help-btn').addEventListener('click', () => this.showGameHelp());
         document.getElementById('close-game-help').addEventListener('click', () => this.hideGameHelp());
-        document.getElementById('app-version').addEventListener('click', () => this.showScreen('versions-screen'));
         document.getElementById('back-from-versions').addEventListener('click', () => this.showScreen('game-selection'));
         document.getElementById('install-btn').addEventListener('click', () => this.installPWA());
+        document.getElementById('footer-version-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showScreen('versions-screen');
+        });
     }
 
     setupPWA() {
@@ -183,7 +184,7 @@ class GameApp {
         container.innerHTML = '';
         
         const diceContainer = document.getElementById('dice-container');
-        if (this.currentGame === 'checkers' || this.currentGame === 'chess' || this.currentGame === 'backgammon') {
+        if (this.currentGame === 'checkers' || this.currentGame === 'chess') {
             diceContainer.style.display = 'none';
         } else {
             diceContainer.style.display = 'flex';
@@ -278,9 +279,13 @@ class GameApp {
     }
 
     rollDice() {
-        const result = Math.floor(Math.random() * 6) + 1;
-        document.getElementById('dice-result').textContent = result;
-        return result;
+        if (this.currentGame === 'backgammon' && window.currentGame) {
+            window.currentGame.rollDice();
+        } else {
+            const result = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('dice-result').textContent = result;
+            return result;
+        }
     }
 
     showScreen(screenId) {

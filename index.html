@@ -30,7 +30,6 @@
         <header>
             <h1><a href="https://github.com/gmoulard/JeuxPlateau" target="_blank" style="color: white; text-decoration: none;">Jeux de Plateau</a></h1>
             <div class="header-actions">
-                <span id="app-version" class="version" style="cursor: pointer;" title="Voir les versions"></span>
                 <button id="install-btn" title="Installer l'application" style="display: none;">📥</button>
                 <button id="help-btn" title="Aide">❓</button>
                 <button id="history-btn" title="Historique">📊</button>
@@ -115,6 +114,19 @@
         <div id="versions-screen" class="screen">
             <h2>Versions</h2>
             <div id="versions-list">
+                <div class="version-item">
+                    <h3>Version 1.1.1</h3>
+                    <p class="version-date">15 janvier 2024</p>
+                    <ul>
+                        <li>Tavli: Bouton lancer dés réactivé dans header</li>
+                        <li>Échecs: Affichage pièces capturées</li>
+                        <li>Échecs: Historique des coups joués</li>
+                        <li>Suppression numéro version du header</li>
+                        <li>Lien vers versions dans footer</li>
+                    </ul>
+                    <a href="https://github.com/gmoulard/JeuxPlateau/pull/new/feature/improvements-v1.1.1" target="_blank" class="pr-link">Voir la PR →</a>
+                </div>
+                
                 <div class="version-item">
                     <h3>Version 1.1.0</h3>
                     <p class="version-date">15 janvier 2024</p>
@@ -256,7 +268,7 @@
 
     <footer>
         <p>&copy; 2024 <a href="mailto:gmoulard@gmail.com">gmoulard@gmail.com</a></p>
-        <p class="footer-version">Version <span id="footer-version"></span></p>
+        <p class="footer-version"><a href="#" id="footer-version-link" style="color: white; text-decoration: underline;">Version <span id="footer-version"></span></a></p>
     </footer>
 
     <script src="js/base-game.js"></script>
