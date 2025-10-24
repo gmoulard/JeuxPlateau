@@ -1,3 +1,24 @@
+/**
+ * Fichier: games.js
+ * Auteur: Guillaume Moulard
+ * Rôle: Logique des jeux de plateau
+ * 
+ * Description:
+ * Contient les classes pour tous les jeux disponibles dans l'application:
+ * - BaseGame: Classe de base avec fonctionnalités communes
+ * - CheckersGame: Jeu de Dames avec règles avancées (prises, dame)
+ * - ChessGame: Jeu d'Échecs avec logique de base
+ * - BackgammonGame: Jeu de Tavli (Backgammon) avec règles complètes
+ * - LudoGame: Jeu des Petits Chevaux avec règles complètes
+ * 
+ * Historique des versions:
+ * - 1.0.0 (2024-01-15): Création avec logique de base Dames et Échecs
+ * - 1.0.1 (2024-01-15): Amélioration Dames (prises obligatoires, dame)
+ * - 1.0.2 (2024-01-15): Logique complète Tavli avec pions ronds
+ * - 1.0.3 (2024-01-15): Logique complète Petits Chevaux
+ * - 1.0.4 (2024-01-15): Ajout en-têtes de documentation
+ */
+
 // Classe de base pour tous les jeux
 class BaseGame {
     constructor(container, players) {

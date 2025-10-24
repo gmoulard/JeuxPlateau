@@ -1,3 +1,21 @@
+/**
+ * Fichier: styles.css
+ * Auteur: Guillaume Moulard
+ * Rôle: Feuille de styles principale
+ * 
+ * Description:
+ * Définit tous les styles CSS de l'application incluant le layout général,
+ * les styles des jeux (Dames, Échecs, Tavli, Petits Chevaux), les écrans
+ * d'aide, d'historique et de versions, ainsi que le responsive design.
+ * 
+ * Historique des versions:
+ * - 1.0.0 (2024-01-15): Création avec styles de base
+ * - 1.0.1 (2024-01-15): Ajout styles plateaux carrés Dames/Échecs
+ * - 1.0.2 (2024-01-15): Ajout styles Tavli avec pions ronds
+ * - 1.0.3 (2024-01-15): Ajout styles Petits Chevaux
+ * - 1.0.4 (2024-01-15): Ajout en-têtes de documentation
+ */
+
 * {
     margin: 0;
     padding: 0;

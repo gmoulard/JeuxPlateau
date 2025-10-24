@@ -1,3 +1,21 @@
+/**
+ * Fichier: app.js
+ * Auteur: Guillaume Moulard
+ * Rôle: Contrôleur principal de l'application
+ * 
+ * Description:
+ * Gère la logique principale de l'application Jeux de Plateau, incluant
+ * la navigation entre les écrans, la gestion des joueurs, le versioning,
+ * la sauvegarde locale et l'historique des parties.
+ * 
+ * Historique des versions:
+ * - 1.0.0 (2024-01-15): Création initiale avec navigation de base
+ * - 1.0.1 (2024-01-15): Ajout versioning, sauvegarde locale, historique
+ * - 1.0.2 (2024-01-15): Ajout page des versions
+ * - 1.0.3 (2024-01-15): Support complet des Petits Chevaux
+ * - 1.0.4 (2024-01-15): Ajout en-têtes de documentation
+ */
+
 class GameApp {
     constructor() {
         this.currentGame = null;
