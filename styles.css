@@ -528,12 +528,41 @@ button:hover {
     color: #2196F3;
 }
 
-.tavli-captured {
+.tavli-bar {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 1rem;
+}
+
+.bar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.9rem;
     font-weight: bold;
+}
+
+.bar-checker {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.bar-checker:hover {
+    transform: scale(1.1);
+}
+
+.bar-checker.selected {
+    border-color: #FFD700;
+    box-shadow: 0 0 10px #FFD700;
 }
 
 .tavli-board {
@@ -553,6 +582,12 @@ button:hover {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 4px;
+}
+
+.tavli-spacer {
+    width: 30px;
+    background: #654321;
+    border-radius: 4px;
 }
 
 .tavli-point {

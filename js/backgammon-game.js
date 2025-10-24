@@ -20,8 +20,9 @@ class BackgammonGame extends BaseGame {
         this.dice = [0, 0];
         this.movesLeft = [];
         this.board = Array(24).fill(null).map(() => []);
-        this.captured = [0, 0]; // Pions capturés par joueur
+        this.bar = [0, 0]; // Pions sur la barre (capturés)
         this.selectedPoint = null;
+        this.selectedBar = false;
         this.initGame();
     }
 
@@ -53,9 +54,15 @@ class BackgammonGame extends BaseGame {
                         <span class="dice-value">${this.dice[1] || '-'}</span>
                     </div>
                     <div class="tavli-moves">Coups: ${this.movesLeft.length}</div>
-                    <div class="tavli-captured">
-                        <div>🔴 Capturés: ${this.captured[0]}</div>
-                        <div>⚫ Capturés: ${this.captured[1]}</div>
+                    <div class="tavli-bar">
+                        <div class="bar-section" data-bar="0">
+                            <div>🔴 Barre: ${this.bar[0]}</div>
+                            ${this.renderBarPieces(0)}
+                        </div>
+                        <div class="bar-section" data-bar="1">
+                            <div>⚫ Barre: ${this.bar[1]}</div>
+                            ${this.renderBarPieces(1)}
+                        </div>
                     </div>
                 </div>
                 <div class="tavli-board">
@@ -73,6 +80,7 @@ class BackgammonGame extends BaseGame {
         html += '<div class="tavli-row tavli-top">';
         for (let i = 12; i < 24; i++) {
             html += this.renderPoint(i);
+            if (i === 17) html += '<div class="tavli-spacer"></div>';
         }
         html += '</div>';
         
@@ -80,11 +88,19 @@ class BackgammonGame extends BaseGame {
         html += '<div class="tavli-row tavli-bottom">';
         for (let i = 11; i >= 0; i--) {
             html += this.renderPoint(i);
+            if (i === 6) html += '<div class="tavli-spacer"></div>';
         }
         html += '</div>';
         
         html += '</div>';
         return html;
+    }
+
+    renderBarPieces(player) {
+        if (this.bar[player] === 0) return '';
+        const color = player === 0 ? '#ff4444' : '#333';
+        const isSelected = this.selectedBar && this.currentPlayer === player;
+        return `<div class="bar-checker ${isSelected ? 'selected' : ''}" style="background: ${color};" data-bar-player="${player}">${this.bar[player]}</div>`;
     }
 
     renderPoint(index) {
@@ -122,6 +138,22 @@ class BackgammonGame extends BaseGame {
                 this.handlePointClick(pointIndex);
             });
         });
+        
+        this.container.querySelectorAll('.bar-checker').forEach(checker => {
+            checker.addEventListener('click', (e) => {
+                const player = parseInt(e.currentTarget.dataset.barPlayer);
+                this.handleBarClick(player);
+            });
+        });
+    }
+
+    handleBarClick(player) {
+        if (this.movesLeft.length === 0 || player !== this.currentPlayer) return;
+        if (this.bar[player] === 0) return;
+        
+        this.selectedBar = true;
+        this.selectedPoint = null;
+        this.renderBoard();
     }
 
     rollDice() {
@@ -146,7 +178,22 @@ class BackgammonGame extends BaseGame {
     handlePointClick(pointIndex) {
         if (this.movesLeft.length === 0) return;
         
+        // Si on a des pions sur la barre, on doit d'abord les réintroduire
+        if (this.bar[this.currentPlayer] > 0 && !this.selectedBar) {
+            return;
+        }
+        
         const pieces = this.board[pointIndex];
+        
+        // Réintroduction depuis la barre
+        if (this.selectedBar) {
+            if (this.canEnterFromBar(pointIndex)) {
+                this.enterFromBar(pointIndex);
+            }
+            this.selectedBar = false;
+            this.renderBoard();
+            return;
+        }
         
         // Sélection d'un point avec nos pièces
         if (this.selectedPoint === null) {
@@ -184,13 +231,57 @@ class BackgammonGame extends BaseGame {
         return true;
     }
 
+    canEnterFromBar(to) {
+        // Joueur 0 entre par 0-5, Joueur 1 entre par 18-23
+        const validRange = this.currentPlayer === 0 ? (to >= 0 && to <= 5) : (to >= 18 && to <= 23);
+        if (!validRange) return false;
+        
+        // Calculer la distance depuis l'entrée
+        const entryPoint = this.currentPlayer === 0 ? -1 : 24;
+        const distance = Math.abs(to - entryPoint);
+        
+        if (!this.movesLeft.includes(distance)) return false;
+        
+        // Vérifier si la destination est valide
+        const targetPieces = this.board[to];
+        if (targetPieces.length > 0 && targetPieces[0] !== this.currentPlayer) {
+            return targetPieces.length === 1;
+        }
+        
+        return true;
+    }
+
+    enterFromBar(to) {
+        const entryPoint = this.currentPlayer === 0 ? -1 : 24;
+        const distance = Math.abs(to - entryPoint);
+        
+        // Capturer si nécessaire
+        if (this.board[to].length === 1 && this.board[to][0] !== this.currentPlayer) {
+            const capturedPlayer = this.board[to][0];
+            this.bar[capturedPlayer]++;
+            this.board[to] = [];
+        }
+        
+        // Placer le pion
+        this.bar[this.currentPlayer]--;
+        this.board[to].push(this.currentPlayer);
+        
+        // Retirer le mouvement utilisé
+        const moveIndex = this.movesLeft.indexOf(distance);
+        this.movesLeft.splice(moveIndex, 1);
+        
+        if (this.movesLeft.length === 0 || !this.hasValidMoves()) {
+            setTimeout(() => this.endTurn(), 500);
+        }
+    }
+
     makeMove(from, to) {
         const distance = Math.abs(to - from);
         
         // Capturer si nécessaire
         if (this.board[to].length === 1 && this.board[to][0] !== this.currentPlayer) {
             const capturedPlayer = this.board[to][0];
-            this.captured[capturedPlayer]++;
+            this.bar[capturedPlayer]++;
             this.board[to] = [];
         }
         
@@ -209,6 +300,16 @@ class BackgammonGame extends BaseGame {
     }
 
     hasValidMoves() {
+        // Si on a des pions sur la barre, vérifier si on peut les réintroduire
+        if (this.bar[this.currentPlayer] > 0) {
+            const range = this.currentPlayer === 0 ? [0, 5] : [18, 23];
+            for (let to = range[0]; to <= range[1]; to++) {
+                if (this.canEnterFromBar(to)) return true;
+            }
+            return false;
+        }
+        
+        // Sinon vérifier les mouvements normaux
         for (let from = 0; from < 24; from++) {
             if (this.board[from].length > 0 && this.board[from][0] === this.currentPlayer) {
                 for (const move of this.movesLeft) {
@@ -225,6 +326,7 @@ class BackgammonGame extends BaseGame {
     endTurn() {
         this.movesLeft = [];
         this.selectedPoint = null;
+        this.selectedBar = false;
         this.currentPlayer = 1 - this.currentPlayer;
         this.renderBoard();
         window.gameApp.nextPlayer();
