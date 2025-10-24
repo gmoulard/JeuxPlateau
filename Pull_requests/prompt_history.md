@@ -131,3 +131,8 @@ Dans la page de liste des jeux ajoute un petit logo devant chaque jeux
 ```
 Dans le jeux d'abalone les bille peuvent se deplacer dans tout les sense
 ```
+
+#### v1.4.4 - Abalone No Control
+```
+ne fait aucun control de deplacement sur les boule de l'abalonne
+```

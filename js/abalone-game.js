@@ -132,64 +132,17 @@ class AbaloneGame extends BaseGame {
             }
             this.renderBoard();
         }
-        // Déplacement vers case vide ou poussée
-        else if (this.selected.length > 0 && (piece === null || piece !== this.currentPlayer)) {
-            if (this.canMove(this.selected, cellId)) {
-                this.makeMove(this.selected, cellId);
-                this.selected = [];
-                this.currentPlayer = 1 - this.currentPlayer;
-                this.renderBoard();
-                window.gameApp.nextPlayer();
-            }
+        // Déplacement libre sans contrôle
+        else if (this.selected.length > 0) {
+            this.makeMove(this.selected, cellId);
+            this.selected = [];
+            this.currentPlayer = 1 - this.currentPlayer;
+            this.renderBoard();
+            window.gameApp.nextPlayer();
         }
     }
 
-    canMove(selected, target) {
-        if (selected.length === 0) return false;
-        
-        // Pour 1 bille, peut aller dans n'importe quelle direction vers case vide ou adjacente
-        if (selected.length === 1) {
-            const direction = this.getDirection(selected[0], target);
-            if (!direction) return false;
-            
-            // Case vide ou poussée possible
-            if (this.board[target] === null) return true;
-            if (this.board[target] !== this.currentPlayer) return true;
-            return false;
-        }
-        
-        // Pour 2-3 billes, vérifier alignement
-        if (!this.areAligned(selected)) return false;
-        
-        // Vérifier direction depuis n'importe quelle bille sélectionnée
-        let direction = null;
-        for (const cell of selected) {
-            direction = this.getDirection(cell, target);
-            if (direction) break;
-        }
-        if (!direction) return false;
-        
-        // Vérifier que toutes les billes peuvent se déplacer
-        return selected.every(cell => {
-            const next = this.getNeighbor(cell, direction);
-            return next !== null || this.board[cell] !== null;
-        });
-    }
 
-    areAligned(cells) {
-        if (cells.length === 1) return true;
-        if (cells.length === 2) return true;
-        
-        // Pour 3 billes, vérifier qu'elles sont alignées
-        const sorted = [...cells].sort();
-        const dir = this.getDirection(sorted[0], sorted[1]);
-        if (!dir) return false;
-        
-        const middle = this.getNeighbor(sorted[0], dir);
-        const end = this.getNeighbor(middle, dir);
-        
-        return sorted[1] === middle && sorted[2] === end;
-    }
 
     getDirection(from, to) {
         const directions = ['E', 'W', 'NE', 'NW', 'SE', 'SW'];
@@ -219,49 +172,20 @@ class AbaloneGame extends BaseGame {
     }
 
     makeMove(selected, target) {
-        // Trouver la direction depuis n'importe quelle bille
-        let direction = null;
-        for (const cell of selected) {
-            direction = this.getDirection(cell, target);
-            if (direction) break;
-        }
-        
-        // Pousser les billes adverses si nécessaire
+        // Si bille adverse sur target, l'éjecter
         if (this.board[target] !== null && this.board[target] !== this.currentPlayer) {
-            this.pushPieces(target, direction);
+            const opponent = this.board[target];
+            this.ejected[opponent]++;
         }
         
-        // Déplacer chaque bille
-        const moved = [];
-        selected.forEach(cell => {
-            const next = this.getNeighbor(cell, direction);
-            if (next) {
-                moved.push({ from: cell, to: next });
-            }
-        });
-
         // Vider les cases de départ
         selected.forEach(cell => this.board[cell] = null);
         
-        // Appliquer les déplacements
-        moved.forEach(m => {
-            this.board[m.to] = this.currentPlayer;
-        });
+        // Placer la première bille sur la cible
+        this.board[target] = this.currentPlayer;
     }
 
-    pushPieces(cell, direction) {
-        const next = this.getNeighbor(cell, direction);
-        if (next === null) {
-            // Éjection
-            const player = this.board[cell];
-            this.ejected[player]++;
-            this.board[cell] = null;
-        } else if (this.board[next] !== null) {
-            this.pushPieces(next, direction);
-            this.board[next] = this.board[cell];
-            this.board[cell] = null;
-        }
-    }
+
 
     deselectAll() {
         this.selected = [];
