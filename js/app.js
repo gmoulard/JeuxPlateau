@@ -65,6 +65,8 @@ class GameApp {
         document.getElementById('start-game').addEventListener('click', () => this.startGame());
         document.getElementById('back-to-menu').addEventListener('click', () => this.backToMenu());
         document.getElementById('roll-dice').addEventListener('click', () => this.rollDice());
+        document.getElementById('help-btn').addEventListener('click', () => this.showScreen('help-screen'));
+        document.getElementById('back-from-help').addEventListener('click', () => this.showScreen('game-selection'));
         document.getElementById('history-btn').addEventListener('click', () => this.showHistory());
         document.getElementById('back-from-history').addEventListener('click', () => this.showScreen('game-selection'));
     }
