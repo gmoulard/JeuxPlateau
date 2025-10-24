@@ -74,16 +74,12 @@ class GameApp {
         document.getElementById('game-title').textContent = this.getGameTitle(gameType);
         this.showScreen('game-setup');
         
-        if (this.savedSettings && this.savedSettings.gameType === gameType) {
-            document.getElementById('player-count').value = this.savedSettings.playerCount;
-            this.updatePlayerInputs(this.savedSettings.playerCount);
-            setTimeout(() => {
-                const inputs = document.querySelectorAll('.player-input');
-                this.savedSettings.playerNames.forEach((name, i) => {
-                    if (inputs[i]) inputs[i].value = name;
-                });
-            }, 0);
+        const playerCountSelect = document.getElementById('player-count');
+        if (gameType === 'ludo') {
+            playerCountSelect.parentElement.style.display = 'block';
+            this.updatePlayerInputs(2);
         } else {
+            playerCountSelect.parentElement.style.display = 'none';
             this.updatePlayerInputs(2);
         }
     }
@@ -127,6 +123,13 @@ class GameApp {
     initializeBoard() {
         const container = document.getElementById('board-container');
         container.innerHTML = '';
+        
+        const diceContainer = document.getElementById('dice-container');
+        if (this.currentGame === 'checkers' || this.currentGame === 'chess') {
+            diceContainer.style.display = 'none';
+        } else {
+            diceContainer.style.display = 'flex';
+        }
         
         switch(this.currentGame) {
             case 'checkers':
