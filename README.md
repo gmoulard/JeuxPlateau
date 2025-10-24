@@ -65,13 +65,12 @@ JeuxPlateau/
 - Logique principale de l'application (app.js)
 - Logique de base pour les Dames
 - Logique de base pour les Échecs
-- Structure pour le Backgammon
+- Logique complète du Backgammon
 - Structure pour les Petits Chevaux
 
 ### 🚧 À Développer
 - [ ] Règles avancées pour les Dames (prise, dame)
 - [ ] Règles complètes pour les Échecs (échec, mat, roque)
-- [ ] Logique complète du Backgammon
 - [ ] Logique complète des Petits Chevaux
 - [ ] Système de sauvegarde des parties
 - [ ] Icônes PWA (192x192 et 512x512)
