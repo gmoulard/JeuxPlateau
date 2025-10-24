@@ -1,12 +1,13 @@
-pages:
-  stage: deploy
+image: node:18
+
+stages:
+  - test
+
+test:
+  stage: test
   script:
-    - mkdir .public
-    - cp -r * .public
-    - rm -rf public
-    - mv .public public
-  artifacts:
+    - npm install
+    - npm run test:run
+  cache:
     paths:
-      - public
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      - node_modules/

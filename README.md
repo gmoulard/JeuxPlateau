@@ -80,6 +80,11 @@ npm run test:run # Exécution unique
 - Tests Dames (Checkers)
 - Plus de tests à venir
 
+### CI/CD
+- GitLab CI configuré pour exécuter les tests automatiquement
+- Tests lancés à chaque push
+- Cache npm pour optimiser les builds
+
 ## 📋 État du Développement
 
 ### ✅ Terminé
