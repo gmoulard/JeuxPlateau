@@ -23,15 +23,15 @@ class CheckersGame extends BaseGame {
     }
 
     initGame() {
-        const boardEl = this.createBoard(8, 8);
+        const boardEl = this.createBoard(10, 10);
         boardEl.classList.add('checkers-board');
         this.setupPieces();
         this.colorBoard();
     }
 
     colorBoard() {
-        for (let row = 0; row < 8; row++) {
-            for (let col = 0; col < 8; col++) {
+        for (let row = 0; row < 10; row++) {
+            for (let col = 0; col < 10; col++) {
                 if ((row + col) % 2 === 1) {
                     this.board[row][col].classList.add('dark');
                 }
@@ -40,16 +40,16 @@ class CheckersGame extends BaseGame {
     }
 
     setupPieces() {
-        for (let row = 0; row < 3; row++) {
-            for (let col = 0; col < 8; col++) {
+        for (let row = 0; row < 4; row++) {
+            for (let col = 0; col < 10; col++) {
                 if ((row + col) % 2 === 1) {
                     this.pieces[`${row}-${col}`] = { player: 0, king: false };
                     this.renderPiece(row, col);
                 }
             }
         }
-        for (let row = 5; row < 8; row++) {
-            for (let col = 0; col < 8; col++) {
+        for (let row = 6; row < 10; row++) {
+            for (let col = 0; col < 10; col++) {
                 if ((row + col) % 2 === 1) {
                     this.pieces[`${row}-${col}`] = { player: 1, king: false };
                     this.renderPiece(row, col);
@@ -146,7 +146,7 @@ class CheckersGame extends BaseGame {
             
             const newRow = row + dy;
             const newCol = col + dx;
-            if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7) continue;
+            if (newRow < 0 || newRow > 9 || newCol < 0 || newCol > 9) continue;
             
             const midRow = row + dy / 2;
             const midCol = col + dx / 2;
@@ -173,7 +173,7 @@ class CheckersGame extends BaseGame {
             this.board[capRow][capCol].innerHTML = '';
         }
         
-        if ((to.row === 7 && this.currentPlayer === 0) || (to.row === 0 && this.currentPlayer === 1)) {
+        if ((to.row === 9 && this.currentPlayer === 0) || (to.row === 0 && this.currentPlayer === 1)) {
             this.pieces[toKey].king = true;
         }
         
