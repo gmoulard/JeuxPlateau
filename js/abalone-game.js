@@ -84,19 +84,19 @@ class AbaloneGame extends BaseGame {
     renderHexBoard() {
         const rows = [
             { label: 'I', cells: ['I1', 'I2', 'I3', 'I4', 'I5'], offset: 4 },
-            { label: 'H', cells: ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'], offset: 3 },
-            { label: 'G', cells: ['G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7'], offset: 2 },
-            { label: 'F', cells: ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8'], offset: 1 },
-            { label: 'E', cells: ['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 'E9'], offset: 0 },
-            { label: 'D', cells: ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8'], offset: 1 },
-            { label: 'C', cells: ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7'], offset: 2 },
-            { label: 'B', cells: ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'], offset: 3 },
+            { label: 'H', cells: ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'], offset: 3.5 },
+            { label: 'G', cells: ['G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7'], offset: 3 },
+            { label: 'F', cells: ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8'], offset: 2.5 },
+            { label: 'E', cells: ['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 'E9'], offset: 2 },
+            { label: 'D', cells: ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8'], offset: 2.5 },
+            { label: 'C', cells: ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7'], offset: 3 },
+            { label: 'B', cells: ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'], offset: 3.5 },
             { label: 'A', cells: ['A1', 'A2', 'A3', 'A4', 'A5'], offset: 4 }
         ];
 
         let html = '';
         rows.forEach(row => {
-            html += `<div class="hex-row" style="padding-left: ${row.offset * 30}px;">`;
+            html += `<div class="hex-row" style="padding-left: ${row.offset * 28}px;">`;
             row.cells.forEach(cell => {
                 const piece = this.board[cell];
                 const isSelected = this.selected.includes(cell);
