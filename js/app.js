@@ -159,7 +159,8 @@ class GameApp {
             checkers: 'Dames',
             chess: 'Échecs',
             backgammon: 'Tavli',
-            ludo: 'Petits Chevaux'
+            ludo: 'Petits Chevaux',
+            abalone: 'Abalone'
         };
         return titles[gameType];
     }
@@ -195,7 +196,7 @@ class GameApp {
         container.innerHTML = '';
         
         const diceContainer = document.getElementById('dice-container');
-        if (this.currentGame === 'checkers' || this.currentGame === 'chess' || this.currentGame === 'tictactoe') {
+        if (this.currentGame === 'checkers' || this.currentGame === 'chess' || this.currentGame === 'tictactoe' || this.currentGame === 'abalone') {
             diceContainer.style.display = 'none';
         } else {
             diceContainer.style.display = 'flex';
@@ -218,6 +219,9 @@ class GameApp {
                 break;
             case 'ludo':
                 window.currentGame = new LudoGame(container, this.players);
+                break;
+            case 'abalone':
+                window.currentGame = new AbaloneGame(container, this.players);
                 break;
         }
     }
@@ -266,6 +270,16 @@ class GameApp {
                     <li>Faites 6 pour sortir un pion de votre base</li>
                     <li>Capturez les pions adverses en tombant sur leur case</li>
                     <li>Un 6 vous donne un tour supplémentaire</li>
+                </ul>`,
+            abalone: `<h3>⚫ Abalone</h3>
+                <p><strong>But :</strong> Éjecter 6 billes adverses hors du plateau</p>
+                <ul>
+                    <li>Cliquez sur vos billes pour les sélectionner (1 à 3)</li>
+                    <li>Cliquez sur une case vide pour déplacer</li>
+                    <li>Les billes doivent être alignées pour se déplacer ensemble</li>
+                    <li>Vous pouvez pousser 1 ou 2 billes adverses avec 2 ou 3 de vos billes</li>
+                    <li>Une bille poussée hors du plateau est éjectée</li>
+                    <li>Premier à éjecter 6 billes adverses gagne</li>
                 </ul>`
         };
         
