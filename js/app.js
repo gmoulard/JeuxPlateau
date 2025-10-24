@@ -92,7 +92,7 @@ class GameApp {
         const titles = {
             checkers: 'Dames',
             chess: 'Échecs',
-            backgammon: 'Backgammon',
+            backgammon: 'Tavli',
             ludo: 'Petits Chevaux'
         };
         return titles[gameType];

@@ -214,7 +214,7 @@ class ChessGame extends BaseGame {
     }
 }
 
-// Jeu de Backgammon
+// Jeu de Tavli (Backgammon)
 class BackgammonGame extends BaseGame {
     constructor(container, players) {
         super(container, players);
@@ -245,7 +245,7 @@ class BackgammonGame extends BaseGame {
                     <div class="dice-area">
                         <div class="dice" id="dice1">1</div>
                         <div class="dice" id="dice2">1</div>
-                        <button onclick="window.currentGame.rollDice()">Lancer les dés</button>
+                        <button onclick="window.currentGame.rollDice()" class="roll-dice-btn">🎲 Lancer</button>
                     </div>
                     <div class="off-area">
                         <div class="off-player">Sortis J1: <span id="off-0">0</span></div>
@@ -260,7 +260,7 @@ class BackgammonGame extends BaseGame {
         
         this.container.querySelectorAll('.point').forEach(point => {
             point.addEventListener('click', (e) => {
-                const pointNum = parseInt(e.target.dataset.point);
+                const pointNum = parseInt(e.currentTarget.dataset.point);
                 this.handlePointClick(pointNum);
             });
         });
@@ -422,7 +422,7 @@ class BackgammonGame extends BaseGame {
         document.getElementById('off-0').textContent = this.off[0];
         document.getElementById('off-1').textContent = this.off[1];
         
-        this.container.querySelectorAll('.point').forEach((pointEl, index) => {
+        this.container.querySelectorAll('.point').forEach((pointEl) => {
             const pointNum = parseInt(pointEl.dataset.point);
             const point = this.points[pointNum];
             
