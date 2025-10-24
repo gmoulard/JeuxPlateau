@@ -105,3 +105,19 @@ peur tu remettre a jours de fichier README/md
 ```
 peut tu ajouter dans le readme tout les promptes qui ont permis de generer l'application
 ```
+
+#### v1.3.3 - Tavli Barre et Espacement
+```
+dans le jeux de tavli met un espace plus grand entre le case 17 et 18 et entre 6 et 5. ajout la fonctionnalité de pouvoir remettre sur le plateaux les pions qui on été capture. les regle du jeux son ici
+```
+
+#### v1.4.0 - Abalone
+```
+Ajoute un nouveau jeux l'abalone, tu trouvera les regles ici: https://www.letempledujeu.fr/IMG/pdf/abalone.pdf
+```
+
+#### v1.4.1 - Fix Tavli Spacing
+```
+le tavli ne tiens pas dans le page l'espace créer est trop gros. 
+Mainteint toutjours a jours le README et prompt_history
+```

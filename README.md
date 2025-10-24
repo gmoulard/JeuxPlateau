@@ -9,6 +9,7 @@ Une application web progressive (PWA) pour jouer aux jeux de plateau classiques.
 - **Échecs** - Jeu d'échecs classique
 - **Tavli** - Jeu de backgammon
 - **Petits Chevaux** - Jeu des petits chevaux (Ludo)
+- **Abalone** - Jeu de stratégie hexagonal
 
 ## 🚀 Fonctionnalités
 
@@ -58,13 +59,14 @@ JeuxPlateau/
 ├── package.json            # Dépendances npm
 ├── vitest.config.js        # Configuration Vitest
 ├── js/
-│   ├── app.js              # Logique principale (355 lignes)
+│   ├── app.js              # Logique principale (370 lignes)
 │   ├── base-game.js        # Classe de base (48 lignes)
 │   ├── tictactoe-game.js   # Jeu de Morpion (86 lignes)
 │   ├── checkers-game.js    # Jeu de Dames (176 lignes)
 │   ├── chess-game.js       # Jeu d'Échecs (224 lignes)
-│   ├── backgammon-game.js  # Jeu de Tavli (219 lignes)
-│   └── ludo-game.js        # Petits Chevaux (197 lignes)
+│   ├── backgammon-game.js  # Jeu de Tavli (280 lignes)
+│   ├── ludo-game.js        # Petits Chevaux (197 lignes)
+│   └── abalone-game.js     # Jeu d'Abalone (255 lignes)
 ├── tests/
 │   ├── tictactoe.test.js   # Tests Morpion
 │   └── checkers.test.js    # Tests Dames
@@ -72,7 +74,7 @@ JeuxPlateau/
 │   └── pr_v1.0.1.md à pr_v1.3.2.md
 └── README.md               # Documentation
 
-Total code source : 2 503 lignes
+Total code source : 2 894 lignes
 ```
 
 ## 🎯 Utilisation
@@ -128,8 +130,9 @@ npm run test:run # Exécution unique
 - Jeu de Morpion complet (victoire, match nul)
 - Logique complète pour les Dames (prises obligatoires, dame)
 - Logique avancée pour les Échecs (mouvements par pièce, validation chemin)
-- Logique complète du Tavli/Backgammon
+- Logique complète du Tavli/Backgammon avec barre de réintroduction
 - Logique complète des Petits Chevaux
+- Jeu d'Abalone avec plateau hexagonal
 - Système de versioning
 - Sauvegarde locale des paramètres
 - Historique des parties
@@ -175,12 +178,12 @@ Chaque modification suit ce processus automatisé :
 7. Push de master
 
 ### Statistiques du projet
-- **Version actuelle** : 1.3.2
-- **Lignes de code** : 2 503 lignes
-- **Nombre de jeux** : 5 jeux complets
-- **Fichiers JavaScript** : 10 fichiers (tous < 300 lignes)
+- **Version actuelle** : 1.4.1
+- **Lignes de code** : 2 894 lignes
+- **Nombre de jeux** : 6 jeux complets
+- **Fichiers JavaScript** : 11 fichiers (tous < 300 lignes)
 - **Tests** : 2 suites de tests
-- **Versions publiées** : 18 versions (1.0.0 à 1.3.2)
+- **Versions publiées** : 21 versions (1.0.0 à 1.4.1)
 
 
 
