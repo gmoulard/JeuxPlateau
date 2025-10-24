@@ -115,6 +115,20 @@
             <h2>Versions</h2>
             <div id="versions-list">
                 <div class="version-item">
+                    <h3>Version 1.0.6</h3>
+                    <p class="version-date">15 janvier 2024</p>
+                    <ul>
+                        <li>Refactoring complet: fichiers séparés par jeu (max 300 lignes)</li>
+                        <li>base-game.js: Classe de base commune</li>
+                        <li>checkers-game.js: Logique des Dames</li>
+                        <li>chess-game.js: Logique des Échecs</li>
+                        <li>backgammon-game.js: Logique du Tavli</li>
+                        <li>ludo-game.js: Logique des Petits Chevaux</li>
+                    </ul>
+                    <a href="https://github.com/gmoulard/JeuxPlateau/pull/new/feature/refactoring-v1.0.6" target="_blank" class="pr-link">Voir la PR →</a>
+                </div>
+                
+                <div class="version-item">
                     <h3>Version 1.0.2</h3>
                     <p class="version-date">15 janvier 2024</p>
                     <ul>
@@ -192,7 +206,11 @@
         </div>
     </div>
 
+    <script src="js/base-game.js"></script>
+    <script src="js/checkers-game.js"></script>
+    <script src="js/chess-game.js"></script>
+    <script src="js/backgammon-game.js"></script>
+    <script src="js/ludo-game.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/games.js"></script>
 </body>
 </html>
