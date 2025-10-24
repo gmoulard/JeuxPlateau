@@ -14,6 +14,8 @@
  * - 1.0.2 (2024-01-15): Ajout page des versions
  * - 1.0.3 (2024-01-15): Support complet des Petits Chevaux
  * - 1.0.4 (2024-01-15): Ajout en-têtes de documentation
+ * - 1.0.6 (2024-01-15): Refactoring fichiers séparés
+ * - 1.0.7 (2024-01-15): Installation PWA + fix mobile Tavli
  */
 
 class GameApp {
@@ -22,6 +24,7 @@ class GameApp {
         this.players = [];
         this.currentPlayerIndex = 0;
         this.version = '';
+        this.deferredPrompt = null;
         this.init();
     }
 
@@ -29,6 +32,7 @@ class GameApp {
         this.loadVersion();
         this.loadSettings();
         this.bindEvents();
+        this.setupPWA();
     }
 
     async loadVersion() {
@@ -91,6 +95,34 @@ class GameApp {
         document.getElementById('close-game-help').addEventListener('click', () => this.hideGameHelp());
         document.getElementById('app-version').addEventListener('click', () => this.showScreen('versions-screen'));
         document.getElementById('back-from-versions').addEventListener('click', () => this.showScreen('game-selection'));
+        document.getElementById('install-btn').addEventListener('click', () => this.installPWA());
+    }
+
+    setupPWA() {
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            this.deferredPrompt = e;
+            document.getElementById('install-btn').style.display = 'block';
+        });
+
+        window.addEventListener('appinstalled', () => {
+            this.deferredPrompt = null;
+            document.getElementById('install-btn').style.display = 'none';
+        });
+    }
+
+    async installPWA() {
+        if (!this.deferredPrompt) return;
+        
+        this.deferredPrompt.prompt();
+        const { outcome } = await this.deferredPrompt.userChoice;
+        
+        if (outcome === 'accepted') {
+            console.log('PWA installée');
+        }
+        
+        this.deferredPrompt = null;
+        document.getElementById('install-btn').style.display = 'none';
     }
 
     selectGame(gameType) {
