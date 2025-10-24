@@ -80,7 +80,6 @@ class BackgammonGame extends BaseGame {
         html += '<div class="tavli-row tavli-top">';
         for (let i = 12; i < 24; i++) {
             html += this.renderPoint(i);
-            if (i === 17) html += '<div class="tavli-spacer"></div>';
         }
         html += '</div>';
         
@@ -88,7 +87,6 @@ class BackgammonGame extends BaseGame {
         html += '<div class="tavli-row tavli-bottom">';
         for (let i = 11; i >= 0; i--) {
             html += this.renderPoint(i);
-            if (i === 6) html += '<div class="tavli-spacer"></div>';
         }
         html += '</div>';
         

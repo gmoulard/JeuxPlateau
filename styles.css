@@ -584,6 +584,8 @@ button:hover {
     gap: 4px;
 }
 
+
+
 .tavli-spacer {
     width: 15px;
     background: #654321;
@@ -602,6 +604,16 @@ button:hover {
     padding: 0.25rem;
     position: relative;
     transition: all 0.2s;
+}
+
+.tavli-point:nth-child(6)::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #000;
 }
 
 .tavli-point:hover {

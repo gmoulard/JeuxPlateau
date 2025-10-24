@@ -132,8 +132,8 @@ class AbaloneGame extends BaseGame {
             }
             this.renderBoard();
         }
-        // Déplacement
-        else if (this.selected.length > 0) {
+        // Déplacement vers case vide ou poussée
+        else if (this.selected.length > 0 && (piece === null || piece !== this.currentPlayer)) {
             if (this.canMove(this.selected, cellId)) {
                 this.makeMove(this.selected, cellId);
                 this.selected = [];
@@ -147,17 +147,32 @@ class AbaloneGame extends BaseGame {
     canMove(selected, target) {
         if (selected.length === 0) return false;
         
-        // Vérifier alignement
+        // Pour 1 bille, peut aller dans n'importe quelle direction vers case vide ou adjacente
+        if (selected.length === 1) {
+            const direction = this.getDirection(selected[0], target);
+            if (!direction) return false;
+            
+            // Case vide ou poussée possible
+            if (this.board[target] === null) return true;
+            if (this.board[target] !== this.currentPlayer) return true;
+            return false;
+        }
+        
+        // Pour 2-3 billes, vérifier alignement
         if (!this.areAligned(selected)) return false;
         
-        // Vérifier direction
-        const direction = this.getDirection(selected[0], target);
+        // Vérifier direction depuis n'importe quelle bille sélectionnée
+        let direction = null;
+        for (const cell of selected) {
+            direction = this.getDirection(cell, target);
+            if (direction) break;
+        }
         if (!direction) return false;
         
-        // Vérifier que toutes les billes se déplacent dans la même direction
+        // Vérifier que toutes les billes peuvent se déplacer
         return selected.every(cell => {
             const next = this.getNeighbor(cell, direction);
-            return next !== null;
+            return next !== null || this.board[cell] !== null;
         });
     }
 
@@ -204,25 +219,33 @@ class AbaloneGame extends BaseGame {
     }
 
     makeMove(selected, target) {
-        const direction = this.getDirection(selected[0], target);
+        // Trouver la direction depuis n'importe quelle bille
+        let direction = null;
+        for (const cell of selected) {
+            direction = this.getDirection(cell, target);
+            if (direction) break;
+        }
+        
+        // Pousser les billes adverses si nécessaire
+        if (this.board[target] !== null && this.board[target] !== this.currentPlayer) {
+            this.pushPieces(target, direction);
+        }
         
         // Déplacer chaque bille
         const moved = [];
         selected.forEach(cell => {
             const next = this.getNeighbor(cell, direction);
             if (next) {
-                // Pousser si nécessaire
-                if (this.board[next] !== null && this.board[next] !== this.currentPlayer) {
-                    this.pushPieces(next, direction);
-                }
                 moved.push({ from: cell, to: next });
             }
         });
 
+        // Vider les cases de départ
+        selected.forEach(cell => this.board[cell] = null);
+        
         // Appliquer les déplacements
         moved.forEach(m => {
-            this.board[m.to] = this.board[m.from];
-            this.board[m.from] = null;
+            this.board[m.to] = this.currentPlayer;
         });
     }
 

@@ -126,3 +126,8 @@ Mainteint toutjours a jours le README et prompt_history
 ```
 Dans la page de liste des jeux ajoute un petit logo devant chaque jeux
 ```
+
+#### v1.4.3 - Fix Abalone Movement
+```
+Dans le jeux d'abalone les bille peuvent se deplacer dans tout les sense
+```
