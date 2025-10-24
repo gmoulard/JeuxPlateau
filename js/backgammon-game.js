@@ -124,6 +124,25 @@ class BackgammonGame extends BaseGame {
         });
     }
 
+    rollDice() {
+        if (this.movesLeft.length > 0) return;
+        
+        this.dice[0] = Math.floor(Math.random() * 6) + 1;
+        this.dice[1] = Math.floor(Math.random() * 6) + 1;
+        
+        if (this.dice[0] === this.dice[1]) {
+            this.movesLeft = [this.dice[0], this.dice[0], this.dice[0], this.dice[0]];
+        } else {
+            this.movesLeft = [this.dice[0], this.dice[1]];
+        }
+        
+        this.renderBoard();
+        
+        if (!this.hasValidMoves()) {
+            setTimeout(() => this.endTurn(), 1000);
+        }
+    }
+
     handlePointClick(pointIndex) {
         if (this.movesLeft.length === 0) return;
         

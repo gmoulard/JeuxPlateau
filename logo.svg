@@ -18,6 +18,4 @@
   <circle cx="67" cy="133" r="10" fill="#FF4444"/>
   <circle cx="133" cy="133" r="10" fill="#1976D2"/>
   
-  <!-- Texte -->
-  <text x="100" y="185" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">Jeux Plateau</text>
 </svg>
