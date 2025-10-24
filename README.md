@@ -38,9 +38,14 @@ JeuxPlateau/
 ├── index.html          # Page principale
 ├── styles.css          # Styles CSS
 ├── manifest.json       # Configuration PWA
+├── version.json        # Version de l'application
 ├── js/
-│   ├── app.js         # Logique principale
-│   └── games.js       # Logique des jeux
+│   ├── app.js              # Logique principale
+│   ├── base-game.js        # Classe de base
+│   ├── checkers-game.js    # Jeu de Dames
+│   ├── chess-game.js       # Jeu d'Échecs
+│   ├── backgammon-game.js  # Jeu de Tavli
+│   └── ludo-game.js        # Petits Chevaux
 └── README.md          # Documentation
 ```
 
@@ -66,19 +71,20 @@ JeuxPlateau/
 - Styles CSS complets
 - Configuration PWA
 - Logique principale de l'application (app.js)
-- Logique de base pour les Dames
+- Logique complète pour les Dames (prises obligatoires, dame)
 - Logique de base pour les Échecs
 - Logique complète du Backgammon
-- Structure pour les Petits Chevaux
+- Logique complète des Petits Chevaux
 - Système de versioning
 - Sauvegarde locale des paramètres
 - Historique des parties
+- Refactoring: fichiers séparés par jeu (< 300 lignes)
 
 ### 🚧 À Développer
-- [ ] Règles avancées pour les Dames (prise, dame)
 - [ ] Règles complètes pour les Échecs (échec, mat, roque)
-- [ ] Logique complète des Petits Chevaux
 - [ ] Icônes PWA (192x192 et 512x512)
+- [ ] Tests unitaires par jeu
+- [ ] Lazy-loading des jeux
 
 ## 🎨 Personnalisation
 
