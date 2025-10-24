@@ -45,11 +45,13 @@ class CheckersGame extends BaseGame {
         super(container, players);
         this.currentPlayer = 0;
         this.pieces = {};
+        this.mustCapture = false;
         this.initGame();
     }
 
     initGame() {
-        this.createBoard(8, 8);
+        const boardEl = this.createBoard(8, 8);
+        boardEl.classList.add('checkers-board');
         this.setupPieces();
         this.colorBoard();
     }
@@ -65,38 +67,54 @@ class CheckersGame extends BaseGame {
     }
 
     setupPieces() {
-        // Pièces du joueur 1 (rouge)
         for (let row = 0; row < 3; row++) {
             for (let col = 0; col < 8; col++) {
                 if ((row + col) % 2 === 1) {
-                    this.addPiece(row, col, '<div class="piece" style="background: #ff4444;">●</div>');
                     this.pieces[`${row}-${col}`] = { player: 0, king: false };
+                    this.renderPiece(row, col);
                 }
             }
         }
-
-        // Pièces du joueur 2 (noir)
         for (let row = 5; row < 8; row++) {
             for (let col = 0; col < 8; col++) {
                 if ((row + col) % 2 === 1) {
-                    this.addPiece(row, col, '<div class="piece" style="background: #333;">●</div>');
                     this.pieces[`${row}-${col}`] = { player: 1, king: false };
+                    this.renderPiece(row, col);
                 }
             }
         }
+    }
+
+    renderPiece(row, col) {
+        const key = `${row}-${col}`;
+        const piece = this.pieces[key];
+        if (!piece) return;
+        
+        const color = piece.player === 0 ? '#ff4444' : '#333';
+        const symbol = piece.king ? '♛' : '●';
+        this.addPiece(row, col, `<div class="piece" style="background: ${color};">${symbol}</div>`);
     }
 
     handleCellClick(row, col) {
         const key = `${row}-${col}`;
         
         if (this.selectedPiece) {
-            if (this.isValidMove(this.selectedPiece, { row, col })) {
-                this.movePiece(this.selectedPiece, { row, col });
+            const move = this.isValidMove(this.selectedPiece, { row, col });
+            if (move) {
+                this.movePiece(this.selectedPiece, { row, col }, move.capture);
                 this.selectedPiece = null;
-                this.currentPlayer = 1 - this.currentPlayer;
-                window.gameApp.nextPlayer();
+                
+                if (!move.capture || !this.canCaptureFrom(row, col)) {
+                    this.currentPlayer = 1 - this.currentPlayer;
+                    window.gameApp.nextPlayer();
+                } else {
+                    this.selectedPiece = { row, col };
+                }
             }
             this.clearSelection();
+            if (this.selectedPiece) {
+                this.board[this.selectedPiece.row][this.selectedPiece.col].classList.add('selected');
+            }
         } else if (this.pieces[key] && this.pieces[key].player === this.currentPlayer) {
             this.selectedPiece = { row, col };
             this.board[row][col].classList.add('selected');
@@ -107,21 +125,86 @@ class CheckersGame extends BaseGame {
         const dx = to.col - from.col;
         const dy = to.row - from.row;
         const key = `${to.row}-${to.col}`;
+        const piece = this.pieces[`${from.row}-${from.col}`];
         
-        return !this.pieces[key] && Math.abs(dx) === 1 && 
-               (this.currentPlayer === 0 ? dy === 1 : dy === -1);
+        if (this.pieces[key]) return null;
+        
+        if (Math.abs(dx) === 2 && Math.abs(dy) === 2) {
+            const midRow = from.row + dy / 2;
+            const midCol = from.col + dx / 2;
+            const midKey = `${midRow}-${midCol}`;
+            const midPiece = this.pieces[midKey];
+            
+            if (midPiece && midPiece.player !== this.currentPlayer) {
+                if (piece.king || (this.currentPlayer === 0 && dy > 0) || (this.currentPlayer === 1 && dy < 0)) {
+                    return { capture: midKey };
+                }
+            }
+        }
+        
+        if (Math.abs(dx) === 1 && Math.abs(dy) === 1) {
+            if (this.hasCaptures()) return null;
+            
+            if (piece.king) return {};
+            if (this.currentPlayer === 0 && dy > 0) return {};
+            if (this.currentPlayer === 1 && dy < 0) return {};
+        }
+        
+        return null;
     }
 
-    movePiece(from, to) {
+    hasCaptures() {
+        for (let key in this.pieces) {
+            if (this.pieces[key].player === this.currentPlayer) {
+                const [row, col] = key.split('-').map(Number);
+                if (this.canCaptureFrom(row, col)) return true;
+            }
+        }
+        return false;
+    }
+
+    canCaptureFrom(row, col) {
+        const dirs = [[2, 2], [2, -2], [-2, 2], [-2, -2]];
+        const piece = this.pieces[`${row}-${col}`];
+        
+        for (let [dy, dx] of dirs) {
+            if (!piece.king && ((this.currentPlayer === 0 && dy < 0) || (this.currentPlayer === 1 && dy > 0))) continue;
+            
+            const newRow = row + dy;
+            const newCol = col + dx;
+            if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7) continue;
+            
+            const midRow = row + dy / 2;
+            const midCol = col + dx / 2;
+            const midKey = `${midRow}-${midCol}`;
+            const targetKey = `${newRow}-${newCol}`;
+            
+            if (this.pieces[midKey] && this.pieces[midKey].player !== this.currentPlayer && !this.pieces[targetKey]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    movePiece(from, to, captureKey) {
         const fromKey = `${from.row}-${from.col}`;
         const toKey = `${to.row}-${to.col}`;
         
         this.pieces[toKey] = this.pieces[fromKey];
         delete this.pieces[fromKey];
         
+        if (captureKey) {
+            delete this.pieces[captureKey];
+            const [capRow, capCol] = captureKey.split('-').map(Number);
+            this.board[capRow][capCol].innerHTML = '';
+        }
+        
+        if ((to.row === 7 && this.currentPlayer === 0) || (to.row === 0 && this.currentPlayer === 1)) {
+            this.pieces[toKey].king = true;
+        }
+        
         this.board[from.row][from.col].innerHTML = '';
-        this.addPiece(to.row, to.col, 
-            `<div class="piece" style="background: ${this.currentPlayer === 0 ? '#ff4444' : '#333'};">●</div>`);
+        this.renderPiece(to.row, to.col);
     }
 
     clearSelection() {
@@ -139,7 +222,8 @@ class ChessGame extends BaseGame {
     }
 
     initGame() {
-        this.createBoard(8, 8);
+        const boardEl = this.createBoard(8, 8);
+        boardEl.classList.add('chess-board');
         this.setupPieces();
         this.colorBoard();
     }

@@ -149,6 +149,21 @@ button:hover {
     font-weight: bold;
 }
 
+.checkers-board,
+.chess-board {
+    width: 480px;
+    height: 480px;
+    max-width: 90vmin;
+    max-height: 90vmin;
+}
+
+.checkers-board .cell,
+.chess-board .cell {
+    width: auto;
+    height: auto;
+    aspect-ratio: 1;
+}
+
 #dice-result {
     margin-left: 1rem;
     font-size: 1.5rem;
@@ -168,5 +183,11 @@ button:hover {
         width: 40px;
         height: 40px;
         font-size: 1.5rem;
+    }
+    
+    .checkers-board,
+    .chess-board {
+        width: 90vmin;
+        height: 90vmin;
     }
 }

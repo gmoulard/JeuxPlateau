@@ -28,7 +28,15 @@ class GameApp {
         this.currentGame = gameType;
         document.getElementById('game-title').textContent = this.getGameTitle(gameType);
         this.showScreen('game-setup');
-        this.updatePlayerInputs(2);
+        
+        const playerCountSelect = document.getElementById('player-count');
+        if (gameType === 'ludo') {
+            playerCountSelect.parentElement.style.display = 'block';
+            this.updatePlayerInputs(2);
+        } else {
+            playerCountSelect.parentElement.style.display = 'none';
+            this.updatePlayerInputs(2);
+        }
     }
 
     getGameTitle(gameType) {
@@ -67,18 +75,25 @@ class GameApp {
         const container = document.getElementById('board-container');
         container.innerHTML = '';
         
+        const diceContainer = document.getElementById('dice-container');
+        if (this.currentGame === 'checkers' || this.currentGame === 'chess') {
+            diceContainer.style.display = 'none';
+        } else {
+            diceContainer.style.display = 'flex';
+        }
+        
         switch(this.currentGame) {
             case 'checkers':
-                new CheckersGame(container, this.players);
+                window.currentGame = new CheckersGame(container, this.players);
                 break;
             case 'chess':
-                new ChessGame(container, this.players);
+                window.currentGame = new ChessGame(container, this.players);
                 break;
             case 'backgammon':
-                new BackgammonGame(container, this.players);
+                window.currentGame = new BackgammonGame(container, this.players);
                 break;
             case 'ludo':
-                new LudoGame(container, this.players);
+                window.currentGame = new LudoGame(container, this.players);
                 break;
         }
     }
