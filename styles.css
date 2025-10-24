@@ -526,6 +526,121 @@ button:hover {
     color: white;
 }
 
+/* Styles Petits Chevaux */
+.ludo-board {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.ludo-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.ludo-roll-btn {
+    padding: 0.75rem 1.5rem;
+}
+
+.ludo-dice {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: 3px solid #2196F3;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #2196F3;
+}
+
+.ludo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.ludo-home {
+    border: 3px solid #333;
+    border-radius: 8px;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    position: relative;
+    min-height: 150px;
+}
+
+.home-label {
+    position: absolute;
+    top: 0.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: #333;
+    background: rgba(255,255,255,0.8);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
+
+.ludo-piece-slot {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: rgba(255,255,255,0.3);
+}
+
+.ludo-piece-slot:hover {
+    background: rgba(255,255,255,0.5);
+}
+
+.ludo-piece {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid #333;
+}
+
+.ludo-track {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    gap: 2px;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #ddd;
+    border-radius: 8px;
+}
+
+.track-cell {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #999;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.ludo-piece-small {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid #333;
+    margin: 1px;
+}
+
 @media (max-width: 768px) {
     .screen {
         padding: 1rem;
