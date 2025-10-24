@@ -412,6 +412,17 @@ button:hover {
     font-weight: bold;
 }
 
+.checker-piece {
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
 .checkers-board,
 .chess-board {
     width: 480px;
@@ -430,6 +441,13 @@ button:hover {
 #dice-result {
     margin-left: 1rem;
     font-size: 1.5rem;
+}
+
+@keyframes dice-roll {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(90deg); }
+    50% { transform: rotate(180deg); }
+    75% { transform: rotate(270deg); }
 }
 
 /* Styles Tavli (Backgammon) - Interface simplifiée */
