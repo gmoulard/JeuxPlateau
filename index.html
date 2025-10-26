@@ -31,7 +31,7 @@
     <div id="app">
         <video id="camera-bg" autoplay playsinline muted style="display: none;"></video>
         <header>
-            <img src="logo.svg" alt="Logo" class="app-logo">
+            <img src="logo.svg" alt="Logo" class="app-logo" style="cursor: pointer;" onclick="window.location.reload();">
             <h1><a href="https://github.com/gmoulard/JeuxPlateau" target="_blank" style="color: white; text-decoration: none;">Jeux de Plateau</a></h1>
             <div class="header-actions">
                 <button id="install-btn" title="Installer l'application" style="display: none;">📥</button>
@@ -387,6 +387,25 @@
             <div class="white-panel">
                 <h3>Affichage</h3>
                 <button id="camera-btn" class="settings-btn">📷 Activer/Désactiver caméra</button>
+                
+                <h3>Couleurs</h3>
+                <label style="display: block; margin: 0.5rem 0;">
+                    Cases claires:
+                    <input type="color" id="light-cell-color" value="#f0d9b5" style="margin-left: 1rem;">
+                </label>
+                <label style="display: block; margin: 0.5rem 0;">
+                    Cases foncées:
+                    <input type="color" id="dark-cell-color" value="#b58863" style="margin-left: 1rem;">
+                </label>
+                <label style="display: block; margin: 0.5rem 0;">
+                    Pions joueur 1:
+                    <input type="color" id="player1-color" value="#ffffff" style="margin-left: 1rem;">
+                </label>
+                <label style="display: block; margin: 0.5rem 0;">
+                    Pions joueur 2:
+                    <input type="color" id="player2-color" value="#333333" style="margin-left: 1rem;">
+                </label>
+                <button id="reset-colors-btn" class="settings-btn">🎨 Réinitialiser les couleurs</button>
                 
                 <h3>Historique</h3>
                 <button id="history-btn" class="settings-btn">📊 Voir l'historique des parties</button>

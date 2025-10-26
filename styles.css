@@ -6,6 +6,13 @@
  */
 
 /* Reset & Base */
+:root {
+    --light-cell: #f0d9b5;
+    --dark-cell: #b58863;
+    --player1-color: #ffffff;
+    --player2-color: #333333;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -455,7 +462,7 @@ button:hover {
 
 /* Cellules communes */
 .cell {
-    background: #f0d9b5;
+    background: var(--light-cell);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -466,7 +473,7 @@ button:hover {
 }
 
 .cell.dark {
-    background: #b58863;
+    background: var(--dark-cell);
 }
 
 .cell.selected {
@@ -494,6 +501,20 @@ button:hover {
     height: 480px;
     max-width: 90vmin;
     max-height: 90vmin;
+}
+
+.checkers-stats {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.player-captures {
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+    font-size: 1.1rem;
 }
 
 .checkers-board .cell, .chess-board .cell {
@@ -581,10 +602,29 @@ button:hover {
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     padding: 1rem;
     background: white;
     border-radius: 8px;
+}
+
+.tavli-stats {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+}
+
+.player-stats {
+    text-align: center;
+    font-weight: bold;
+}
+
+.player-stats > div {
+    margin: 0.3rem 0;
 }
 
 .tavli-dice-display {
@@ -781,32 +821,21 @@ button:hover {
     color: #2196F3;
 }
 
-.ludo-cross {
-    display: flex;
-    flex-direction: column;
-    background: white;
-    border: 4px solid #333;
-    border-radius: 8px;
-}
-
-.ludo-row {
-    display: flex;
-}
-
-.ludo-col {
-    display: flex;
-    flex-direction: column;
+.ludo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
 }
 
 .ludo-home {
-    width: 240px;
-    height: 240px;
     border: 3px solid #333;
+    border-radius: 8px;
     padding: 1.5rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     position: relative;
+    min-height: 180px;
 }
 
 .home-label {
@@ -842,59 +871,39 @@ button:hover {
 }
 
 .ludo-piece {
-    width: 70%;
-    height: 70%;
+    width: 80%;
+    height: 80%;
     border-radius: 50%;
     border: 3px solid #333;
 }
 
+.ludo-track {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    gap: 2px;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #ddd;
+    border-radius: 8px;
+}
+
 .ludo-cell {
-    width: 40px;
-    height: 40px;
-    border: 2px solid #666;
-    background: #f5f5f5;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #999;
+    background: white;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.ludo-col .ludo-cell:first-child {
-    background: #ff6666;
-}
-
-.ludo-row:first-child .ludo-col .ludo-cell:first-child {
-    background: #ff4444;
-}
-
-.ludo-row:first-child .ludo-col .ludo-cell:last-child {
-    background: #44ff44;
-}
-
-.ludo-row:last-child .ludo-col .ludo-cell:first-child {
-    background: #ffff44;
-}
-
-.ludo-row:last-child .ludo-col .ludo-cell:last-child {
-    background: #4444ff;
-}
-
-.ludo-center {
-    width: 240px;
-    height: 240px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border: 3px solid #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 5rem;
-}
-
 .ludo-piece-small {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    border: 2px solid #333;
+    border: 1px solid #333;
     margin: 1px;
 }
 

@@ -19,6 +19,7 @@ class CheckersGame extends BaseGame {
         this.currentPlayer = 0;
         this.pieces = {};
         this.mustCapture = false;
+        this.captured = [0, 0];
         this.initGame();
     }
 
@@ -27,6 +28,22 @@ class CheckersGame extends BaseGame {
         boardEl.classList.add('checkers-board');
         this.setupPieces();
         this.colorBoard();
+        this.renderStats();
+    }
+    
+    renderStats() {
+        const existing = this.container.querySelector('.checkers-stats');
+        if (existing) existing.remove();
+        
+        const stats = document.createElement('div');
+        stats.className = 'checkers-stats';
+        stats.innerHTML = `
+            <div class="player-captures">
+                <div>⚪ ${this.players[0]}: ${this.captured[0]} pions</div>
+                <div>⚫ ${this.players[1]}: ${this.captured[1]} pions</div>
+            </div>
+        `;
+        this.container.insertBefore(stats, this.container.firstChild);
     }
 
     colorBoard() {
@@ -63,8 +80,8 @@ class CheckersGame extends BaseGame {
         const piece = this.pieces[key];
         if (!piece) return;
         
-        const color = piece.player === 0 ? 'white' : 'black';
-        const borderColor = piece.player === 0 ? '#333' : '#fff';
+        const color = piece.player === 0 ? 'var(--player1-color)' : 'var(--player2-color)';
+        const borderColor = piece.player === 0 ? 'var(--player2-color)' : 'var(--player1-color)';
         const symbol = piece.king ? '♛' : '●';
         this.addPiece(row, col, `<div class="checker-piece" style="background: ${color}; border: 3px solid ${borderColor};">${symbol}</div>`);
     }
@@ -171,6 +188,8 @@ class CheckersGame extends BaseGame {
             delete this.pieces[captureKey];
             const [capRow, capCol] = captureKey.split('-').map(Number);
             this.board[capRow][capCol].innerHTML = '';
+            this.captured[this.currentPlayer]++;
+            this.renderStats();
         }
         
         if ((to.row === 9 && this.currentPlayer === 0) || (to.row === 0 && this.currentPlayer === 1)) {

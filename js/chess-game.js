@@ -93,18 +93,23 @@ class ChessGame extends BaseGame {
         const whitePieces = ['♖','♘','♗','♕','♔','♗','♘','♖'];
         
         for (let col = 0; col < 8; col++) {
-            this.addPiece(0, col, pieces[col]);
-            this.addPiece(1, col, '♟');
+            this.addPieceWithColor(0, col, pieces[col], 1);
+            this.addPieceWithColor(1, col, '♟', 1);
             this.pieces[`0-${col}`] = { player: 1, type: pieces[col] };
             this.pieces[`1-${col}`] = { player: 1, type: '♟' };
         }
         
         for (let col = 0; col < 8; col++) {
-            this.addPiece(7, col, whitePieces[col]);
-            this.addPiece(6, col, '♙');
+            this.addPieceWithColor(7, col, whitePieces[col], 0);
+            this.addPieceWithColor(6, col, '♙', 0);
             this.pieces[`7-${col}`] = { player: 0, type: whitePieces[col] };
             this.pieces[`6-${col}`] = { player: 0, type: '♙' };
         }
+    }
+    
+    addPieceWithColor(row, col, symbol, player) {
+        const color = player === 0 ? 'var(--player1-color)' : 'var(--player2-color)';
+        this.board[row][col].innerHTML = `<span style="color: ${color};">${symbol}</span>`;
     }
 
     handleCellClick(row, col) {
@@ -198,7 +203,7 @@ class ChessGame extends BaseGame {
         delete this.pieces[fromKey];
         
         this.board[from.row][from.col].innerHTML = '';
-        this.addPiece(to.row, to.col, this.pieces[toKey].type);
+        this.addPieceWithColor(to.row, to.col, this.pieces[toKey].type, this.pieces[toKey].player);
         
         // Ajouter à l'historique
         const move = `${this.getNotation(from)} → ${this.getNotation(to)}`;

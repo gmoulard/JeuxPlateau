@@ -28,6 +28,7 @@ class BackgammonGame extends BaseGame {
 
     initGame() {
         this.setupInitialPosition();
+        this.out = [0, 0]; // Pions sortis
         this.renderBoard();
     }
 
@@ -46,6 +47,9 @@ class BackgammonGame extends BaseGame {
     }
 
     renderBoard() {
+        const stats0 = this.getPlayerStats(0);
+        const stats1 = this.getPlayerStats(1);
+        
         this.container.innerHTML = `
             <div class="tavli-container">
                 <div class="tavli-info">
@@ -63,6 +67,18 @@ class BackgammonGame extends BaseGame {
                             <div>⚫ Barre: ${this.bar[1]}</div>
                             ${this.renderBarPieces(1)}
                         </div>
+                    </div>
+                </div>
+                <div class="tavli-stats">
+                    <div class="player-stats">
+                        <div>🔴 ${this.players[0]}</div>
+                        <div>Sortis: ${stats0.out}/15</div>
+                        <div>Points: ${stats0.pips}</div>
+                    </div>
+                    <div class="player-stats">
+                        <div>⚫ ${this.players[1]}</div>
+                        <div>Sortis: ${stats1.out}/15</div>
+                        <div>Points: ${stats1.pips}</div>
                     </div>
                 </div>
                 <div class="tavli-board">
@@ -96,7 +112,7 @@ class BackgammonGame extends BaseGame {
 
     renderBarPieces(player) {
         if (this.bar[player] === 0) return '';
-        const color = player === 0 ? '#ff4444' : '#333';
+        const color = player === 0 ? 'var(--player1-color)' : 'var(--player2-color)';
         const isSelected = this.selectedBar && this.currentPlayer === player;
         return `<div class="bar-checker ${isSelected ? 'selected' : ''}" style="background: ${color};" data-bar-player="${player}">${this.bar[player]}</div>`;
     }
@@ -111,7 +127,7 @@ class BackgammonGame extends BaseGame {
         
         if (count > 0) {
             const player = pieces[0];
-            const color = player === 0 ? '#ff4444' : '#333';
+            const color = player === 0 ? 'var(--player1-color)' : 'var(--player2-color)';
             
             // Afficher jusqu'à 5 pions
             const displayCount = Math.min(count, 5);
@@ -319,6 +335,26 @@ class BackgammonGame extends BaseGame {
             }
         }
         return false;
+    }
+
+    getPlayerStats(player) {
+        let onBoard = 0;
+        let pips = 0;
+        
+        for (let i = 0; i < 24; i++) {
+            const count = this.board[i].filter(p => p === player).length;
+            onBoard += count;
+            if (player === 0) {
+                pips += count * (24 - i);
+            } else {
+                pips += count * (i + 1);
+            }
+        }
+        
+        pips += this.bar[player] * 25;
+        const out = 15 - onBoard - this.bar[player];
+        
+        return { out, pips };
     }
 
     endTurn() {

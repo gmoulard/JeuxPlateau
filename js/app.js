@@ -54,6 +54,44 @@ class GameApp {
         if (saved) {
             this.savedSettings = JSON.parse(saved);
         }
+        this.loadColors();
+    }
+    
+    loadColors() {
+        const colors = JSON.parse(localStorage.getItem('gameColors') || '{}');
+        document.documentElement.style.setProperty('--light-cell', colors.lightCell || '#f0d9b5');
+        document.documentElement.style.setProperty('--dark-cell', colors.darkCell || '#b58863');
+        document.documentElement.style.setProperty('--player1-color', colors.player1 || '#ffffff');
+        document.documentElement.style.setProperty('--player2-color', colors.player2 || '#333333');
+    }
+    
+    showSettingsScreen() {
+        const colors = JSON.parse(localStorage.getItem('gameColors') || '{}');
+        document.getElementById('light-cell-color').value = colors.lightCell || '#f0d9b5';
+        document.getElementById('dark-cell-color').value = colors.darkCell || '#b58863';
+        document.getElementById('player1-color').value = colors.player1 || '#ffffff';
+        document.getElementById('player2-color').value = colors.player2 || '#333333';
+        this.showScreen('settings-screen');
+    }
+    
+    updateColors() {
+        const colors = {
+            lightCell: document.getElementById('light-cell-color').value,
+            darkCell: document.getElementById('dark-cell-color').value,
+            player1: document.getElementById('player1-color').value,
+            player2: document.getElementById('player2-color').value
+        };
+        localStorage.setItem('gameColors', JSON.stringify(colors));
+        this.loadColors();
+    }
+    
+    resetColors() {
+        localStorage.removeItem('gameColors');
+        document.getElementById('light-cell-color').value = '#f0d9b5';
+        document.getElementById('dark-cell-color').value = '#b58863';
+        document.getElementById('player1-color').value = '#ffffff';
+        document.getElementById('player2-color').value = '#333333';
+        this.loadColors();
     }
 
     saveSettings(gameType, playerCount, playerNames) {
@@ -91,7 +129,7 @@ class GameApp {
         document.getElementById('roll-dice').addEventListener('click', () => this.rollDice());
         document.getElementById('help-btn').addEventListener('click', () => this.showScreen('help-screen'));
         document.getElementById('back-from-help').addEventListener('click', () => this.showScreen('game-selection'));
-        document.getElementById('settings-btn').addEventListener('click', () => this.showScreen('settings-screen'));
+        document.getElementById('settings-btn').addEventListener('click', () => this.showSettingsScreen());
         document.getElementById('back-from-settings').addEventListener('click', () => this.showScreen('game-selection'));
         document.getElementById('history-btn').addEventListener('click', () => this.showHistory());
         document.getElementById('back-from-history').addEventListener('click', () => this.showScreen('settings-screen'));
@@ -103,6 +141,11 @@ class GameApp {
         document.getElementById('camera-btn').addEventListener('click', () => this.toggleCamera());
         document.getElementById('clear-data-btn').addEventListener('click', () => this.clearLocalData());
         document.getElementById('update-app-btn').addEventListener('click', () => this.updateApp());
+        document.getElementById('reset-colors-btn').addEventListener('click', () => this.resetColors());
+        document.getElementById('light-cell-color').addEventListener('change', (e) => this.updateColors());
+        document.getElementById('dark-cell-color').addEventListener('change', (e) => this.updateColors());
+        document.getElementById('player1-color').addEventListener('change', (e) => this.updateColors());
+        document.getElementById('player2-color').addEventListener('change', (e) => this.updateColors());
         document.getElementById('footer-version-link').addEventListener('click', (e) => {
             e.preventDefault();
             this.showScreen('versions-screen');
@@ -304,8 +347,14 @@ class GameApp {
 
     updateCurrentPlayer() {
         const playerName = this.players[this.currentPlayerIndex];
-        const playerColor = this.currentGame === 'backgammon' ? 
-            (this.currentPlayerIndex === 0 ? ' 🔴' : ' ⚫') : '';
+        let playerColor = '';
+        
+        if (this.currentGame === 'backgammon') {
+            playerColor = this.currentPlayerIndex === 0 ? ' 🔴' : ' ⚫';
+        } else if (this.currentGame === 'chess') {
+            playerColor = this.currentPlayerIndex === 0 ? ' (Blancs)' : ' (Noirs)';
+        }
+        
         document.querySelector('#current-player span').textContent = playerName + playerColor;
     }
 
