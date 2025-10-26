@@ -1,0 +1,200 @@
+<mxfile host="app.diagrams.net" modified="2024-01-15T10:00:00.000Z" agent="Amazon Q" version="22.1.16">
+  <diagram name="Architecture" id="architecture">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Couche Présentation -->
+        <mxCell id="presentation-layer" value="Couche Présentation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="1000" height="180" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="html" value="index.html&lt;br&gt;(359 lignes)&lt;br&gt;Structure UI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="120" y="90" width="140" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="css" value="styles.css&lt;br&gt;(798 lignes)&lt;br&gt;Design + Responsive" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="300" y="90" width="140" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="pwa" value="PWA&lt;br&gt;manifest.json&lt;br&gt;sw.js&lt;br&gt;Icons" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="480" y="90" width="140" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="assets" value="Assets&lt;br&gt;logo.svg&lt;br&gt;icon-192.png&lt;br&gt;icon-512.png" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="660" y="90" width="140" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="version" value="version.json&lt;br&gt;Versioning" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="840" y="90" width="140" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Couche Application -->
+        <mxCell id="app-layer" value="Couche Application" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="260" width="1000" height="180" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="app-js" value="app.js&lt;br&gt;(390 lignes)&lt;br&gt;Orchestration&lt;br&gt;Navigation&lt;br&gt;Historique" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="120" y="310" width="200" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="base-game" value="base-game.js&lt;br&gt;(48 lignes)&lt;br&gt;Classe abstraite" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="360" y="310" width="200" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="framework" value="game-framework.js&lt;br&gt;(280 lignes)&lt;br&gt;Framework interne&lt;br&gt;Réduction 50-65%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="600" y="310" width="200" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="storage" value="LocalStorage&lt;br&gt;Paramètres&lt;br&gt;Historique" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="840" y="310" width="140" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Couche Jeux -->
+        <mxCell id="games-layer" value="Couche Jeux (Modules)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="480" width="1000" height="220" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="tictactoe" value="tictactoe-game.js&lt;br&gt;(86 lignes)&lt;br&gt;Morpion 3x3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="120" y="530" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="tictactoe-v2" value="tictactoe-game-v2.js&lt;br&gt;(30 lignes)&lt;br&gt;Avec framework" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="120" y="620" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="checkers" value="checkers-game.js&lt;br&gt;(176 lignes)&lt;br&gt;Dames" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="290" y="530" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="chess" value="chess-game.js&lt;br&gt;(224 lignes)&lt;br&gt;Échecs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="460" y="530" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="backgammon" value="backgammon-game.js&lt;br&gt;(280 lignes)&lt;br&gt;Tavli" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="630" y="530" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="ludo" value="ludo-game.js&lt;br&gt;(197 lignes)&lt;br&gt;Petits Chevaux" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="800" y="530" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="abalone" value="abalone-game.js&lt;br&gt;(320 lignes)&lt;br&gt;Abalone" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="290" y="620" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Couche Tests -->
+        <mxCell id="tests-layer" value="Couche Tests" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="740" width="1000" height="140" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="test-tictactoe" value="tictactoe.test.js&lt;br&gt;Tests unitaires" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="120" y="790" width="180" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="test-checkers" value="checkers.test.js&lt;br&gt;Tests unitaires" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="340" y="790" width="180" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="test-framework" value="game-framework.test.js&lt;br&gt;Tests framework" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="560" y="790" width="180" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="vitest" value="Vitest + GitLab CI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="780" y="790" width="180" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Flèches de dépendances -->
+        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="html" target="app-js">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="app-js" target="base-game">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="base-game" target="tictactoe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="base-game" target="checkers">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="base-game" target="chess">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="arrow6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="base-game" target="backgammon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="arrow7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="base-game" target="ludo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="arrow8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;dashed=1;strokeColor=#d79b00;" edge="1" parent="1" source="framework" target="tictactoe-v2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="arrow9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#b85450;" edge="1" parent="1" source="tictactoe" target="test-tictactoe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="arrow10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#b85450;" edge="1" parent="1" source="checkers" target="test-checkers">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="arrow11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#b85450;dashed=1;" edge="1" parent="1" source="framework" target="test-framework">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="720" />
+              <mxPoint x="650" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Légende -->
+        <mxCell id="legend" value="Légende" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;fontStyle=1;verticalAlign=top;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="40" width="200" height="200" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend1" value="Héritage" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="70" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-line1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1160" y="80" as="sourcePoint" />
+            <mxPoint x="1190" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="legend2" value="Framework" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="100" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-line2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;strokeColor=#d79b00;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1160" y="110" as="sourcePoint" />
+            <mxPoint x="1190" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="legend3" value="Tests" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="130" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-line3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#b85450;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1160" y="140" as="sourcePoint" />
+            <mxPoint x="1190" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="stats" value="📊 Stats:&lt;br&gt;3300+ lignes&lt;br&gt;6 jeux&lt;br&gt;13 fichiers JS" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="170" width="180" height="60" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
