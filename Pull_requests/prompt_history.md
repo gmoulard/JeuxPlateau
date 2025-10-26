@@ -141,3 +141,60 @@ ne fait aucun control de deplacement sur les boule de l'abalonne
 ```
 sur le fichier local fait une separation pour le code de chaque jeux entre le code necessaire a l'interface et le code necessaire a la logique de jeux
 ```
+
+#### v1.4.13 - Refonte Plateau Petits Chevaux
+```
+refait le plateau des petit chevaux pour resembler a https://laboutiquekdo.com/5729-superlarge_default/jeu-petit-chevaux-personnalise.jpg
+```
+
+#### Statistiques Tavli
+```
+ajoute au tavlie le nombre de pion sortie et le nombre de point a faire pour chaque joueur
+```
+
+#### Statistiques Dames
+```
+ajoute au dame le nombre de point pris a chaque joueur
+```
+
+#### Logo Cliquable
+```
+quand on click sur le logo en haut a gauche revient a l'index
+```
+
+#### Couleur Joueur Échecs
+```
+dans les echque a cote du nom du joueur qui doit jouer met entre parenthese la couleur de ses pions
+```
+
+#### v1.4.14 - Personnalisation Couleurs
+```
+Dans les paramettre fait des paramettre pour permettre de selectionner la couleurs des pions et des cases
+```
+
+```
+fait que les pions et les case des dame, des echeque et des tavli utilise les paramettres de couleurs
+```
+
+#### Question PWA
+```
+pourquoi ne retrouve pas dans le navigeur de mon portable la fonction d'installé l'applications ?
+```
+
+#### Déploiement v1.4.14
+```
+Fait le V1.4.14 avec toutes les nouvelles focntionnalité. et envois en produciton via un PR.
+```
+
+#### Mise à jour Documentation
+```
+met a jours l'istorique des promptes
+```
+
+```
+met a jours le readme
+```
+
+```
+met a jours le fichier :Pull_requests\prompt_history.md
+```
