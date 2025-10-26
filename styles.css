@@ -139,6 +139,7 @@ button:hover {
     padding: 1rem;
     margin: 0.5rem 0;
     background: white;
+    color: #333;
     border: 2px solid #ddd;
     border-radius: 8px;
     cursor: pointer;
@@ -149,6 +150,7 @@ button:hover {
 .settings-btn:hover {
     background: #f5f5f5;
     border-color: #2196F3;
+    color: #2196F3;
 }
 
 #camera-btn.active {
@@ -738,7 +740,7 @@ button:hover {
 
 /* Petits Chevaux */
 .ludo-board {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
 }
 
@@ -750,100 +752,149 @@ button:hover {
     margin-bottom: 1rem;
 }
 
+.ludo-roll-btn {
+    background: #2196F3;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.ludo-roll-btn:hover {
+    background: #1976D2;
+}
+
 .ludo-dice {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     background: white;
     border: 3px solid #2196F3;
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
     color: #2196F3;
 }
 
-.ludo-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+.ludo-cross {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 4px solid #333;
+    border-radius: 8px;
+}
+
+.ludo-row {
+    display: flex;
+}
+
+.ludo-col {
+    display: flex;
+    flex-direction: column;
 }
 
 .ludo-home {
+    width: 240px;
+    height: 240px;
     border: 3px solid #333;
-    border-radius: 8px;
-    padding: 1rem;
+    padding: 1.5rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
+    gap: 1rem;
     position: relative;
-    min-height: 150px;
 }
 
 .home-label {
     position: absolute;
-    top: 0.25rem;
+    top: 0.5rem;
     left: 50%;
     transform: translateX(-50%);
     font-weight: bold;
-    font-size: 0.8rem;
-    color: #333;
-    background: rgba(255,255,255,0.8);
-    padding: 0.2rem 0.5rem;
+    font-size: 0.9rem;
+    color: white;
+    background: rgba(0,0,0,0.7);
+    padding: 0.3rem 0.8rem;
     border-radius: 4px;
+    z-index: 1;
 }
 
 .ludo-piece-slot {
-    width: 50px;
-    height: 50px;
-    border: 2px solid #333;
+    width: 100%;
+    height: 100%;
+    border: 3px solid rgba(0,0,0,0.3);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     background: rgba(255,255,255,0.3);
+    transition: all 0.2s;
 }
 
 .ludo-piece-slot:hover {
     background: rgba(255,255,255,0.5);
+    transform: scale(1.05);
 }
 
 .ludo-piece {
-    width: 40px;
-    height: 40px;
+    width: 70%;
+    height: 70%;
     border-radius: 50%;
     border: 3px solid #333;
 }
 
-.ludo-track {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: repeat(14, 1fr);
-    gap: 2px;
-    margin-top: 1rem;
-    padding: 1rem;
-    background: #ddd;
-    border-radius: 8px;
-}
-
-.track-cell {
-    width: 30px;
-    height: 30px;
-    border: 1px solid #999;
-    background: white;
+.ludo-cell {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #666;
+    background: #f5f5f5;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
 }
 
+.ludo-col .ludo-cell:first-child {
+    background: #ff6666;
+}
+
+.ludo-row:first-child .ludo-col .ludo-cell:first-child {
+    background: #ff4444;
+}
+
+.ludo-row:first-child .ludo-col .ludo-cell:last-child {
+    background: #44ff44;
+}
+
+.ludo-row:last-child .ludo-col .ludo-cell:first-child {
+    background: #ffff44;
+}
+
+.ludo-row:last-child .ludo-col .ludo-cell:last-child {
+    background: #4444ff;
+}
+
+.ludo-center {
+    width: 240px;
+    height: 240px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 3px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+}
+
 .ludo-piece-small {
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
-    border: 1px solid #333;
+    border: 2px solid #333;
     margin: 1px;
 }
 
@@ -1020,6 +1071,92 @@ footer a:hover {
 .footer-version {
     font-size: 0.8rem;
     opacity: 0.9;
+}
+
+/* Fenêtre de victoire */
+.victory-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.victory-modal {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.5s;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.victory-trophy {
+    font-size: 6rem;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.victory-title {
+    color: white;
+    font-size: 2.5rem;
+    margin: 1rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.victory-medal {
+    font-size: 4rem;
+    margin: 1rem 0;
+}
+
+.victory-winner {
+    color: white;
+    font-size: 1.5rem;
+    margin: 1.5rem 0;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.victory-btn {
+    background: white;
+    color: #667eea;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.victory-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Responsive */

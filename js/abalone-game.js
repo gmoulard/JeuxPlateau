@@ -194,9 +194,9 @@ class AbaloneGame extends BaseGame {
 
     checkWinner() {
         if (this.ejected[0] >= 6) {
-            alert(`${this.players[1]} gagne ! 6 billes noires éjectées.`);
+            window.gameApp.showVictory(this.players[1]);
         } else if (this.ejected[1] >= 6) {
-            alert(`${this.players[0]} gagne ! 6 billes blanches éjectées.`);
+            window.gameApp.showVictory(this.players[0]);
         }
     }
 }

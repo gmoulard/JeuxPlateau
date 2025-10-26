@@ -39,45 +39,73 @@ class LudoGame extends BaseGame {
                     <button onclick="window.currentGame.rollDice()" class="ludo-roll-btn">🎲 Lancer le dé</button>
                     <div class="ludo-dice">${this.diceValue || '-'}</div>
                 </div>
-                <div class="ludo-game">
-                    ${this.renderBoard()}
-                </div>
+                ${this.renderBoard()}
             </div>
         `;
     }
 
     renderBoard() {
-        let html = '<div class="ludo-grid">';
+        let html = '<div class="ludo-cross">';
         
-        for (let p = 0; p < this.players.length; p++) {
-            const color = this.colors[p];
-            html += `<div class="ludo-home" style="background: ${color};" data-player="${p}">`;
-            html += `<div class="home-label">${this.players[p]}</div>`;
-            
-            for (let i = 0; i < 4; i++) {
-                const pieceIndex = p * 4 + i;
-                const piece = this.pieces[pieceIndex];
-                const inHome = piece.position === -1;
-                html += `<div class="ludo-piece-slot" data-piece="${pieceIndex}" onclick="window.currentGame.selectPiece(${pieceIndex})">`;
-                if (inHome) {
-                    html += `<div class="ludo-piece" style="background: ${color};"></div>`;
-                }
-                html += `</div>`;
-            }
-            html += '</div>';
-        }
-        
-        html += '<div class="ludo-track">';
-        for (let i = 0; i < 56; i++) {
-            const piecesHere = this.pieces.filter(p => p.position === i && !p.finished);
-            html += `<div class="track-cell" data-pos="${i}">`;
-            piecesHere.forEach(p => {
-                html += `<div class="ludo-piece-small" style="background: ${this.colors[p.player]};"></div>`;
-            });
-            html += '</div>';
-        }
+        // Ligne 1: Home rouge + piste + Home vert
+        html += '<div class="ludo-row">';
+        html += this.renderHome(0); // Rouge
+        html += '<div class="ludo-col">';
+        for (let i = 0; i < 6; i++) html += this.renderCell(i);
+        html += '</div>';
+        html += this.renderHome(1); // Vert
         html += '</div>';
         
+        // Ligne 2: Piste gauche + Centre + Piste droite
+        html += '<div class="ludo-row">';
+        html += '<div class="ludo-col">';
+        for (let i = 13; i >= 8; i--) html += this.renderCell(i);
+        html += '</div>';
+        html += '<div class="ludo-center">🏁</div>';
+        html += '<div class="ludo-col">';
+        for (let i = 20; i <= 25; i++) html += this.renderCell(i);
+        html += '</div>';
+        html += '</div>';
+        
+        // Ligne 3: Home jaune + piste + Home bleu
+        html += '<div class="ludo-row">';
+        html += this.renderHome(3); // Jaune
+        html += '<div class="ludo-col">';
+        for (let i = 19; i >= 14; i--) html += this.renderCell(i);
+        html += '</div>';
+        html += this.renderHome(2); // Bleu
+        html += '</div>';
+        
+        html += '</div>';
+        return html;
+    }
+    
+    renderHome(player) {
+        const color = this.colors[player];
+        const names = ['Rouge', 'Vert', 'Bleu', 'Jaune'];
+        let html = `<div class="ludo-home" style="background: ${color};" data-player="${player}">`;
+        html += `<div class="home-label">${names[player]}</div>`;
+        
+        for (let i = 0; i < 4; i++) {
+            const pieceIndex = player * 4 + i;
+            const piece = this.pieces[pieceIndex];
+            const inHome = piece.position === -1;
+            html += `<div class="ludo-piece-slot" data-piece="${pieceIndex}" onclick="window.currentGame.selectPiece(${pieceIndex})">`;
+            if (inHome) {
+                html += `<div class="ludo-piece" style="background: white; border-color: #333;"></div>`;
+            }
+            html += `</div>`;
+        }
+        html += '</div>';
+        return html;
+    }
+    
+    renderCell(pos) {
+        const piecesHere = this.pieces.filter(p => p.position === pos && !p.finished);
+        let html = `<div class="ludo-cell" data-pos="${pos}">`;
+        piecesHere.forEach(p => {
+            html += `<div class="ludo-piece-small" style="background: ${this.colors[p.player]};"></div>`;
+        });
         html += '</div>';
         return html;
     }
@@ -110,13 +138,14 @@ class LudoGame extends BaseGame {
         
         if (piece.position === -1) {
             if (this.diceValue === 6) {
-                piece.position = this.currentPlayer * 14;
+                const starts = [0, 6, 13, 19];
+                piece.position = starts[this.currentPlayer];
                 this.canRollAgain = true;
             }
         } else {
             const newPos = piece.position + this.diceValue;
             
-            if (newPos < 56) {
+            if (newPos < 26) {
                 const captured = this.pieces.find(p => 
                     p.position === newPos && 
                     p.player !== this.currentPlayer && 
@@ -132,9 +161,9 @@ class LudoGame extends BaseGame {
                 if (this.diceValue === 6) {
                     this.canRollAgain = true;
                 }
-            } else if (newPos === 56) {
+            } else if (newPos === 26) {
                 piece.finished = true;
-                piece.position = 56;
+                piece.position = 26;
             }
         }
         
@@ -157,7 +186,7 @@ class LudoGame extends BaseGame {
         }
         
         const newPos = piece.position + this.diceValue;
-        return newPos <= 56;
+        return newPos <= 26;
     }
 
     nextPlayer() {
@@ -170,7 +199,7 @@ class LudoGame extends BaseGame {
             const playerPieces = this.pieces.filter((piece, i) => Math.floor(i / 4) === p);
             if (playerPieces.every(piece => piece.finished)) {
                 setTimeout(() => {
-                    alert(`${this.players[p]} a gagné !`);
+                    window.gameApp.showVictory(this.players[p]);
                 }, 100);
                 return;
             }
@@ -189,13 +218,13 @@ class LudoGame extends BaseGame {
                 if (slot) {
                     slot.innerHTML = '';
                     if (piece.position === -1) {
-                        slot.innerHTML = `<div class="ludo-piece" style="background: ${this.colors[p]};"></div>`;
+                        slot.innerHTML = `<div class="ludo-piece" style="background: white; border-color: #333;"></div>`;
                     }
                 }
             }
         }
         
-        this.container.querySelectorAll('.track-cell').forEach(cell => {
+        this.container.querySelectorAll('.ludo-cell').forEach(cell => {
             const pos = parseInt(cell.dataset.pos);
             const piecesHere = this.pieces.filter(p => p.position === pos && !p.finished);
             cell.innerHTML = '';

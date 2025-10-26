@@ -62,12 +62,12 @@ class TicTacToeGame extends BaseGame {
         if (this.checkWinner()) {
             this.gameOver = true;
             setTimeout(() => {
-                alert(`${this.players[this.currentPlayer]} a gagné ! 🎉`);
+                window.gameApp.showVictory(this.players[this.currentPlayer]);
             }, 100);
         } else if (this.board.every(cell => cell !== null)) {
             this.gameOver = true;
             setTimeout(() => {
-                alert('Match nul ! 🤝');
+                window.gameApp.showVictory('Match nul');
             }, 100);
         } else {
             this.currentPlayer = 1 - this.currentPlayer;
