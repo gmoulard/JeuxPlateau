@@ -171,11 +171,14 @@ class GameApp {
     }
 
     updatePlayerInputs(count) {
+        const asterixNames = ['Astérix', 'Obélix', 'Panoramix', 'Idéfix', 'Abraracourcix', 'Assurancetourix', 'Agecanonix', 'Bonemine', 'Falbala', 'Ordralfabétix', 'Cétautomatix', 'Plaintcontrix', 'Beaufix', 'Goudurix', 'Tragicomix', 'Bonnemine', 'Pepe', 'Zérozérosix', 'Tullius Détritus', 'Jules César', 'Cléopâtre', 'Numérobis', 'Amonbofis', 'Barbe-Rouge', 'Triple-Patte', 'Jolitorax', 'Aplusbégalix', 'Moralélastix', 'Promoplus', 'Ocatarinetabellatchitchix'];
+        const shuffled = [...asterixNames].sort(() => Math.random() - 0.5);
         const container = document.getElementById('player-names');
         container.innerHTML = '';
         for (let i = 1; i <= count; i++) {
             const input = document.createElement('input');
             input.type = 'text';
+            input.value = shuffled[i - 1] || `Joueur ${i}`;
             input.placeholder = `Nom du joueur ${i}`;
             input.className = 'player-input';
             container.appendChild(input);
@@ -404,6 +407,21 @@ class GameApp {
             alert('Données locales effacées avec succès !');
             this.showScreen('game-selection');
         }
+    }
+
+    showVictory(winnerName) {
+        const overlay = document.createElement('div');
+        overlay.className = 'victory-overlay';
+        overlay.innerHTML = `
+            <div class="victory-modal">
+                <div class="victory-trophy">🏆</div>
+                <h2 class="victory-title">Victoire !</h2>
+                <div class="victory-medal">🥇</div>
+                <p class="victory-winner">${winnerName} a gagné !</p>
+                <button class="victory-btn" onclick="this.closest('.victory-overlay').remove(); window.gameApp.backToMenu();">Retour au menu</button>
+            </div>
+        `;
+        document.body.appendChild(overlay);
     }
 
     async updateApp() {
