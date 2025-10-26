@@ -42,6 +42,18 @@ URL Jeux : https://gmoulard.github.io/JeuxPlateau/
 2. Utilisez l'option "Ajouter à l'écran d'accueil"
 3. L'application sera installée comme une app native
 
+## 🏗️ Architecture Logicielle
+
+![Architecture](architecture.drawio)
+
+Le projet suit une architecture en couches :
+- **Couche Présentation** : HTML, CSS, PWA, Assets
+- **Couche Application** : Orchestration (app.js), Classes de base, Framework, Storage
+- **Couche Jeux** : Modules de jeux indépendants héritant de BaseGame
+- **Couche Tests** : Tests unitaires avec Vitest et CI/CD
+
+Voir le fichier [architecture.drawio](architecture.drawio) pour le diagramme complet (ouvrir avec [draw.io](https://app.diagrams.net/))
+
 ## 🛠️ Structure du Projet
 
 ```
@@ -54,27 +66,33 @@ JeuxPlateau/
 ├── logo.svg                # Logo de l'application
 ├── icon-192.png            # Icône PWA 192x192
 ├── icon-512.png            # Icône PWA 512x512
+├── architecture.drawio     # Diagramme d'architecture
 ├── .gitlab-ci.yml          # Configuration GitLab CI
 ├── .gitignore              # Fichiers ignorés par Git
 ├── package.json            # Dépendances npm
 ├── vitest.config.js        # Configuration Vitest
+├── GAME_FRAMEWORK.md       # Documentation du framework
+├── QUICK_START.md          # Guide de démarrage rapide
 ├── js/
-│   ├── app.js              # Logique principale (370 lignes)
+│   ├── app.js              # Logique principale (390 lignes)
 │   ├── base-game.js        # Classe de base (48 lignes)
+│   ├── game-framework.js   # Framework interne (280 lignes)
 │   ├── tictactoe-game.js   # Jeu de Morpion (86 lignes)
+│   ├── tictactoe-game-v2.js # Morpion avec framework (30 lignes)
 │   ├── checkers-game.js    # Jeu de Dames (176 lignes)
 │   ├── chess-game.js       # Jeu d'Échecs (224 lignes)
 │   ├── backgammon-game.js  # Jeu de Tavli (280 lignes)
 │   ├── ludo-game.js        # Petits Chevaux (197 lignes)
-│   └── abalone-game.js     # Jeu d'Abalone (255 lignes)
+│   └── abalone-game.js     # Jeu d'Abalone (320 lignes)
 ├── tests/
 │   ├── tictactoe.test.js   # Tests Morpion
-│   └── checkers.test.js    # Tests Dames
+│   ├── checkers.test.js    # Tests Dames
+│   └── game-framework.test.js # Tests Framework
 ├── Pull_requests/          # Documentation des PR
 │   └── pr_v1.0.1.md à pr_v1.3.2.md
 └── README.md               # Documentation
 
-Total code source : 2 894 lignes
+Total code source : 3 300+ lignes
 ```
 
 ## 🎯 Utilisation
@@ -132,7 +150,7 @@ npm run test:run # Exécution unique
 - Logique avancée pour les Échecs (mouvements par pièce, validation chemin)
 - Logique complète du Tavli/Backgammon avec barre de réintroduction
 - Logique complète des Petits Chevaux
-- Jeu d'Abalone avec plateau hexagonal
+- Jeu d'Abalone avec règles complètes (Sumito, mouvements inline/sidestep)
 - Système de versioning
 - Sauvegarde locale des paramètres
 - Historique des parties
@@ -145,7 +163,7 @@ npm run test:run # Exécution unique
 ### 🚧 À Développer
 - [ ] Règles complètes pour les Échecs (échec, mat, roque, en passant)
 - [ ] Tests unitaires pour tous les jeux
-- [ ] Lazy-loading des jeux (optimisation future)
+- [x] Lazy-loading des jeux (optimisation future)
 
 ## 🎨 Personnalisation
 
@@ -178,12 +196,13 @@ Chaque modification suit ce processus automatisé :
 7. Push de master
 
 ### Statistiques du projet
-- **Version actuelle** : 1.4.5
-- **Lignes de code** : 2 894 lignes
+- **Version actuelle** : 1.7.0
+- **Lignes de code** : 3 300+ lignes
 - **Nombre de jeux** : 6 jeux complets
-- **Fichiers JavaScript** : 11 fichiers (tous < 300 lignes)
-- **Tests** : 2 suites de tests
-- **Versions publiées** : 25 versions (1.0.0 à 1.4.5)
+- **Fichiers JavaScript** : 13 fichiers (tous < 400 lignes)
+- **Tests** : 3 suites de tests
+- **Versions publiées** : 28 versions (1.0.0 à 1.7.0)
+- **Framework interne** : Réduit le code de 50-65% par jeu ⭐
 
 
 
