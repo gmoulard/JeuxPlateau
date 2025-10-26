@@ -34,10 +34,9 @@
             <img src="logo.svg" alt="Logo" class="app-logo">
             <h1><a href="https://github.com/gmoulard/JeuxPlateau" target="_blank" style="color: white; text-decoration: none;">Jeux de Plateau</a></h1>
             <div class="header-actions">
-                <button id="camera-btn" title="Activer/Désactiver caméra">📷</button>
                 <button id="install-btn" title="Installer l'application" style="display: none;">📥</button>
                 <button id="help-btn" title="Aide">❓</button>
-                <button id="history-btn" title="Historique">📊</button>
+                <button id="settings-btn" title="Paramètres">⚙️</button>
             </div>
         </header>
         
@@ -381,6 +380,25 @@
                 </div>
             </div>
             <button id="back-from-versions">Retour</button>
+        </div>
+
+        <div id="settings-screen" class="screen">
+            <h2>Paramètres</h2>
+            <div class="white-panel">
+                <h3>Affichage</h3>
+                <button id="camera-btn" class="settings-btn">📷 Activer/Désactiver caméra</button>
+                
+                <h3>Historique</h3>
+                <button id="history-btn" class="settings-btn">📊 Voir l'historique des parties</button>
+                <button id="versions-btn" class="settings-btn">📋 Voir les versions</button>
+                
+                <h3>Données</h3>
+                <button id="clear-data-btn" class="settings-btn">🗑️ Effacer les données locales</button>
+                
+                <h3>Application</h3>
+                <button id="update-app-btn" class="settings-btn">🔄 Mettre à jour l'application</button>
+            </div>
+            <button id="back-from-settings">Retour</button>
         </div>
 
         <div id="history-screen" class="screen">

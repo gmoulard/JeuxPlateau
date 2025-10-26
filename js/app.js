@@ -91,13 +91,18 @@ class GameApp {
         document.getElementById('roll-dice').addEventListener('click', () => this.rollDice());
         document.getElementById('help-btn').addEventListener('click', () => this.showScreen('help-screen'));
         document.getElementById('back-from-help').addEventListener('click', () => this.showScreen('game-selection'));
+        document.getElementById('settings-btn').addEventListener('click', () => this.showScreen('settings-screen'));
+        document.getElementById('back-from-settings').addEventListener('click', () => this.showScreen('game-selection'));
         document.getElementById('history-btn').addEventListener('click', () => this.showHistory());
-        document.getElementById('back-from-history').addEventListener('click', () => this.showScreen('game-selection'));
+        document.getElementById('back-from-history').addEventListener('click', () => this.showScreen('settings-screen'));
+        document.getElementById('versions-btn').addEventListener('click', () => this.showScreen('versions-screen'));
         document.getElementById('game-help-btn').addEventListener('click', () => this.showGameHelp());
         document.getElementById('close-game-help').addEventListener('click', () => this.hideGameHelp());
-        document.getElementById('back-from-versions').addEventListener('click', () => this.showScreen('game-selection'));
+        document.getElementById('back-from-versions').addEventListener('click', () => this.showScreen('settings-screen'));
         document.getElementById('install-btn').addEventListener('click', () => this.installPWA());
         document.getElementById('camera-btn').addEventListener('click', () => this.toggleCamera());
+        document.getElementById('clear-data-btn').addEventListener('click', () => this.clearLocalData());
+        document.getElementById('update-app-btn').addEventListener('click', () => this.updateApp());
         document.getElementById('footer-version-link').addEventListener('click', (e) => {
             e.preventDefault();
             this.showScreen('versions-screen');
@@ -389,6 +394,32 @@ class GameApp {
                 this.cameraActive = true;
             } catch (err) {
                 alert('Impossible d\'activer la caméra: ' + err.message);
+            }
+        }
+    }
+
+    clearLocalData() {
+        if (confirm('Êtes-vous sûr de vouloir effacer toutes les données locales (historique, paramètres) ?')) {
+            localStorage.clear();
+            alert('Données locales effacées avec succès !');
+            this.showScreen('game-selection');
+        }
+    }
+
+    async updateApp() {
+        if ('serviceWorker' in navigator) {
+            const registration = await navigator.serviceWorker.getRegistration();
+            if (registration) {
+                await registration.update();
+                if (confirm('Mise à jour vérifiée. Recharger l\'application maintenant ?')) {
+                    window.location.reload();
+                }
+            } else {
+                alert('Service Worker non disponible. Rechargez la page manuellement.');
+            }
+        } else {
+            if (confirm('Recharger l\'application pour obtenir la dernière version ?')) {
+                window.location.reload();
             }
         }
     }
