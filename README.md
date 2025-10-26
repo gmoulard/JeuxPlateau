@@ -21,12 +21,15 @@ Une application web progressive (PWA) pour jouer aux jeux de plateau classiques.
 - Interface en français
 - Design moderne avec effets glassmorphism
 - Fond d'écran dégradé ou caméra (optionnel)
-- Logo SVG personnalisé
+- Logo SVG personnalisé cliquable (retour index)
 - Numéro de version visible dans l'application
 - Sauvegarde automatique des paramètres (noms des joueurs)
 - Historique local des parties jouées
 - Page d'aide contextuelle par jeu
 - Historique des versions avec liens vers les PR
+- **Personnalisation couleurs** : Cases et pions personnalisables
+- **Statistiques de jeu** : Tavli (pions sortis, pip count), Dames (captures)
+- **Modal de victoire** : Animation élégante avec trophée 🏆
 
 ## 📱 Installation
 
@@ -140,15 +143,15 @@ npm run test:run # Exécution unique
 - Styles CSS complets avec glassmorphism
 - Configuration PWA complète
 - Icônes PWA (192x192 et 512x512)
-- Logo SVG personnalisé
+- Logo SVG personnalisé et cliquable
 - Bouton d'installation PWA
 - Service Worker pour mode hors connexion
 - Option fond caméra (désactivée par défaut)
 - Logique principale de l'application (app.js)
 - Jeu de Morpion complet (victoire, match nul)
-- Logique complète pour les Dames (prises obligatoires, dame)
-- Logique avancée pour les Échecs (mouvements par pièce, validation chemin)
-- Logique complète du Tavli/Backgammon avec barre de réintroduction
+- Logique complète pour les Dames (prises obligatoires, dame, compteur captures)
+- Logique avancée pour les Échecs (mouvements par pièce, validation chemin, couleur joueur)
+- Logique complète du Tavli/Backgammon avec barre de réintroduction, statistiques (sortis, pips)
 - Logique complète des Petits Chevaux
 - Jeu d'Abalone avec règles complètes (Sumito, mouvements inline/sidestep)
 - Système de versioning
@@ -159,6 +162,9 @@ npm run test:run # Exécution unique
 - Tests unitaires avec Vitest (Morpion, Dames)
 - GitLab CI pour tests automatiques
 - Documentation complète des PR
+- Modal de victoire avec animation
+- Personnalisation couleurs complète (cases + pions)
+- Statistiques de jeu (Tavli, Dames)
 
 ### 🚧 À Développer
 - [ ] Règles complètes pour les Échecs (échec, mat, roque, en passant)
@@ -167,10 +173,19 @@ npm run test:run # Exécution unique
 
 ## 🎨 Personnalisation
 
-### Couleurs
+### Couleurs de l'interface
 - Primaire : `#2196F3` (Bleu)
 - Secondaire : `#1976D2` (Bleu foncé)
 - Arrière-plan : `#f5f5f5` (Gris clair)
+
+### Couleurs personnalisables (Paramètres)
+- **Cases claires** : Par défaut `#f0d9b5`
+- **Cases foncées** : Par défaut `#b58863`
+- **Pions joueur 1** : Par défaut `#ffffff` (blanc)
+- **Pions joueur 2** : Par défaut `#333333` (noir)
+- Sauvegarde automatique dans localStorage
+- Bouton réinitialiser pour retour aux valeurs par défaut
+- Application immédiate sur Dames, Échecs et Tavli
 
 ### Responsive
 - Mobile : < 768px
@@ -196,13 +211,15 @@ Chaque modification suit ce processus automatisé :
 7. Push de master
 
 ### Statistiques du projet
-- **Version actuelle** : 1.7.0
-- **Lignes de code** : 3 300+ lignes
+- **Version actuelle** : 1.4.14
+- **Lignes de code** : 3 500+ lignes
 - **Nombre de jeux** : 6 jeux complets
 - **Fichiers JavaScript** : 13 fichiers (tous < 400 lignes)
 - **Tests** : 3 suites de tests
-- **Versions publiées** : 28 versions (1.0.0 à 1.7.0)
+- **Versions publiées** : 29 versions (1.0.0 à 1.4.14)
 - **Framework interne** : Réduit le code de 50-65% par jeu ⭐
+- **Personnalisation** : Couleurs cases et pions via CSS variables
+- **Statistiques** : Tavli (sortis/15, pips), Dames (captures)
 
 
 
