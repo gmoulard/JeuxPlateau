@@ -1,7 +1,7 @@
 {
-  "name": "Jeux de Plateau",
+  "name": "Jeux de Plateau - 100% Vibecodé",
   "short_name": "JeuxPlateau",
-  "description": "Application PWA pour jouer aux jeux de plateau",
+  "description": "Application PWA pour jouer aux jeux de plateau - 100% Vibecodé",
   "start_url": "/JeuxPlateau/",
   "display": "standalone",
   "background_color": "#ffffff",

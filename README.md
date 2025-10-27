@@ -1,6 +1,6 @@
-# Jeux de Plateau
+# Jeux de Plateau - 100% Vibecodé
 
-Une application web progressive (PWA) pour jouer aux jeux de plateau classiques.
+Une application web progressive (PWA) pour jouer aux jeux de plateau classiques, entièrement développée par IA.
 
 ## 🎮 Jeux Disponibles
 
@@ -191,24 +191,31 @@ npm run test:run # Exécution unique
 - Mobile : < 768px
 - Tablette/Desktop : ≥ 768px
 
-## 🤖 Génération par IA
+## 🤖 AI-Assisted Development (Développement Assisté par IA)
 
-**Important** : Ce projet a été entièrement généré par des modèles de langage (LLM) :
-- Code HTML, CSS et JavaScript généré par Amazon Q Developer
-- Architecture et structure du projet conçues par IA
-- Documentation rédigée automatiquement
+**Important** : Ce projet a été entièrement développé via **AI-Assisted Development** :
+- Code généré par **Amazon Q Developer** (LLM)
+- Architecture conçue via **Prompt Engineering**
+- Documentation automatisée par IA
+- Workflow **LLM-Driven Development**
 
-Cette approche permet un développement rapide et cohérent, tout en maintenant la qualité du code.
+Cette approche de **Conversational Programming** permet un développement rapide et cohérent, tout en maintenant la qualité du code.
+
+### Méthodologie
+- **AI Pair Programming** : Collaboration humain-IA en temps réel
+- **Natural Language Programming** : Instructions en langage naturel
+- **Generative AI Development** : Génération automatique de code
+- **Prompt Engineering** : Optimisation des instructions pour l'IA
 
 ### Workflow de développement
-Chaque modification suit ce processus automatisé :
-1. Création d'une branche feature/fix
-2. Modifications du code
+Chaque modification suit ce processus **LLM-Driven** :
+1. Prompt en langage naturel
+2. Génération du code par Amazon Q
 3. Incrémentation de la version
 4. Création de la documentation PR
-5. Commit et push de la branche
+5. Commit et push automatisé
 6. Merge dans master
-7. Push de master
+7. Déploiement GitHub Pages
 
 ### Statistiques du projet
 - **Version actuelle** : 1.4.14
