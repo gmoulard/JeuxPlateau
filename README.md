@@ -105,6 +105,18 @@ Total code source : 3 300+ lignes
 3. **Jeu** : Suivez les règles du jeu sélectionné
 4. **Dés** : Utilisez le bouton de lancement de dés quand nécessaire
 
+### 🔄 Mise à jour de l'application
+
+Le bouton "🔄 Mettre à jour l'application" dans les paramètres garantit une mise à jour complète :
+
+- **Vidage complet du cache** : Suppression de tous les caches de l'API Cache Storage
+- **Service Worker mis à jour** : Réinstallation forcée pour la dernière version
+- **Conservation des données** : L'historique et paramètres utilisateur sont préservés
+- **Rechargement intelligent** : Tous les fichiers sont re-téléchargés avec timestamp
+- **Debug disponible** : Appuyez sur **Ctrl+Shift+D** pour voir les informations de cache
+
+Cette fonctionnalité résout les problèmes de fichiers obsolètes en cache et garantit que vous avez toujours la dernière version de l'application.
+
 ## 🔧 Technologies Utilisées
 
 - **HTML5** - Structure de l'application

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Mise à Jour</title>
+</head>
+<body>
+    <h1>Test de la fonction de mise à jour</h1>
+    <button onclick="testUpdate()">🔄 Tester la mise à jour</button>
+    <div id="log" style="margin-top: 20px; padding: 10px; background: #f0f0f0; font-family: monospace; white-space: pre-wrap;"></div>
+
+    <script>
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            logDiv.textContent += new Date().toLocaleTimeString() + ': ' + message + '\n';
+        }
+
+        async function testUpdate() {
+            log('Début du test de mise à jour...');
+            
+            try {
+                // Test 1: Vérifier les caches
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    log(`Caches trouvés: ${cacheNames.length}`);
+                    
+                    // Créer un cache de test
+                    const testCache = await caches.open('test-cache');
+                    await testCache.put('/test', new Response('test'));
+                    log('Cache de test créé');
+                    
+                    // Vider tous les caches
+                    const allCaches = await caches.keys();
+                    await Promise.all(allCaches.map(name => caches.delete(name)));
+                    log('Tous les caches vidés');
+                    
+                    // Vérifier que les caches sont vidés
+                    const remainingCaches = await caches.keys();
+                    log(`Caches restants: ${remainingCaches.length}`);
+                } else {
+                    log('API Cache non supportée');
+                }
+
+                // Test 2: Service Worker
+                if ('serviceWorker' in navigator) {
+                    const registration = await navigator.serviceWorker.getRegistration();
+                    if (registration) {
+                        log('Service Worker trouvé');
+                        await registration.update();
+                        log('Service Worker mis à jour');
+                    } else {
+                        log('Aucun Service Worker trouvé');
+                    }
+                } else {
+                    log('Service Worker non supporté');
+                }
+
+                log('Test terminé avec succès !');
+                
+            } catch (error) {
+                log('Erreur: ' + error.message);
+            }
+        }
+
+        // Auto-test au chargement
+        window.addEventListener('load', () => {
+            log('Page de test chargée');
+        });
+    </script>
+</body>
+</html>

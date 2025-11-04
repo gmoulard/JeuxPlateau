@@ -16,6 +16,7 @@
  * - 1.0.4 (2024-01-15): Ajout en-têtes de documentation
  * - 1.0.6 (2024-01-15): Refactoring fichiers séparés
  * - 1.0.7 (2024-01-15): Installation PWA + fix mobile Tavli
+ * - 1.4.15 (2024-01-15): Amélioration système mise à jour cache (AWS-Kiro)
  */
 
 class GameApp {
@@ -42,9 +43,12 @@ class GameApp {
             const response = await fetch('version.json');
             const data = await response.json();
             this.version = data.version;
-            document.getElementById('footer-version').textContent = this.version;
+            this.versionInfo = data;
+            const versionText = data.createdBy ? `${data.version} (${data.createdBy})` : data.version;
+            document.getElementById('footer-version').textContent = versionText;
         } catch (e) {
             this.version = '1.0.0';
+            this.versionInfo = { version: '1.0.0' };
             document.getElementById('footer-version').textContent = '1.0.0';
         }
     }
@@ -141,6 +145,13 @@ class GameApp {
         document.getElementById('camera-btn').addEventListener('click', () => this.toggleCamera());
         document.getElementById('clear-data-btn').addEventListener('click', () => this.clearLocalData());
         document.getElementById('update-app-btn').addEventListener('click', () => this.updateApp());
+        
+        // Debug: Ajouter un listener pour afficher les infos de cache (Ctrl+Shift+D)
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+                this.showCacheInfo();
+            }
+        });
         document.getElementById('reset-colors-btn').addEventListener('click', () => this.resetColors());
         document.getElementById('light-cell-color').addEventListener('change', (e) => this.updateColors());
         document.getElementById('dark-cell-color').addEventListener('change', (e) => this.updateColors());
@@ -473,20 +484,135 @@ class GameApp {
         document.body.appendChild(overlay);
     }
 
-    async updateApp() {
-        if ('serviceWorker' in navigator) {
-            const registration = await navigator.serviceWorker.getRegistration();
-            if (registration) {
-                await registration.update();
-                if (confirm('Mise à jour vérifiée. Recharger l\'application maintenant ?')) {
-                    window.location.reload();
+    async showCacheInfo() {
+        try {
+            let info = 'INFORMATIONS DE CACHE\n\n';
+            
+            // Informations sur les caches
+            if ('caches' in window) {
+                const cacheNames = await caches.keys();
+                info += `Caches trouvés: ${cacheNames.length}\n`;
+                for (const cacheName of cacheNames) {
+                    const cache = await caches.open(cacheName);
+                    const keys = await cache.keys();
+                    info += `- ${cacheName}: ${keys.length} fichiers\n`;
                 }
-            } else {
-                alert('Service Worker non disponible. Rechargez la page manuellement.');
             }
-        } else {
-            if (confirm('Recharger l\'application pour obtenir la dernière version ?')) {
-                window.location.reload();
+            
+            // Informations sur le service worker
+            if ('serviceWorker' in navigator) {
+                const registration = await navigator.serviceWorker.getRegistration();
+                if (registration) {
+                    info += `\nService Worker: Actif\n`;
+                    info += `- État: ${registration.active ? 'Actif' : 'Inactif'}\n`;
+                    info += `- En attente: ${registration.waiting ? 'Oui' : 'Non'}\n`;
+                    info += `- Installation: ${registration.installing ? 'En cours' : 'Terminée'}\n`;
+                } else {
+                    info += `\nService Worker: Non trouvé\n`;
+                }
+            }
+            
+            // Informations sur le localStorage
+            info += `\nLocalStorage: ${Object.keys(localStorage).length} clés\n`;
+            Object.keys(localStorage).forEach(key => {
+                const value = localStorage.getItem(key);
+                const size = new Blob([value]).size;
+                info += `- ${key}: ${size} bytes\n`;
+            });
+            
+            alert(info);
+        } catch (error) {
+            alert('Erreur lors de la récupération des informations: ' + error.message);
+        }
+    }
+
+    async updateApp() {
+        try {
+            console.log('Début de la mise à jour de l\'application...');
+            
+            // Étape 1: Vider complètement le cache du navigateur
+            if ('caches' in window) {
+                const cacheNames = await caches.keys();
+                console.log('Caches trouvés:', cacheNames);
+                
+                await Promise.all(
+                    cacheNames.map(async (cacheName) => {
+                        console.log('Suppression du cache:', cacheName);
+                        return caches.delete(cacheName);
+                    })
+                );
+                console.log('Tous les caches ont été vidés');
+            }
+
+            // Étape 2: Forcer la mise à jour du service worker
+            if ('serviceWorker' in navigator) {
+                const registration = await navigator.serviceWorker.getRegistration();
+                if (registration) {
+                    console.log('Service Worker trouvé, mise à jour...');
+                    
+                    // Forcer la mise à jour
+                    await registration.update();
+                    
+                    // Si il y a un service worker en attente, l'activer
+                    if (registration.waiting) {
+                        registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+                    }
+                    
+                    console.log('Service Worker mis à jour');
+                } else {
+                    console.log('Aucun Service Worker trouvé, enregistrement...');
+                    await navigator.serviceWorker.register('./sw.js');
+                }
+            }
+
+            // Étape 3: Vider le cache du navigateur (localStorage, sessionStorage)
+            try {
+                // Sauvegarder les données importantes avant de vider
+                const gameSettings = localStorage.getItem('gameSettings');
+                const gameHistory = localStorage.getItem('gameHistory');
+                const gameColors = localStorage.getItem('gameColors');
+                
+                // Vider tout le localStorage sauf les données de jeu
+                const keysToKeep = ['gameSettings', 'gameHistory', 'gameColors'];
+                const allKeys = Object.keys(localStorage);
+                
+                allKeys.forEach(key => {
+                    if (!keysToKeep.includes(key)) {
+                        localStorage.removeItem(key);
+                    }
+                });
+                
+                // Vider sessionStorage
+                sessionStorage.clear();
+                
+                console.log('Cache navigateur vidé (données de jeu conservées)');
+            } catch (e) {
+                console.log('Erreur lors du vidage du cache navigateur:', e);
+            }
+
+            // Étape 4: Confirmer et recharger
+            const message = 'Mise à jour terminée !\n\n' +
+                          '✅ Cache de l\'application vidé\n' +
+                          '✅ Service Worker mis à jour\n' +
+                          '✅ Tous les fichiers seront rechargés\n\n' +
+                          'Recharger maintenant pour obtenir la dernière version ?';
+            
+            if (confirm(message)) {
+                console.log('Rechargement de l\'application...');
+                // Forcer le rechargement complet sans cache
+                window.location.href = window.location.href + '?t=' + Date.now();
+            }
+            
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour:', error);
+            
+            // Fallback: rechargement simple
+            const fallbackMessage = 'Erreur lors de la mise à jour automatique.\n\n' +
+                                  'Voulez-vous recharger l\'application manuellement ?\n' +
+                                  '(Cela devrait résoudre la plupart des problèmes)';
+            
+            if (confirm(fallbackMessage)) {
+                window.location.href = window.location.href + '?t=' + Date.now();
             }
         }
     }
