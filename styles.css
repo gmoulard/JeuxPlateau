@@ -591,31 +591,38 @@ button:hover {
     text-align: center;
 }
 
-/* Tavli */
+/* Tavli - Responsive Design */
 .tavli-container {
-    max-width: 900px;
+    max-width: 100%;
     margin: 0 auto;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 200px);
 }
 
 .tavli-info {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background: white;
-    border-radius: 8px;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
 }
 
 .tavli-stats {
     display: flex;
     justify-content: space-around;
-    gap: 2rem;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background: white;
-    border-radius: 8px;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+    font-size: 0.8rem;
 }
 
 .player-stats {
@@ -624,24 +631,24 @@ button:hover {
 }
 
 .player-stats > div {
-    margin: 0.3rem 0;
+    margin: 0.2rem 0;
 }
 
 .tavli-dice-display {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.3rem;
 }
 
 .dice-value {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     background: white;
-    border: 3px solid #2196F3;
-    border-radius: 8px;
+    border: 2px solid #2196F3;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: bold;
     color: #2196F3;
 }
@@ -649,34 +656,36 @@ button:hover {
 .tavli-moves {
     font-weight: bold;
     color: #2196F3;
+    font-size: 0.9rem;
 }
 
 .tavli-bar {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
+    justify-content: center;
 }
 
 .bar-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
+    gap: 0.3rem;
+    font-size: 0.8rem;
     font-weight: bold;
 }
 
 .bar-checker {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    border: 3px solid #000;
+    border: 2px solid #000;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.2s;
+    font-size: 0.8rem;
 }
 
 .bar-checker:hover {
@@ -685,80 +694,88 @@ button:hover {
 
 .bar-checker.selected {
     border-color: #FFD700;
-    box-shadow: 0 0 10px #FFD700;
+    box-shadow: 0 0 8px #FFD700;
 }
 
 .tavli-board {
     background: #8B4513;
-    border: 4px solid #654321;
-    border-radius: 8px;
-    padding: 1rem;
+    border: 3px solid #654321;
+    border-radius: 6px;
+    padding: 0.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
 }
 
 .tavli-points-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
+    flex: 1;
+    min-height: 0;
 }
 
 .tavli-row {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 4px;
-}
-
-.tavli-spacer {
-    width: 15px;
-    background: #654321;
-    border-radius: 4px;
+    gap: 2px;
+    flex: 1;
+    min-height: 0;
 }
 
 .tavli-point {
     background: #DEB887;
-    border: 2px solid #654321;
-    border-radius: 4px;
-    min-height: 150px;
+    border: 1px solid #654321;
+    border-radius: 3px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0.25rem;
+    padding: 0.1rem;
     position: relative;
     transition: all 0.2s;
+    min-height: 0;
+    overflow: hidden;
 }
 
 .tavli-point:nth-child(6)::after {
     content: '';
     position: absolute;
-    right: -3px;
+    right: -2px;
     top: 0;
     bottom: 0;
-    width: 2px;
-    background: #000;
+    width: 3px;
+    background: #654321;
+    border-radius: 1px;
 }
 
 .tavli-point:hover {
     background: #F4E4C4;
+    transform: scale(1.02);
 }
 
 .tavli-point.selected {
     background: #FFD700;
     border-color: #FFA500;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+    transform: scale(1.05);
 }
 
 .point-number {
-    font-size: 10px;
+    font-size: 8px;
     font-weight: bold;
     color: #654321;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.1rem;
 }
 
 .tavli-checker {
-    width: 28px;
-    height: 28px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    border: 2px solid #000;
-    margin: 1px 0;
+    border: 1px solid #000;
+    margin: 0.5px 0;
+    flex-shrink: 0;
 }
 
 .checker-count {
@@ -767,14 +784,14 @@ button:hover {
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    border: 2px solid #000;
+    border: 1px solid #000;
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: bold;
 }
 
@@ -1200,28 +1217,158 @@ footer a:hover {
     }
     
     .tavli-container {
-        max-width: 100%;
+        height: calc(100vh - 150px);
+        padding: 0.3rem;
     }
     
     .tavli-info {
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.5rem;
+        padding: 0.3rem;
+        font-size: 0.8rem;
+    }
+    
+    .tavli-stats {
+        padding: 0.3rem;
+        font-size: 0.7rem;
+    }
+    
+    .tavli-dice-display .dice-value {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+    
+    .tavli-bar {
+        flex-direction: row;
+        gap: 0.3rem;
+    }
+    
+    .bar-checker {
+        width: 24px;
+        height: 24px;
+        font-size: 0.7rem;
     }
     
     .tavli-board {
-        overflow-x: auto;
+        padding: 0.3rem;
     }
     
     .tavli-row {
-        min-width: 600px;
+        gap: 1px;
     }
     
     .tavli-point {
-        min-height: 120px;
+        padding: 0.05rem;
+    }
+    
+    .point-number {
+        font-size: 7px;
+    }
+    
+    .tavli-checker {
+        width: 14px;
+        height: 14px;
+        margin: 0.2px 0;
+    }
+    
+    .checker-count {
+        width: 12px;
+        height: 12px;
+        font-size: 8px;
+    }
+}
+
+/* Orientation paysage sur mobile */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .tavli-container {
+        height: calc(100vh - 120px);
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    
+    .tavli-info, .tavli-stats {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        width: 80px;
+        flex-shrink: 0;
+        margin-bottom: 0;
+    }
+    
+    .tavli-board {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .tavli-row {
+        min-height: 60px;
+    }
+    
+    .tavli-checker {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .point-number {
+        font-size: 6px;
+    }
+}
+
+/* Très petits écrans */
+@media screen and (max-width: 480px) {
+    .tavli-container {
+        height: calc(100vh - 140px);
+    }
+    
+    .tavli-info, .tavli-stats {
+        padding: 0.2rem;
+        font-size: 0.7rem;
+    }
+    
+    .tavli-dice-display .dice-value {
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+    }
+    
+    .tavli-checker {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .checker-count {
+        width: 10px;
+        height: 10px;
+        font-size: 7px;
+    }
+}
+
+/* Tablettes en portrait */
+@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    .tavli-container {
+        height: calc(100vh - 180px);
+        max-width: 600px;
     }
     
     .tavli-checker {
         width: 22px;
         height: 22px;
+    }
+    
+    .point-number {
+        font-size: 9px;
+    }
+}
+
+/* Tablettes en paysage */
+@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .tavli-container {
+        height: calc(100vh - 160px);
+        max-width: 800px;
+    }
+    
+    .tavli-checker {
+        width: 20px;
+        height: 20px;
     }
 }

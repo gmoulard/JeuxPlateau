@@ -17,6 +17,7 @@
  * - 1.0.6 (2024-01-15): Refactoring fichiers séparés
  * - 1.0.7 (2024-01-15): Installation PWA + fix mobile Tavli
  * - 1.4.15 (2024-01-15): Amélioration système mise à jour cache (AWS-Kiro)
+ * - 1.4.16 (2024-01-15): Tavli responsive dynamique pour mobile (AWS-Kiro)
  */
 
 class GameApp {

@@ -30,6 +30,7 @@ Une application web progressive (PWA) pour jouer aux jeux de plateau classiques,
 - **Personnalisation couleurs** : Cases et pions personnalisables
 - **Statistiques de jeu** : Tavli (pions sortis, pip count), Dames (captures)
 - **Modal de victoire** : Animation élégante avec trophée 🏆
+- **Tavli responsive** : Interface dynamique adaptée mobile/tablette/desktop avec gestion orientation
 
 ## 📱 Installation
 

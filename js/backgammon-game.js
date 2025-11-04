@@ -30,6 +30,18 @@ class BackgammonGame extends BaseGame {
         this.setupInitialPosition();
         this.out = [0, 0]; // Pions sortis
         this.renderBoard();
+        
+        // Listener pour les changements d'orientation
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                this.renderBoard();
+            }, 100);
+        });
+        
+        // Listener pour le redimensionnement
+        window.addEventListener('resize', () => {
+            this.adjustForScreenSize();
+        });
     }
 
     setupInitialPosition() {
@@ -50,6 +62,10 @@ class BackgammonGame extends BaseGame {
         const stats0 = this.getPlayerStats(0);
         const stats1 = this.getPlayerStats(1);
         
+        // Détection de l'orientation et de la taille d'écran
+        const isLandscape = window.innerWidth > window.innerHeight;
+        const isMobile = window.innerWidth <= 768;
+        
         this.container.innerHTML = `
             <div class="tavli-container">
                 <div class="tavli-info">
@@ -60,25 +76,25 @@ class BackgammonGame extends BaseGame {
                     <div class="tavli-moves">Coups: ${this.movesLeft.length}</div>
                     <div class="tavli-bar">
                         <div class="bar-section" data-bar="0">
-                            <div>🔴 Barre: ${this.bar[0]}</div>
+                            <div>🔴: ${this.bar[0]}</div>
                             ${this.renderBarPieces(0)}
                         </div>
                         <div class="bar-section" data-bar="1">
-                            <div>⚫ Barre: ${this.bar[1]}</div>
+                            <div>⚫: ${this.bar[1]}</div>
                             ${this.renderBarPieces(1)}
                         </div>
                     </div>
                 </div>
                 <div class="tavli-stats">
                     <div class="player-stats">
-                        <div>🔴 ${this.players[0]}</div>
+                        <div>🔴 ${isMobile ? this.players[0].substring(0, 8) : this.players[0]}</div>
                         <div>Sortis: ${stats0.out}/15</div>
-                        <div>Points: ${stats0.pips}</div>
+                        <div>Pips: ${stats0.pips}</div>
                     </div>
                     <div class="player-stats">
-                        <div>⚫ ${this.players[1]}</div>
+                        <div>⚫ ${isMobile ? this.players[1].substring(0, 8) : this.players[1]}</div>
                         <div>Sortis: ${stats1.out}/15</div>
-                        <div>Points: ${stats1.pips}</div>
+                        <div>Pips: ${stats1.pips}</div>
                     </div>
                 </div>
                 <div class="tavli-board">
@@ -87,6 +103,33 @@ class BackgammonGame extends BaseGame {
             </div>
         `;
         this.attachEventListeners();
+        
+        // Ajuster dynamiquement la taille des éléments
+        this.adjustForScreenSize();
+    }
+    
+    adjustForScreenSize() {
+        const container = this.container.querySelector('.tavli-container');
+        const board = this.container.querySelector('.tavli-board');
+        const points = this.container.querySelectorAll('.tavli-point');
+        
+        if (window.innerWidth <= 480) {
+            // Très petits écrans
+            points.forEach(point => {
+                point.style.minHeight = '40px';
+            });
+        } else if (window.innerWidth <= 768) {
+            // Mobiles
+            const isLandscape = window.innerWidth > window.innerHeight;
+            points.forEach(point => {
+                point.style.minHeight = isLandscape ? '50px' : '60px';
+            });
+        } else {
+            // Tablettes et desktop
+            points.forEach(point => {
+                point.style.minHeight = '80px';
+            });
+        }
     }
 
     renderPoints() {
