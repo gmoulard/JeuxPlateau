@@ -5,6 +5,7 @@
 1. Corriger les problèmes du jeu de Morpion sur mobile : X et O trop grands et cases qui bougent lors des interactions tactiles
 2. Corriger les règles du jeu de Dames où les pions normaux pouvaient capturer en reculant
 3. Ajouter des liens vers les règles officielles et Wikipedia dans les pages d'aide
+4. Améliorer l'expérience utilisateur du jeu de Dames avec messages d'erreur, désélection et captures multiples
 
 ## 🐛 Problèmes identifiés
 
@@ -23,6 +24,13 @@
 - **Morpion manquant** : Pas de section d'aide pour le Morpion dans l'aide générale
 - **Liens manquants** : Aucun lien vers les règles officielles ou Wikipedia
 - **Aide contextuelle** : Les aides dans les jeux n'avaient pas de liens externes
+
+### UX Dames
+- **Pas de feedback** : Aucun message quand une règle est violée
+- **Sélection rigide** : Impossible de désélectionner un pion une fois sélectionné
+- **Erreurs silencieuses** : Les mouvements invalides étaient ignorés sans explication
+- **Captures multiples invisibles** : Pas d'indication claire des captures multiples obligatoires
+- **Pas de guidage visuel** : Aucune mise en évidence des coups possibles
 
 ## 🔧 Modifications apportées
 
@@ -49,6 +57,18 @@
 - **Liens externes** : Wikipedia et règles officielles pour chaque jeu
 - **Aide contextuelle** : Liens aussi dans l'aide des jeux en cours
 - **Styles dédiés** : CSS pour les liens d'aide avec hover effects
+
+### 5. Amélioration UX Dames (`js/checkers-game.js` + `styles.css`)
+- **Messages d'erreur explicites** : Feedback détaillé pour chaque violation de règle
+- **Désélection intuitive** : Clic sur pion sélectionné pour le désélectionner
+- **Changement de sélection** : Clic sur autre pion pour changer la sélection
+- **Messages typés** : Erreur, avertissement, info avec couleurs distinctes
+- **Auto-suppression** : Messages disparaissent après 3 secondes
+- **Styles responsive** : Messages adaptés aux mobiles
+- **Captures multiples obligatoires** : Système complet de gestion des captures en chaîne
+- **Highlighting visuel** : Cases de capture possibles mises en évidence avec animation
+- **Compteur de captures** : Affichage du nombre de captures possibles
+- **Blocage de sélection** : Seul le pion en capture multiple peut être joué
 
 ### 3. Breakpoints détaillés
 
@@ -137,6 +157,16 @@
 - **Liens utiles** : Accès direct aux règles officielles et Wikipedia
 - **Navigation facile** : Liens stylisés avec hover effects
 - **Aide contextuelle** : Liens disponibles aussi pendant les parties
+
+### UX Dames améliorée
+- **Feedback intelligent** : Messages d'erreur spécifiques selon la violation
+- **Sélection flexible** : Désélection et changement de pion intuitifs
+- **Messages clairs** : Explications détaillées des règles violées
+- **Interface moderne** : Animations et styles cohérents avec l'application
+- **Captures multiples fluides** : Système complet pour "manger" plusieurs pions d'affilée
+- **Guidage visuel** : Highlighting des cases de capture avec animation pulse
+- **Comptage intelligent** : Affichage du nombre de captures possibles en temps réel
+- **Règles strictes** : Impossible de jouer autre chose qu'une capture multiple en cours
 
 ## 🎮 Impact utilisateur
 - **Lisibilité parfaite** : X et O à la bonne taille sur mobile

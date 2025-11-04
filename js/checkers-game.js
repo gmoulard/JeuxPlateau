@@ -19,6 +19,7 @@ class CheckersGame extends BaseGame {
         this.currentPlayer = 0;
         this.pieces = {};
         this.mustCapture = false;
+        this.mustContinueCapture = null; // Pion qui doit continuer une capture multiple
         this.captured = [0, 0];
         this.initGame();
     }
@@ -90,25 +91,75 @@ class CheckersGame extends BaseGame {
         const key = `${row}-${col}`;
         
         if (this.selectedPiece) {
+            // Si on clique sur le pion déjà sélectionné, le désélectionner
+            if (this.selectedPiece.row === row && this.selectedPiece.col === col) {
+                this.clearSelection();
+                this.selectedPiece = null;
+                this.clearMessage();
+                return;
+            }
+            
+            // Si on clique sur un autre pion du même joueur, le sélectionner à la place
+            if (this.pieces[key] && this.pieces[key].player === this.currentPlayer) {
+                this.clearSelection();
+                this.selectedPiece = { row, col };
+                this.board[row][col].classList.add('selected');
+                this.clearMessage();
+                return;
+            }
+            
+            // Tentative de mouvement
             const move = this.isValidMove(this.selectedPiece, { row, col });
             if (move) {
                 this.movePiece(this.selectedPiece, { row, col }, move.capture);
-                this.selectedPiece = null;
+                this.clearMessage();
                 
-                if (!move.capture || !this.canCaptureFrom(row, col)) {
+                if (move.capture && this.canCaptureFrom(row, col)) {
+                    // Capture multiple possible - garder le pion sélectionné
+                    this.selectedPiece = { row, col };
+                    this.mustContinueCapture = { row, col };
+                    const capturesCount = this.countPossibleCaptures(row, col);
+                    this.showMessage(`🎯 Capture multiple ! ${capturesCount} capture(s) possible(s) avec ce pion`, "warning");
+                    this.highlightPossibleCaptures(row, col);
+                } else {
+                    // Fin du tour
+                    this.selectedPiece = null;
+                    this.mustContinueCapture = null;
+                    if (move.capture) {
+                        this.showMessage("✅ Capture réussie !", "info");
+                    }
                     this.currentPlayer = 1 - this.currentPlayer;
                     window.gameApp.nextPlayer();
-                } else {
-                    this.selectedPiece = { row, col };
                 }
+            } else {
+                // Mouvement invalide - afficher un message d'erreur
+                this.showRuleViolationMessage(this.selectedPiece, { row, col });
             }
+            
             this.clearSelection();
             if (this.selectedPiece) {
                 this.board[this.selectedPiece.row][this.selectedPiece.col].classList.add('selected');
             }
         } else if (this.pieces[key] && this.pieces[key].player === this.currentPlayer) {
+            // Vérifier s'il y a un pion en cours de capture multiple
+            if (this.mustContinueCapture && this.mustContinueCapture.row !== row && this.mustContinueCapture.col !== col) {
+                this.showMessage("⚠️ Vous devez continuer la capture multiple avec le pion sélectionné !", "warning");
+                return;
+            }
+            
             this.selectedPiece = { row, col };
             this.board[row][col].classList.add('selected');
+            this.clearMessage();
+            
+            // Si ce pion peut capturer, montrer les possibilités
+            if (this.canCaptureFrom(row, col)) {
+                this.highlightPossibleCaptures(row, col);
+            }
+        } else {
+            // Clic sur une case vide ou un pion adverse sans sélection
+            if (this.pieces[key] && this.pieces[key].player !== this.currentPlayer) {
+                this.showMessage("❌ Vous ne pouvez pas sélectionner les pions adverses", "error");
+            }
         }
     }
 
@@ -117,6 +168,12 @@ class CheckersGame extends BaseGame {
         const dy = to.row - from.row;
         const key = `${to.row}-${to.col}`;
         const piece = this.pieces[`${from.row}-${from.col}`];
+        
+        // Si on est en capture multiple, seul ce pion peut bouger
+        if (this.mustContinueCapture && 
+            (from.row !== this.mustContinueCapture.row || from.col !== this.mustContinueCapture.col)) {
+            return null;
+        }
         
         // Vérifier que la destination est libre
         if (this.pieces[key]) return null;
@@ -167,6 +224,12 @@ class CheckersGame extends BaseGame {
     }
 
     hasCaptures() {
+        // Si on est en cours de capture multiple, seul ce pion compte
+        if (this.mustContinueCapture) {
+            return this.canCaptureFrom(this.mustContinueCapture.row, this.mustContinueCapture.col);
+        }
+        
+        // Sinon, vérifier tous les pions du joueur actuel
         for (let key in this.pieces) {
             if (this.pieces[key].player === this.currentPlayer) {
                 const [row, col] = key.split('-').map(Number);
@@ -228,6 +291,123 @@ class CheckersGame extends BaseGame {
 
     clearSelection() {
         document.querySelectorAll('.cell.selected').forEach(cell => cell.classList.remove('selected'));
+        document.querySelectorAll('.cell.possible-capture').forEach(cell => cell.classList.remove('possible-capture'));
+    }
+    
+    highlightPossibleCaptures(row, col) {
+        // Effacer les anciens highlights
+        document.querySelectorAll('.cell.possible-capture').forEach(cell => cell.classList.remove('possible-capture'));
+        
+        const dirs = [[2, 2], [2, -2], [-2, 2], [-2, -2]];
+        const piece = this.pieces[`${row}-${col}`];
+        
+        for (let [dy, dx] of dirs) {
+            // Vérifier la direction selon le type de pion
+            if (!piece.king) {
+                if (this.currentPlayer === 0 && dy < 0) continue;
+                if (this.currentPlayer === 1 && dy > 0) continue;
+            }
+            
+            const newRow = row + dy;
+            const newCol = col + dx;
+            if (newRow < 0 || newRow > 9 || newCol < 0 || newCol > 9) continue;
+            
+            const midRow = row + dy / 2;
+            const midCol = col + dx / 2;
+            const midKey = `${midRow}-${midCol}`;
+            const targetKey = `${newRow}-${newCol}`;
+            
+            if (this.pieces[midKey] && this.pieces[midKey].player !== this.currentPlayer && !this.pieces[targetKey]) {
+                // Mettre en évidence cette case comme capture possible
+                this.board[newRow][newCol].classList.add('possible-capture');
+            }
+        }
+    }
+    
+    showMessage(message, type = "info") {
+        // Supprimer l'ancien message s'il existe
+        this.clearMessage();
+        
+        // Créer le nouveau message
+        const messageEl = document.createElement('div');
+        messageEl.className = `checkers-message checkers-message-${type}`;
+        messageEl.innerHTML = `
+            <span class="message-text">${message}</span>
+            <button class="message-close" onclick="this.parentElement.remove()">×</button>
+        `;
+        
+        // Insérer le message en haut du conteneur
+        this.container.insertBefore(messageEl, this.container.firstChild);
+        
+        // Auto-suppression après 3 secondes
+        setTimeout(() => {
+            if (messageEl.parentElement) {
+                messageEl.remove();
+            }
+        }, 3000);
+    }
+    
+    clearMessage() {
+        const existingMessage = this.container.querySelector('.checkers-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+    }
+    
+    showRuleViolationMessage(from, to) {
+        const dx = to.col - from.col;
+        const dy = to.row - from.row;
+        const piece = this.pieces[`${from.row}-${from.col}`];
+        const targetPiece = this.pieces[`${to.row}-${to.col}`];
+        
+        let message = "";
+        
+        // Vérifier le type d'erreur
+        if (targetPiece) {
+            if (targetPiece.player === this.currentPlayer) {
+                message = "❌ Vous ne pouvez pas vous déplacer sur vos propres pions";
+            } else {
+                message = "❌ Vous ne pouvez capturer qu'en sautant par-dessus un pion adverse";
+            }
+        } else if (Math.abs(dx) !== Math.abs(dy)) {
+            message = "❌ Les pions ne peuvent se déplacer qu'en diagonale";
+        } else if (Math.abs(dx) === 1 && this.mustContinueCapture) {
+            message = "⚠️ Vous devez continuer la capture multiple ! Capturez encore avec ce pion";
+        } else if (Math.abs(dx) === 1 && this.hasCaptures()) {
+            message = "⚠️ Les captures sont obligatoires ! Vous devez capturer un pion adverse";
+        } else if (Math.abs(dx) === 1) {
+            // Mouvement normal invalide - vérifier la direction
+            if (!piece.king) {
+                if (this.currentPlayer === 0 && dy <= 0) {
+                    message = "❌ Les pions blancs ne peuvent se déplacer que vers le bas";
+                } else if (this.currentPlayer === 1 && dy >= 0) {
+                    message = "❌ Les pions noirs ne peuvent se déplacer que vers le haut";
+                } else {
+                    message = "❌ Mouvement invalide";
+                }
+            } else {
+                message = "❌ Mouvement invalide pour cette Dame";
+            }
+        } else if (Math.abs(dx) === 2) {
+            // Tentative de capture invalide
+            const midRow = from.row + dy / 2;
+            const midCol = from.col + dx / 2;
+            const midPiece = this.pieces[`${midRow}-${midCol}`];
+            
+            if (!midPiece) {
+                message = "❌ Il n'y a pas de pion à capturer sur cette diagonale";
+            } else if (midPiece.player === this.currentPlayer) {
+                message = "❌ Vous ne pouvez pas capturer vos propres pions";
+            } else if (!piece.king && ((this.currentPlayer === 0 && dy <= 0) || (this.currentPlayer === 1 && dy >= 0))) {
+                message = "❌ Les pions normaux ne peuvent capturer qu'en avant";
+            } else {
+                message = "❌ Capture invalide";
+            }
+        } else {
+            message = "❌ Les pions ne peuvent se déplacer que d'1 ou 2 cases en diagonale";
+        }
+        
+        this.showMessage(message, "error");
     }
     
     /**
@@ -245,5 +425,38 @@ class CheckersGame extends BaseGame {
         if (this.currentPlayer === 1 && dy < 0) return true; // Joueur 1 (noir) va vers le haut
         
         return false;
+    }
+    
+    /**
+     * Compte le nombre de captures possibles depuis une position
+     * @param {number} row - Ligne du pion
+     * @param {number} col - Colonne du pion
+     * @returns {number} - Nombre de captures possibles
+     */
+    countPossibleCaptures(row, col) {
+        const dirs = [[2, 2], [2, -2], [-2, 2], [-2, -2]];
+        const piece = this.pieces[`${row}-${col}`];
+        let count = 0;
+        
+        for (let [dy, dx] of dirs) {
+            if (!piece.king) {
+                if (this.currentPlayer === 0 && dy < 0) continue;
+                if (this.currentPlayer === 1 && dy > 0) continue;
+            }
+            
+            const newRow = row + dy;
+            const newCol = col + dx;
+            if (newRow < 0 || newRow > 9 || newCol < 0 || newCol > 9) continue;
+            
+            const midRow = row + dy / 2;
+            const midCol = col + dx / 2;
+            const midKey = `${midRow}-${midCol}`;
+            const targetKey = `${newRow}-${newCol}`;
+            
+            if (this.pieces[midKey] && this.pieces[midKey].player !== this.currentPlayer && !this.pieces[targetKey]) {
+                count++;
+            }
+        }
+        return count;
     }
 }

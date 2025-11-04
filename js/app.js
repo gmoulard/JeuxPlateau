@@ -18,7 +18,8 @@
  * - 1.0.7 (2024-01-15): Installation PWA + fix mobile Tavli
  * - 1.4.15 (2024-01-15): Amélioration système mise à jour cache (AWS-Kiro)
  * - 1.4.16 (2024-01-15): Tavli responsive dynamique pour mobile (AWS-Kiro)
- * - 1.4.17 (2024-01-15): Correction Morpion mobile + règles Dames + liens aide (AWS-Kiro)
+ * - 1.4.17 (2024-01-15): Correction Morpion mobile + règles Dames + liens aide + UX Dames (AWS-Kiro)
+ * - 1.4.18 (2024-01-15): Système complet captures multiples Dames (AWS-Kiro)
  */
 
 class GameApp {
