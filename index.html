@@ -56,6 +56,22 @@
             <h2>Aide - Comment jouer</h2>
             <div id="help-content">
                 <div class="help-section">
+                    <h3>❌ Morpion (Tic-Tac-Toe)</h3>
+                    <p><strong>But :</strong> Aligner 3 symboles (X ou O) horizontalement, verticalement ou en diagonale</p>
+                    <p><strong>Comment jouer :</strong></p>
+                    <ul>
+                        <li>Cliquez sur une case vide pour placer votre symbole</li>
+                        <li>Le joueur 1 joue avec X, le joueur 2 avec O</li>
+                        <li>Alternez les tours jusqu'à ce qu'un joueur aligne 3 symboles</li>
+                        <li>Si toutes les cases sont remplies sans alignement, c'est match nul</li>
+                    </ul>
+                    <div class="help-links">
+                        <a href="https://fr.wikipedia.org/wiki/Morpion_(jeu)" target="_blank" class="help-link">📖 Wikipedia</a>
+                        <a href="https://www.regles-de-jeux.com/regle-du-morpion/" target="_blank" class="help-link">📋 Règles officielles</a>
+                    </div>
+                </div>
+                
+                <div class="help-section">
                     <h3>🎯 Dames</h3>
                     <p><strong>But :</strong> Capturer tous les pions adverses</p>
                     <p><strong>Comment jouer :</strong></p>
@@ -69,6 +85,10 @@
                         <li>Atteignez la dernière rangée pour devenir Dame (♛)</li>
                         <li>Les Dames peuvent se déplacer en avant et en arrière</li>
                     </ul>
+                    <div class="help-links">
+                        <a href="https://fr.wikipedia.org/wiki/Dames" target="_blank" class="help-link">📖 Wikipedia</a>
+                        <a href="https://www.ffdjd.fr/Web/index.php?page=reglements" target="_blank" class="help-link">📋 Règles officielles FFDJD</a>
+                    </div>
                 </div>
                 
                 <div class="help-section">
@@ -82,6 +102,10 @@
                         <li>Chaque pièce a ses propres règles de déplacement</li>
                         <li>Capturez les pièces adverses en vous plaçant sur leur case</li>
                     </ul>
+                    <div class="help-links">
+                        <a href="https://fr.wikipedia.org/wiki/%C3%89checs" target="_blank" class="help-link">📖 Wikipedia</a>
+                        <a href="https://www.echecs.asso.fr/Reglement.aspx" target="_blank" class="help-link">📋 Règles officielles FFE</a>
+                    </div>
                 </div>
                 
                 <div class="help-section">
@@ -99,6 +123,10 @@
                         <li>Les pions capturés vont sur la barre et doivent rentrer</li>
                         <li>Un double vous donne 4 mouvements au lieu de 2</li>
                     </ul>
+                    <div class="help-links">
+                        <a href="https://fr.wikipedia.org/wiki/Backgammon" target="_blank" class="help-link">📖 Wikipedia</a>
+                        <a href="https://www.ffb.asso.fr/reglement/" target="_blank" class="help-link">📋 Règles officielles FFB</a>
+                    </div>
                 </div>
                 
                 <div class="help-section">
@@ -112,6 +140,10 @@
                         <li>Capturez les pions adverses en tombant sur leur case</li>
                         <li>Un 6 vous donne un tour supplémentaire</li>
                     </ul>
+                    <div class="help-links">
+                        <a href="https://fr.wikipedia.org/wiki/Jeu_des_petits_chevaux" target="_blank" class="help-link">📖 Wikipedia</a>
+                        <a href="https://www.regles-de-jeux.com/regle-du-jeu-des-petits-chevaux/" target="_blank" class="help-link">📋 Règles officielles</a>
+                    </div>
                 </div>
             </div>
             <button id="back-from-help">Retour</button>
@@ -120,6 +152,23 @@
         <div id="versions-screen" class="screen">
             <h2>Versions</h2>
             <div id="versions-list">
+                <div class="version-item">
+                    <h3>Version 1.4.17</h3>
+                    <p class="version-date">15 janvier 2024 - Créée par AWS-Kiro</p>
+                    <ul>
+                        <li>✅ Correction taille X/O sur mobile (3rem → 1.8rem → 1.5rem)</li>
+                        <li>✅ Suppression effet scale qui faisait bouger les cases</li>
+                        <li>✅ Plateau responsive avec breakpoints mobile/tablette</li>
+                        <li>✅ Amélioration stabilité interface tactile</li>
+                        <li>✅ Optimisation tailles pour petits écrans</li>
+                        <li>✅ Correction règles Dames : pions normaux ne peuvent plus reculer</li>
+                        <li>✅ Seules les Dames (♛) peuvent capturer en arrière</li>
+                        <li>✅ Ajout liens règles officielles et Wikipedia dans l'aide</li>
+                        <li>✅ Section Morpion ajoutée dans l'aide générale</li>
+                    </ul>
+                    <a href="https://github.com/gmoulard/JeuxPlateau/blob/master/Pull_requests/pr_v1.4.17.md" target="_blank" class="pr-link">Voir la PR →</a>
+                </div>
+                
                 <div class="version-item">
                     <h3>Version 1.4.16</h3>
                     <p class="version-date">15 janvier 2024 - Créée par AWS-Kiro</p>

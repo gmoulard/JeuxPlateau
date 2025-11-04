@@ -43,7 +43,17 @@ class TicTacToeGame extends BaseGame {
             const cell = document.createElement('div');
             cell.className = 'tictactoe-cell';
             cell.dataset.index = i;
-            cell.textContent = this.board[i] || '';
+            
+            // Utiliser innerHTML pour un meilleur contrôle du contenu
+            const content = this.board[i];
+            if (content) {
+                cell.innerHTML = `<span class="cell-content">${content}</span>`;
+                cell.classList.add('filled');
+            } else {
+                cell.innerHTML = '';
+                cell.classList.remove('filled');
+            }
+            
             cell.addEventListener('click', () => this.handleCellClick(i));
             boardEl.appendChild(cell);
         }

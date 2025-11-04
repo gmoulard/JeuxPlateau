@@ -118,7 +118,11 @@ class CheckersGame extends BaseGame {
         const key = `${to.row}-${to.col}`;
         const piece = this.pieces[`${from.row}-${from.col}`];
         
+        // Vérifier que la destination est libre
         if (this.pieces[key]) return null;
+        
+        // Vérifier que le mouvement est en diagonale
+        if (Math.abs(dx) !== Math.abs(dy)) return null;
         
         if (Math.abs(dx) === 2 && Math.abs(dy) === 2) {
             const midRow = from.row + dy / 2;
@@ -127,18 +131,36 @@ class CheckersGame extends BaseGame {
             const midPiece = this.pieces[midKey];
             
             if (midPiece && midPiece.player !== this.currentPlayer) {
-                if (piece.king || (this.currentPlayer === 0 && dy > 0) || (this.currentPlayer === 1 && dy < 0)) {
+                // Vérifier la direction selon le type de pion
+                if (piece.king) {
+                    // Les Dames peuvent capturer dans toutes les directions
                     return { capture: midKey };
+                } else {
+                    // Les pions normaux ne peuvent capturer qu'en avant
+                    if (this.currentPlayer === 0 && dy > 0) {
+                        return { capture: midKey };
+                    }
+                    if (this.currentPlayer === 1 && dy < 0) {
+                        return { capture: midKey };
+                    }
                 }
             }
         }
         
+        // Déplacement normal (1 case en diagonale)
         if (Math.abs(dx) === 1 && Math.abs(dy) === 1) {
+            // Si des captures sont possibles, elles sont obligatoires
             if (this.hasCaptures()) return null;
             
-            if (piece.king) return {};
-            if (this.currentPlayer === 0 && dy > 0) return {};
-            if (this.currentPlayer === 1 && dy < 0) return {};
+            // Vérifier la direction selon le type de pion
+            if (piece.king) {
+                // Les Dames peuvent se déplacer dans toutes les directions
+                return {};
+            } else {
+                // Les pions normaux ne peuvent se déplacer qu'en avant
+                if (this.currentPlayer === 0 && dy > 0) return {}; // Joueur 0 va vers le bas
+                if (this.currentPlayer === 1 && dy < 0) return {}; // Joueur 1 va vers le haut
+            }
         }
         
         return null;
@@ -159,7 +181,11 @@ class CheckersGame extends BaseGame {
         const piece = this.pieces[`${row}-${col}`];
         
         for (let [dy, dx] of dirs) {
-            if (!piece.king && ((this.currentPlayer === 0 && dy < 0) || (this.currentPlayer === 1 && dy > 0))) continue;
+            // Les pions normaux ne peuvent capturer qu'en avant
+            if (!piece.king) {
+                if (this.currentPlayer === 0 && dy < 0) continue; // Joueur 0 ne peut pas aller vers le haut
+                if (this.currentPlayer === 1 && dy > 0) continue; // Joueur 1 ne peut pas aller vers le bas
+            }
             
             const newRow = row + dy;
             const newCol = col + dx;
@@ -202,5 +228,22 @@ class CheckersGame extends BaseGame {
 
     clearSelection() {
         document.querySelectorAll('.cell.selected').forEach(cell => cell.classList.remove('selected'));
+    }
+    
+    /**
+     * Vérifie si un pion peut se déplacer dans une direction donnée
+     * @param {Object} piece - Le pion à vérifier
+     * @param {number} dy - Déplacement vertical (positif = vers le bas)
+     * @returns {boolean} - True si le mouvement est autorisé
+     */
+    canMoveInDirection(piece, dy) {
+        // Les Dames peuvent se déplacer dans toutes les directions
+        if (piece.king) return true;
+        
+        // Les pions normaux ne peuvent se déplacer qu'en avant
+        if (this.currentPlayer === 0 && dy > 0) return true; // Joueur 0 (blanc) va vers le bas
+        if (this.currentPlayer === 1 && dy < 0) return true; // Joueur 1 (noir) va vers le haut
+        
+        return false;
     }
 }

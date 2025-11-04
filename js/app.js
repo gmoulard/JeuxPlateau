@@ -18,6 +18,7 @@
  * - 1.0.7 (2024-01-15): Installation PWA + fix mobile Tavli
  * - 1.4.15 (2024-01-15): Amélioration système mise à jour cache (AWS-Kiro)
  * - 1.4.16 (2024-01-15): Tavli responsive dynamique pour mobile (AWS-Kiro)
+ * - 1.4.17 (2024-01-15): Correction Morpion mobile + règles Dames + liens aide (AWS-Kiro)
  */
 
 class GameApp {
@@ -291,6 +292,18 @@ class GameApp {
 
     loadGameHelp() {
         const helps = {
+            tictactoe: `<h3>❌ Morpion (Tic-Tac-Toe)</h3>
+                <p><strong>But :</strong> Aligner 3 symboles (X ou O) horizontalement, verticalement ou en diagonale</p>
+                <ul>
+                    <li>Cliquez sur une case vide pour placer votre symbole</li>
+                    <li>Le joueur 1 joue avec X, le joueur 2 avec O</li>
+                    <li>Alternez les tours jusqu'à ce qu'un joueur aligne 3 symboles</li>
+                    <li>Si toutes les cases sont remplies sans alignement, c'est match nul</li>
+                </ul>
+                <div class="help-links">
+                    <a href="https://fr.wikipedia.org/wiki/Morpion_(jeu)" target="_blank" class="help-link">📖 Wikipedia</a>
+                    <a href="https://www.regles-de-jeux.com/regle-du-morpion/" target="_blank" class="help-link">📋 Règles officielles</a>
+                </div>`,
             checkers: `<h3>🎯 Dames</h3>
                 <p><strong>But :</strong> Capturer tous les pions adverses</p>
                 <ul>
@@ -302,7 +315,11 @@ class GameApp {
                     <li>Vous pouvez enchaîner plusieurs prises</li>
                     <li>Atteignez la dernière rangée pour devenir Dame (♛)</li>
                     <li>Les Dames peuvent se déplacer en avant et en arrière</li>
-                </ul>`,
+                </ul>
+                <div class="help-links">
+                    <a href="https://fr.wikipedia.org/wiki/Dames" target="_blank" class="help-link">📖 Wikipedia</a>
+                    <a href="https://www.ffdjd.fr/Web/index.php?page=reglements" target="_blank" class="help-link">📋 Règles officielles FFDJD</a>
+                </div>`,
             chess: `<h3>♟ Échecs</h3>
                 <p><strong>But :</strong> Mettre le roi adverse en échec et mat</p>
                 <ul>
@@ -311,7 +328,11 @@ class GameApp {
                     <li>Les blancs jouent en bas, les noirs en haut</li>
                     <li>Chaque pièce a ses propres règles de déplacement</li>
                     <li>Capturez les pièces adverses en vous plaçant sur leur case</li>
-                </ul>`,
+                </ul>
+                <div class="help-links">
+                    <a href="https://fr.wikipedia.org/wiki/%C3%89checs" target="_blank" class="help-link">📖 Wikipedia</a>
+                    <a href="https://www.echecs.asso.fr/Reglement.aspx" target="_blank" class="help-link">📋 Règles officielles FFE</a>
+                </div>`,
             backgammon: `<h3>🎲 Tavli (Backgammon)</h3>
                 <p><strong>But :</strong> Sortir tous vos pions du plateau</p>
                 <ul>
@@ -324,7 +345,11 @@ class GameApp {
                     <li>Capturez un pion adverse seul en vous plaçant dessus</li>
                     <li>Les pions capturés vont sur la barre et doivent rentrer</li>
                     <li>Un double vous donne 4 mouvements au lieu de 2</li>
-                </ul>`,
+                </ul>
+                <div class="help-links">
+                    <a href="https://fr.wikipedia.org/wiki/Backgammon" target="_blank" class="help-link">📖 Wikipedia</a>
+                    <a href="https://www.ffb.asso.fr/reglement/" target="_blank" class="help-link">📋 Règles officielles FFB</a>
+                </div>`,
             ludo: `<h3>🎰 Petits Chevaux</h3>
                 <p><strong>But :</strong> Faire le tour du plateau et rentrer tous vos pions</p>
                 <ul>
@@ -333,7 +358,11 @@ class GameApp {
                     <li>Faites 6 pour sortir un pion de votre base</li>
                     <li>Capturez les pions adverses en tombant sur leur case</li>
                     <li>Un 6 vous donne un tour supplémentaire</li>
-                </ul>`,
+                </ul>
+                <div class="help-links">
+                    <a href="https://fr.wikipedia.org/wiki/Jeu_des_petits_chevaux" target="_blank" class="help-link">📖 Wikipedia</a>
+                    <a href="https://www.regles-de-jeux.com/regle-du-jeu-des-petits-chevaux/" target="_blank" class="help-link">📋 Règles officielles</a>
+                </div>`,
             abalone: `<h3>⚫ Abalone</h3>
                 <p><strong>But :</strong> Éjecter 6 billes adverses hors du plateau</p>
                 <ul>
@@ -343,7 +372,11 @@ class GameApp {
                     <li>Vous pouvez pousser 1 ou 2 billes adverses avec 2 ou 3 de vos billes</li>
                     <li>Une bille poussée hors du plateau est éjectée</li>
                     <li>Premier à éjecter 6 billes adverses gagne</li>
-                </ul>`
+                </ul>
+                <div class="help-links">
+                    <a href="https://fr.wikipedia.org/wiki/Abalone_(jeu)" target="_blank" class="help-link">📖 Wikipedia</a>
+                    <a href="https://www.abalone-games.com/rules/" target="_blank" class="help-link">📋 Règles officielles</a>
+                </div>`
         };
         
         document.getElementById('game-help-content').innerHTML = helps[this.currentGame] || '';

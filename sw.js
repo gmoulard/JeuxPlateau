@@ -1,6 +1,6 @@
 // Service Worker pour PWA hors connexion
 // Version 1.4.15 - Créée par AWS-Kiro
-const CACHE_NAME = 'jeux-plateau-v1.4.16';
+const CACHE_NAME = 'jeux-plateau-v1.4.17';
 const urlsToCache = [
   './',
   './index.html',
